@@ -130,3 +130,48 @@ p.subtext {
   color: #1f2937;
   margin: 0;
 }
+
+.call-to-action-background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 96px 0;
+}
+
+.call-to-action {
+  width: 1100px;
+  background-color: #3b82f6;
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.cta-main,
+.cta-sub {
+  margin: 0;
+}
+
+.cta-text {
+  padding: 48px 0;
+}
+
+.cta-main {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.cta-sub {
+  font-weight: lighter;
+}
+
+.cta-btn {
+  background-color: transparent;
+  border: 2px solid;
+  color: white;
+  font-size: 18px;
+  padding: 8px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+}
