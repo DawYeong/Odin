@@ -5,6 +5,10 @@ newGridButton.className = "new-grid";
 newGridButton.innerText = "Generate Grid";
 container.appendChild(newGridButton);
 
+const randomInterval = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
 const createGrid = (size) => {
   const grid = document.createElement("div");
   grid.className = "grid";
@@ -56,8 +60,15 @@ newGridButton.addEventListener("click", function (e) {
   createGrid(newGridSize);
 });
 
+const generateRandomColor = () => {
+  return `rgb(${randomInterval(0, 255)}, ${randomInterval(
+    0,
+    255
+  )}, ${randomInterval(0, 255)})`;
+};
+
 container.addEventListener("mouseover", function (e) {
   if (e.target.className === "box") {
-    e.target.style.backgroundColor = "black";
+    e.target.style.backgroundColor = generateRandomColor();
   }
 });
