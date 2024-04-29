@@ -1,0 +1,17 @@
+#content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.play,
+.move {
+  font-size: 32px;
+  padding: 16px 48px;
+}
+
+.score,
+.round {
+  font-size: 32px;
+}
