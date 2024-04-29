@@ -1,10 +1,17 @@
-.container {
+.grid {
   display: flex;
   flex-direction: column;
   width: 960px;
   height: 960px;
+  flex-shrink: 0;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
 .row {
   display: flex;
   flex: 1;
@@ -12,5 +19,11 @@
 
 .box {
   border: 1px solid black;
-  flex: 1;
+  flex-grow: 1;
+  background-color: transparent;
+}
+
+.new-grid {
+  font-size: 48px;
+  padding: 16px 32px;
 }
