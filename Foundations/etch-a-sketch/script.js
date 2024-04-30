@@ -5,6 +5,14 @@ newGridButton.className = "new-grid";
 newGridButton.innerText = "Generate Grid";
 container.appendChild(newGridButton);
 
+let mode = false;
+const modes = ["random-color", "darkening"];
+
+const modeButton = document.createElement("button");
+modeButton.className = "mode";
+modeButton.innerText = modes[+mode];
+container.appendChild(modeButton);
+
 const randomInterval = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
@@ -60,6 +68,18 @@ newGridButton.addEventListener("click", function (e) {
   createGrid(newGridSize);
 });
 
+modeButton.addEventListener("click", function (e) {
+  mode = !mode;
+  modeButton.innerText = modes[+mode];
+
+  const currentGrid = document.querySelector(".grid");
+  if (currentGrid) {
+    const currentSize = currentGrid.children.length;
+    currentGrid.remove();
+    createGrid(currentSize);
+  }
+});
+
 const generateRandomColor = () => {
   return `rgb(${randomInterval(0, 255)}, ${randomInterval(
     0,
@@ -69,6 +89,20 @@ const generateRandomColor = () => {
 
 container.addEventListener("mouseover", function (e) {
   if (e.target.className === "box") {
-    e.target.style.backgroundColor = generateRandomColor();
+    if (mode) {
+      // darkening effect
+      const backgroundColor = getComputedStyle(e.target).getPropertyValue(
+        "background-color"
+      );
+
+      const backgroundFields = backgroundColor.split(",");
+      e.target.style.backgroundColor =
+        backgroundFields.length === 4
+          ? `rgba(0, 0, 0, ${parseFloat(backgroundFields.at(-1)) + 0.1})`
+          : "rgba(0, 0, 0, 1)";
+    } else {
+      // random color
+      e.target.style.backgroundColor = generateRandomColor();
+    }
   }
 });

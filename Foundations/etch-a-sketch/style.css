@@ -20,10 +20,11 @@
 .box {
   border: 1px solid black;
   flex-grow: 1;
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0);
 }
 
-.new-grid {
+.new-grid,
+.mode {
   font-size: 48px;
   padding: 16px 32px;
 }
