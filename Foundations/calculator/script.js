@@ -84,6 +84,13 @@ const updateOperator = (op) => {
   displayOperand = "0";
 };
 
+const clear = () => {
+  displayOperand = "0";
+  currOperator = "";
+  operand1 = 0;
+  display.innerText = displayOperand;
+};
+
 calculator.addEventListener("click", function (e) {
   switch (e.target.className) {
     case "operand":
@@ -94,6 +101,8 @@ calculator.addEventListener("click", function (e) {
       updateOperator(e.target.value);
       break;
     case "clear":
+      console.log("Clear");
+      clear();
       break;
     case "sign":
       break;
