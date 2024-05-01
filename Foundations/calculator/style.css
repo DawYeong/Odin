@@ -1,0 +1,39 @@
+body {
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  min-height: 95vh;
+  overflow: hidden;
+}
+
+.calculator {
+  border: 1px solid black;
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
+  grid-template-rows: minmax(100px, auto) repeat(5, 100px);
+  padding: 5px;
+  flex-shrink: 1;
+}
+
+.display {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 4rem;
+}
+
+#zero {
+  grid-column: span 2;
+}
+
+button {
+  font-size: 2rem;
+  border-radius: 8%;
+  border: 1px solid black;
+}
