@@ -30,6 +30,24 @@ const divide = (a, b) => {
   return a / b;
 };
 
+const roundNumber = (num) => {
+  const numString = num.toString();
+
+  console.log(numString, numString.length);
+  if (numString.length <= MAX_DIGITS + 2) {
+    displayOperand = numString;
+  } else {
+    const wholeLength = numString.split(".")[0].length;
+
+    // limit display to MAX_DIGITS
+    const decimalPlaces = Math.pow(10, MAX_DIGITS - wholeLength);
+    const round = Math.round(num * decimalPlaces) / decimalPlaces;
+    displayOperand = round.toString();
+  }
+
+  display.innerText = displayOperand;
+};
+
 const operate = (a, b, op) => {
   console.log("HERE", a, b, op);
   switch (op) {
@@ -49,8 +67,7 @@ const operate = (a, b, op) => {
       return;
   }
 
-  var2 = 0;
-  display.innerHTML = operand1.toString();
+  roundNumber(operand1);
 };
 
 const updateOperand = (digit) => {
@@ -94,25 +111,11 @@ const clear = () => {
 
 const percent = () => {
   const percentNumber = parseFloat(displayOperand) / 100;
-  const percentString = percentNumber.toString();
-
-  console.log(percentString, percentString.length);
-  if (percentString.length <= MAX_DIGITS + 2) {
-    displayOperand = percentString;
-  } else {
-    const wholeLength = percentString.split(".")[0].length;
-
-    // limit display to MAX_DIGITS
-    const decimalPlaces = Math.pow(10, MAX_DIGITS - wholeLength);
-    const round = Math.round(percentNumber * decimalPlaces) / decimalPlaces;
-    displayOperand = round.toString();
-  }
-  display.innerText = displayOperand;
+  roundNumber(percentNumber);
 };
 
 const toggleSign = () => {
-  displayOperand = (parseFloat(displayOperand) * -1).toString();
-  display.innerText = displayOperand;
+  roundNumber(parseFloat(displayOperand) * -1);
 };
 
 const addDecimal = () => {
