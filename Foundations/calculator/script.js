@@ -115,6 +115,14 @@ const toggleSign = () => {
   display.innerText = displayOperand;
 };
 
+const addDecimal = () => {
+  // check if number has a decimal
+  if (displayOperand.length >= MAX_DIGITS || displayOperand.indexOf(".") > -1)
+    return;
+  displayOperand += ".";
+  display.innerText = displayOperand;
+};
+
 calculator.addEventListener("click", function (e) {
   switch (e.target.className) {
     case "operand":
@@ -133,6 +141,9 @@ calculator.addEventListener("click", function (e) {
       break;
     case "percent":
       percent();
+      break;
+    case "decimal":
+      addDecimal();
       break;
     case "equals":
       evaluate();
