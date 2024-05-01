@@ -176,3 +176,12 @@ calculator.addEventListener("click", function (e) {
       break;
   }
 });
+
+document.addEventListener("keypress", function (e) {
+  console.log(e.code);
+  const button = document.querySelector(`button[code="${e.code}"]`);
+
+  if (button) {
+    button.click();
+  }
+});
