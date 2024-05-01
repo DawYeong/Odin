@@ -2,6 +2,7 @@ const container = document.querySelector(".container");
 const calculator = document.querySelector(".calculator");
 const display = document.querySelector(".display");
 
+const MAX_DIGITS = 12;
 let displayOperand = display.innerText;
 
 let operand1 = 0,
@@ -53,7 +54,7 @@ const operate = (a, b, op) => {
 };
 
 const updateOperand = (digit) => {
-  if (displayOperand.length === 12) return;
+  if (displayOperand.length === MAX_DIGITS) return;
 
   if (displayOperand === "0") {
     if (digit === "0") return;
@@ -91,6 +92,17 @@ const clear = () => {
   display.innerText = displayOperand;
 };
 
+const percent = () => {
+  const percentNumber = parseFloat(displayOperand) / 100;
+  const wholeLength = percentNumber.toString().split(".")[0].length;
+
+  // limit display to MAX_DIGITS
+  const decimalPlaces = Math.pow(10, MAX_DIGITS - wholeLength);
+  const round = Math.round(percentNumber * decimalPlaces) / decimalPlaces;
+  displayOperand = round.toString();
+  display.innerText = displayOperand;
+};
+
 calculator.addEventListener("click", function (e) {
   switch (e.target.className) {
     case "operand":
@@ -107,6 +119,7 @@ calculator.addEventListener("click", function (e) {
     case "sign":
       break;
     case "percent":
+      percent();
       break;
     case "equals":
       evaluate();
