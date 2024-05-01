@@ -4,9 +4,9 @@ const display = document.querySelector(".display");
 
 let displayOperand = display.innerText;
 
-let var1 = 0,
-  var2 = 0,
-  op = "";
+let operand1 = 0,
+  operand2 = 0,
+  currOperator = "";
 
 const add = (a, b) => {
   return a + b;
@@ -29,19 +29,27 @@ const divide = (a, b) => {
   return a / b;
 };
 
-const operator = (a, b, op) => {
+const operate = (a, b, op) => {
+  console.log("HERE", a, b, op);
   switch (op) {
-    case 0:
-      return add(a, b);
-    case 1:
-      return subtract(a, b);
-    case 2:
-      return multiply(a, b);
-    case 3:
-      return divide(a, b);
-    default:
+    case "add":
+      operand1 = add(a, b);
       break;
+    case "subtract":
+      operand1 = subtract(a, b);
+      break;
+    case "multiply":
+      operand1 = multiply(a, b);
+      break;
+    case "divide":
+      operand1 = divide(a, b);
+      break;
+    default:
+      return;
   }
+
+  var2 = 0;
+  display.innerHTML = operand1.toString();
 };
 
 const updateOperand = (digit) => {
@@ -57,12 +65,33 @@ const updateOperand = (digit) => {
   display.innerText = displayOperand;
 };
 
+const evaluate = () => {
+  if (currOperator != "") {
+    operate(operand1, parseFloat(displayOperand), currOperator);
+    currOperator = "";
+    displayOperand = operand1.toString();
+  }
+};
+
+const updateOperator = (op) => {
+  // if operator exists => perform operation then change op
+  if (currOperator != "") {
+    operate(operand1, parseFloat(displayOperand), currOperator);
+  } else {
+    operand1 = parseFloat(displayOperand);
+  }
+  currOperator = op;
+  displayOperand = "0";
+};
+
 calculator.addEventListener("click", function (e) {
   switch (e.target.className) {
     case "operand":
       updateOperand(e.target.value);
       break;
     case "operator":
+      console.log("operator");
+      updateOperator(e.target.value);
       break;
     case "clear":
       break;
@@ -71,6 +100,7 @@ calculator.addEventListener("click", function (e) {
     case "percent":
       break;
     case "equals":
+      evaluate();
       break;
     default:
       break;
