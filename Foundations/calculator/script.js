@@ -6,7 +6,6 @@ const MAX_DIGITS = 11;
 let displayOperand = display.innerText;
 
 let operand1 = 0,
-  operand2 = 0,
   currOperator = "";
 
 const add = (a, b) => {
@@ -41,7 +40,7 @@ const roundScientific = (numString, expPos) => {
 
 const roundNumber = (num) => {
   const numString = num.toString();
-  console.log(numString.length);
+
   if (numString.length <= MAX_DIGITS) {
     displayOperand = numString;
   } else {
@@ -70,7 +69,6 @@ const roundNumber = (num) => {
 };
 
 const operate = (a, b, op) => {
-  console.log("HERE", a, b, op);
   switch (op) {
     case "add":
       operand1 = add(a, b);
@@ -153,11 +151,9 @@ calculator.addEventListener("click", function (e) {
       updateOperand(e.target.value);
       break;
     case "operator":
-      console.log("operator");
       updateOperator(e.target.value);
       break;
     case "clear":
-      console.log("Clear");
       clear();
       break;
     case "sign":
@@ -178,7 +174,6 @@ calculator.addEventListener("click", function (e) {
 });
 
 document.addEventListener("keypress", function (e) {
-  console.log(e.code);
   const button = document.querySelector(`button[code="${e.code}"]`);
 
   if (button) {
