@@ -30,19 +30,40 @@ const divide = (a, b) => {
   return a / b;
 };
 
+const roundScientific = (numString, expPos) => {
+  const digits = Math.pow(10, numString.length - MAX_DIGITS);
+  const numberSection = numString.slice(0, expPos);
+  return (
+    (Math.round(parseFloat(numberSection) * digits) / digits).toString() +
+    numString.slice(expPos)
+  );
+};
+
 const roundNumber = (num) => {
   const numString = num.toString();
-
-  console.log(numString, numString.length);
-  if (numString.length <= MAX_DIGITS + 2) {
+  console.log(numString.length);
+  if (numString.length <= MAX_DIGITS) {
     displayOperand = numString;
   } else {
-    const wholeLength = numString.split(".")[0].length;
-
-    // limit display to MAX_DIGITS
-    const decimalPlaces = Math.pow(10, MAX_DIGITS - wholeLength);
-    const round = Math.round(num * decimalPlaces) / decimalPlaces;
-    displayOperand = round.toString();
+    let round;
+    let expPos = numString.indexOf("e");
+    if (expPos != -1) {
+      round = roundScientific(numString, expPos);
+    } else {
+      const wholeLength = numString.split(".")[0].length;
+      // limit display to MAX_DIGITS
+      if (wholeLength > MAX_DIGITS) {
+        const scientificNotation = num.toPrecision(MAX_DIGITS);
+        round = roundScientific(
+          scientificNotation,
+          scientificNotation.indexOf("e")
+        );
+      } else {
+        const decimalPlaces = Math.pow(10, MAX_DIGITS - wholeLength);
+        round = (Math.round(num * decimalPlaces) / decimalPlaces).toString();
+      }
+    }
+    displayOperand = round;
   }
 
   display.innerText = displayOperand;
