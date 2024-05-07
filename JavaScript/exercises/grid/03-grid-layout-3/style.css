@@ -1,0 +1,147 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  text-align: center;
+
+  display: grid;
+  gap: 4px;
+  grid-template-columns: 1fr 4fr;
+}
+
+.container div {
+  padding: 15px;
+  font-size: 32px;
+  font-family: Helvetica;
+  font-weight: bold;
+  color: white;
+}
+
+.header {
+  background-color: #393f4d;
+
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.menu ul,
+.menu li {
+  font-size: 16px;
+}
+
+.sidebar {
+  background-color: #c50208;
+
+  grid-row: 2/4;
+  display: grid;
+  gap: 50px;
+}
+
+.sidebar .photo {
+  background-color: white;
+  color: black;
+  font-size: 12px;
+  font-weight: normal;
+  border-radius: 10px;
+}
+
+.sidebar .side-content {
+  background-color: white;
+  color: black;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.nav {
+  background-color: #c50208;
+}
+
+.nav ul li {
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.article {
+  background-color: #bccbde;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.article p {
+  font-size: 18px;
+  font-family: sans-serif;
+  color: white;
+  text-align: left;
+}
+
+.article .card {
+  background-color: #ffffff;
+  color: black;
+  text-align: center;
+}
+
+.card p {
+  color: black;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+.card .title {
+  font-size: 18px;
+  text-align: center;
+}
+
+.footer {
+  background-color: #393f4d;
+
+  grid-column: 1/-1;
+}
+
+.footer p {
+  font-size: 13px;
+  font-weight: normal;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+ul {
+  display: grid;
+}
+
+.menu ul {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.nav ul {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.photo,
+.side-content {
+  display: grid;
+  align-items: center;
+}
+
+.card {
+  height: 200px;
+}
+
+.logo {
+  justify-self: start;
+}
+
+.menu {
+  align-self: center;
+}
+
+.card p {
+  padding: 5px;
+}
