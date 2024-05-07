@@ -120,9 +120,15 @@ input:focus {
   border: 2px solid rgb(104, 136, 225);
 }
 
+input.invalid,
 input:invalid {
   outline: red;
   border: 2px solid red;
+}
+
+span.error {
+  color: red;
+  font-size: 0.9rem;
 }
 
 button.create-account-btn {
