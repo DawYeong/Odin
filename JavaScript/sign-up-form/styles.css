@@ -10,7 +10,7 @@
 
 body {
   height: 100vh;
-  font-family: Tahoma, sans-serif;
+  font-family: Helvetica, sans-serif;
 }
 
 div.container {
@@ -64,20 +64,87 @@ a:visited {
   color: rgb(226, 49, 49);
 }
 
-/* p {
-  width: clamp(40ch, 50%, 75ch);
-} */
+.intro {
+  width: 75ch;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
 
 div.form-container {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   background-color: rgb(248, 248, 248);
+  width: 100%;
 }
 
-form.sign-up-form {
+div.form-background {
   background: white;
   width: 100%;
+}
+
+.form-row {
+  display: flex;
+  gap: 3rem;
+  margin: 16px 0;
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+.spacing {
+  padding: 16px 32px;
+  box-sizing: border-box;
+}
+
+label,
+input {
+  font-size: 16px;
+}
+
+input {
+  padding: 4px;
+  border: 1px solid grey;
+  border-radius: 4px;
+  background-color: rgb(252, 252, 252);
+}
+
+input:focus {
+  outline: lightblue;
+  /* border-color: lightblue; */
+  border: 2px solid rgb(104, 136, 225);
+}
+
+input:invalid {
+  outline: red;
+  border: 2px solid red;
+}
+
+button.create-account-btn {
+  font-size: 16px;
+  padding: 12px 42px;
+  font-weight: bold;
+  color: white;
+  background-color: rgb(89, 109, 72);
+  border: none;
+  border-radius: 8px;
+}
+
+button.create-account-btn:active {
+  background-color: rgb(160, 182, 140);
+}
+
+.account-message {
+  font-size: 16px;
+}
+
+a.log-in {
+  text-decoration: none;
+  font-weight: bold;
+  color: rgb(89, 109, 72);
 }

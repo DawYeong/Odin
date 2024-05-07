@@ -34,61 +34,65 @@
         </div>
       </div>
       <div class="form-container">
-        <div>
+        <div class="spacing intro">
           <p>
             This is not a real online service! You know you need something like
             this in your life to help you realize your deepest dreams.
           </p>
           <p>Sign up <em>now</em> to get started</p>
         </div>
-        <div>
+        <div class="spacing intro">
           <p>You <em>know</em> you want to.</p>
         </div>
 
-        <form class="sign-up-form">
-          <h1>Let's do this!</h1>
-          <div class="form-row">
-            <div class="form-item">
-              <label for="first-name">FIRST NAME</label>
-              <input type="text" id="first-name" name="first-name" />
+        <div class="form-background spacing">
+          <form class="sign-up-form" id="form1">
+            <h2>Let's do this!</h2>
+            <div class="form-row">
+              <div class="form-item">
+                <label for="first-name">FIRST NAME</label>
+                <input type="text" id="first-name" name="first-name" />
+              </div>
+
+              <div class="form-item">
+                <label for="last-name">LAST NAME</label>
+                <input type="text" id="last-name" name="last-name" />
+              </div>
             </div>
 
-            <div class="form-item">
-              <label for="last-name">LAST NAME</label>
-              <input type="text" id="last-name" name="last-name" />
-            </div>
-          </div>
+            <div class="form-row">
+              <div class="form-item">
+                <label for="email">EMAIL</label>
+                <input type="email" id="email" name="email" />
+              </div>
 
-          <div class="form-row">
-            <div class="form-item">
-              <label for="email">EMAIL</label>
-              <input type="email" id="email" name="email" />
-            </div>
-
-            <div class="form-item">
-              <label for="phone-number">Phone Number</label>
-              <input type="tel" id="phone-number" name="phone-number" />
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-item">
-              <label for="pwd">Password</label>
-              <input type="password" id="pwd" name="pwd" />
+              <div class="form-item">
+                <label for="phone-number">PHONE NUMBER</label>
+                <input type="tel" id="phone-number" name="phone-number" />
+              </div>
             </div>
 
-            <div class="form-item">
-              <label for="pwd-confirm">Confirm Password</label>
-              <input type="password" id="pwd-confirm" name="pwd-confirm" />
-            </div>
-          </div>
+            <div class="form-row">
+              <div class="form-item">
+                <label for="pwd">PASSWORD</label>
+                <input type="password" id="pwd" name="pwd" />
+              </div>
 
-          <button type="submit" class="create-account-btn">
+              <div class="form-item">
+                <label for="pwd-confirm">CONFIRM PASSWORD</label>
+                <input type="password" id="pwd-confirm" name="pwd-confirm" />
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="spacing">
+          <button type="submit" class="create-account-btn" form="form1">
             Create Account
           </button>
-        </form>
-        <div>
-          <p>Already have an account? <a href="">Log in</a></p>
+        </div>
+        <div class="spacing account-message">
+          <p>Already have an account? <a class="log-in" href="">Log in</a></p>
         </div>
       </div>
     </div>
