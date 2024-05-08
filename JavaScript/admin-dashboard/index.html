@@ -5,28 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="container">
       <div class="header">header</div>
       <div class="sidebar">
-        <div class="dash-logo">Dashboard</div>
-        <div class="sidebar-tabs">
-          <ul>
-            <li>Home</li>
-            <li>Profile</li>
-            <li>Messages</li>
-            <li>History</li>
-            <li>Tasks</li>
-            <li>Communities</li>
-          </ul>
+        <div class="dash-logo">
+          <img class="dash-icon" src="./icons/view-dashboard.svg" /> Dashboard
         </div>
-        <div class="setting-tabs">
-          <ul>
-            <li>Settings</li>
-            <li>Support</li>
-            <li>Privacy</li>
-          </ul>
+        <div class="nav-tabs">
+          <div class="nav-item">
+            <img class="icon" src="./icons/home.svg" /> Home
+          </div>
+          <div class="nav-item">
+            <img class="icon" src="./icons/card-account-details-outline.svg" />
+            Profile
+          </div>
+          <div class="nav-item">
+            <img class="icon" src="./icons/message-reply.svg" />
+            Messages
+          </div>
+          <div class="nav-item">
+            <img class="icon" src="./icons/clock-time-three.svg" />
+            History
+          </div>
+          <div class="nav-item">
+            <img class="icon" src="./icons/note-multiple.svg" />
+            Tasks
+          </div>
+          <div class="nav-item">
+            <img class="icon" src="./icons/account-group.svg" />
+            Communities
+          </div>
+        </div>
+        <div class="nav-tabs">
+          <div class="nav-item">
+            <img class="icon" src="./icons/cog.svg" />
+            Settings
+          </div>
+          <div class="nav-item">
+            <img class="icon" src="./icons/help-box.svg" />
+            Support
+          </div>
+          <div class="nav-item">
+            <img class="icon" src="./icons/shield-check.svg" />
+            Privacy
+          </div>
         </div>
       </div>
       <div class="main-content">content</div>
