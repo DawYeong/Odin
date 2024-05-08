@@ -79,3 +79,101 @@ ul {
 .dash-logo {
   gap: 0.5rem;
 }
+
+.header {
+  --header-base-size: 1.75rem;
+  box-shadow: 0 4px 10px -2px grey;
+  padding: 1rem 3rem;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  grid-template-rows: max-content;
+  grid-auto-rows: max-content;
+  align-items: center;
+  font-weight: bold;
+  row-gap: 2rem;
+}
+
+div.header .header-icon {
+  width: var(--header-base-size);
+  height: auto;
+}
+
+.pfp,
+.pfp-large {
+  height: auto;
+  border-radius: 50%;
+}
+
+.pfp {
+  width: calc(var(--header-base-size) * 2);
+}
+
+.pfp-large {
+  width: calc(var(--header-base-size) * 3);
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.search-input {
+  width: 90%;
+  height: 50%;
+  background-color: rgb(226, 232, 240);
+  border-radius: 1.5rem;
+  border: none;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+}
+
+.user-profile {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2rem;
+  padding-right: 1.5rem;
+}
+
+.header-small-font-size {
+  font-size: 1rem;
+}
+
+.header-medium-font-size {
+  font-size: 1.5rem;
+}
+
+.header-large-font-size {
+  font-size: 2rem;
+}
+
+.user-greeting {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.greeting-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.user-controls {
+  display: flex;
+  justify-content: end;
+  gap: 2rem;
+}
+
+.user-btn {
+  background-color: var(--theme-color);
+  box-sizing: border-box;
+  width: 7.5rem;
+  height: 3rem;
+  color: white;
+  font-weight: 550;
+  font-size: 1.25rem;
+  border: none;
+  border-radius: 1.5rem;
+}
