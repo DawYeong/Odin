@@ -81,7 +81,6 @@ ul {
 .header {
   --header-base-size: 1.75rem;
   z-index: 3;
-  box-shadow: 0 4px 10px -2px rgb(189, 189, 189);
   padding: 1rem 3rem;
   display: grid;
   grid-template-columns: 1.5fr 1fr;
@@ -90,6 +89,12 @@ ul {
   align-items: center;
   font-weight: bold;
   row-gap: 2rem;
+}
+
+.header,
+.card,
+.announcement-card {
+  box-shadow: 0 4px 10px -2px rgb(189, 189, 189);
 }
 
 div.header .header-icon {
@@ -188,8 +193,11 @@ div.header .header-icon {
 
 .projects {
   grid-area: 1 / 1 / 3 / 2;
+}
+
+.content-section {
   display: grid;
-  grid-auto-rows: max-content;
+  grid-auto-rows: max-content 1fr;
   row-gap: 1rem;
 }
 
@@ -230,4 +238,26 @@ p.content-body {
   display: flex;
   justify-content: end;
   gap: 2rem;
+}
+
+.announcement-card {
+  background-color: white;
+  box-sizing: border-box;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  border-radius: 10px;
+}
+
+.announcement > p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.announcement > h2 {
+  font-size: 1.25rem;
 }
