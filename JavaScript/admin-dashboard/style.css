@@ -289,3 +289,22 @@ p.content-body {
   gap: 1.5rem;
   font-size: 1.2rem;
 }
+
+.user-btn:hover {
+  transform: scale(1.075);
+}
+
+.user-btn:active {
+  background-color: rgb(88, 195, 252);
+}
+
+.card:hover {
+  transform: scale(1.05);
+  border: 2px solid rgb(115, 181, 202);
+  transition: transform 100ms linear;
+}
+
+.header-icon:hover {
+  transform: scale(1.1);
+  transition: transform 200ms linear;
+}
