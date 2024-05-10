@@ -1,27 +1,18 @@
 const BOOK_READ = ["Not read", "Read"];
-const myLibrary = [
-  new Book("test", "test", 10, false),
-  new Book("test1", "test1", 10, true),
-];
+const myLibrary = [];
 const addBookButton = document.querySelector("button.add-btn");
 const container = document.querySelector(".container");
 const bookDialog = document.querySelector("dialog.book-prompt");
 const addBookForm = document.querySelector("form#book-form");
 const bookSection = document.querySelector(".book-section");
+const formError = document.querySelector("span.error");
 
-console.log(addBookForm);
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.read = read;
 }
-
-// Book.prototype.info = function () {
-//   return `${this.title} by ${this.author}, ${this.pages} pages, ${
-//     this.read ? "read" : "not read yet"
-//   }`;
-// };
 
 Book.prototype.generateBookCard = function () {
   const book = document.createElement("div");
@@ -55,10 +46,6 @@ Book.prototype.generateBookCard = function () {
   return book;
 };
 
-function addBookToLibrary(title, author, pages, read) {
-  myLibrary.push(new Book(title, author, pages, read));
-}
-
 const displayBooks = () => {
   // reset books
   bookSection.innerHTML = "";
@@ -69,11 +56,46 @@ const displayBooks = () => {
   });
 };
 
-addBookButton.addEventListener("click", function (e) {
+const addBookToLibrary = (title, author, pages, read) => {
+  myLibrary.push(new Book(title, author, pages, read));
+  displayBooks();
+};
+
+const checkBookExists = (title, author) => {
+  return (
+    myLibrary.filter((book) => book.title === title && book.author === author)
+      .length != 0
+  );
+};
+
+const openFormModal = () => {
   bookDialog.showModal();
+};
+
+const closeFormModal = () => {
+  bookDialog.close();
+};
+
+addBookButton.addEventListener("click", function (e) {
+  openFormModal();
 });
 
 addBookForm.addEventListener("submit", function (e) {
   e.preventDefault();
   console.dir(e);
+  if (checkBookExists(e.target[0].value, e.target[1].value)) {
+    // book exists, should not be able to add book
+    formError.textContent =
+      "Book with matching title and author already exists!";
+  } else {
+    formError.textContent = "";
+    addBookToLibrary(
+      e.target[0].value,
+      e.target[1].value,
+      e.target[2].value,
+      e.target[3].checked
+    );
+    closeFormModal();
+    addBookForm.reset();
+  }
 });
