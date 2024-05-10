@@ -8,47 +8,49 @@
     <script defer src="./script.js"></script>
   </head>
   <body>
+    <dialog class="book-prompt">
+      <form id="book-form" type="" index="">
+        <h2></h2>
+        <span class="error"></span>
+        <input
+          type="text"
+          placeholder="Title"
+          name="title"
+          minlength="1"
+          required
+        />
+        <input
+          type="text"
+          placeholder="Author"
+          name="author"
+          minlength="1"
+          required
+        />
+        <input
+          type="number"
+          placeholder="Pages"
+          min="1"
+          name="pages"
+          required
+        />
+        <div class="checkbox">
+          <label for="read">Have you read this book?</label>
+          <input type="checkbox" name="read" id="read" />
+        </div>
+      </form>
+      <button type="button" class="cancel">Cancel</button>
+      <button type="submit" form="book-form">Submit</button>
+    </dialog>
     <div class="container">
       <div class="header">
         <h1>Library</h1>
       </div>
-      <div class="add-btn-section">
-        <button class="add" type="button">Add Book</button>
+      <div class="content">
+        <div class="btn-section">
+          <button class="add" type="button">+ Add Book</button>
+        </div>
+        <div class="book-section"></div>
       </div>
-      <dialog class="book-prompt">
-        <form id="book-form" type="" index="">
-          <h2></h2>
-          <span class="error"></span>
-          <input
-            type="text"
-            placeholder="Title"
-            name="title"
-            minlength="1"
-            required
-          />
-          <input
-            type="text"
-            placeholder="Author"
-            name="author"
-            minlength="1"
-            required
-          />
-          <input
-            type="number"
-            placeholder="Pages"
-            min="1"
-            name="pages"
-            required
-          />
-          <div class="checkbox">
-            <label for="read">Have you read this book?</label>
-            <input type="checkbox" name="read" id="read" />
-          </div>
-        </form>
-        <button type="button" class="cancel">Cancel</button>
-        <button type="submit" form="book-form">Submit</button>
-      </dialog>
-      <div class="book-section"></div>
     </div>
   </body>
 </html>
