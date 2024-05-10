@@ -36,11 +36,13 @@ Book.prototype.generateBookCard = function () {
   const read = document.createElement("button");
   read.className = BOOK_READ[+this.read];
   read.innerText = BOOK_READ[+this.read];
+  read.type = "button";
   book.appendChild(read);
 
   const remove = document.createElement("button");
   remove.className = "remove";
   remove.innerText = "Remove";
+  remove.type = "button";
   book.appendChild(remove);
 
   return book;
@@ -56,16 +58,24 @@ const displayBooks = () => {
   });
 };
 
+const findBook = (title, author) => {
+  return myLibrary.findIndex(
+    (book) => book.title === title && book.author === author
+  );
+};
+
 const addBookToLibrary = (title, author, pages, read) => {
   myLibrary.push(new Book(title, author, pages, read));
   displayBooks();
 };
 
-const checkBookExists = (title, author) => {
-  return (
-    myLibrary.filter((book) => book.title === title && book.author === author)
-      .length != 0
-  );
+const removeBookFromLibrary = (title, author) => {
+  const bookIndex = findBook(title, author);
+  console.log(title, author);
+  if (bookIndex != -1) {
+    myLibrary.splice(bookIndex, 1);
+    displayBooks();
+  }
 };
 
 const openFormModal = () => {
@@ -73,8 +83,31 @@ const openFormModal = () => {
 };
 
 const closeFormModal = () => {
+  addBookForm.reset();
   bookDialog.close();
 };
+
+document.addEventListener("click", function (e) {
+  if (e.target.type === "button") {
+    switch (e.target.className) {
+      case "cancel":
+        closeFormModal();
+        break;
+      case "remove":
+        const bookAttributes = e.target.parentNode.children;
+        console.dir(bookAttributes[0]);
+        removeBookFromLibrary(
+          bookAttributes[0].textContent,
+          bookAttributes[1].textContent
+        );
+        break;
+    }
+  }
+});
+
+bookDialog.addEventListener("close", function (e) {
+  addBookForm.reset();
+});
 
 addBookButton.addEventListener("click", function (e) {
   openFormModal();
@@ -83,7 +116,7 @@ addBookButton.addEventListener("click", function (e) {
 addBookForm.addEventListener("submit", function (e) {
   e.preventDefault();
   console.dir(e);
-  if (checkBookExists(e.target[0].value, e.target[1].value)) {
+  if (findBook(e.target[0].value, e.target[1].value) != -1) {
     // book exists, should not be able to add book
     formError.textContent =
       "Book with matching title and author already exists!";
@@ -96,6 +129,5 @@ addBookForm.addEventListener("submit", function (e) {
       e.target[3].checked
     );
     closeFormModal();
-    addBookForm.reset();
   }
 });
