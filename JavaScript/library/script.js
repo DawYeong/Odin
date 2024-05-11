@@ -39,24 +39,32 @@ Book.prototype.generateBookCard = function () {
   pages.value = this.pages;
   book.appendChild(pages);
 
+  const btnGroup = document.createElement("div");
+  btnGroup.className = "btn-group";
+
   const read = document.createElement("button");
   read.className = BOOK_READ_CLASS[+this.read];
   read.innerText = BOOK_READ_TEXT[+this.read];
   read.value = this.read;
   read.type = "button";
-  book.appendChild(read);
+  // book.appendChild(read);
+  btnGroup.appendChild(read);
 
   const edit = document.createElement("button");
   edit.className = "edit";
   edit.innerText = "Edit";
   edit.type = "button";
-  book.appendChild(edit);
+  // book.appendChild(edit);
+  btnGroup.appendChild(edit);
 
   const remove = document.createElement("button");
   remove.className = "remove";
   remove.innerText = "Remove";
   remove.type = "button";
-  book.appendChild(remove);
+  // book.appendChild(remove);
+  btnGroup.appendChild(remove);
+
+  book.appendChild(btnGroup);
 
   return book;
 };
@@ -200,22 +208,22 @@ document.addEventListener("click", function (e) {
         break;
       case "remove":
         removeBookFromLibrary(
-          e.target.parentNode.children[0].value,
-          e.target.parentNode.children[1].value
+          e.target.parentNode.parentNode.children[0].value,
+          e.target.parentNode.parentNode.children[1].value
         );
         break;
       case "not-read":
       case "read":
         toggleRead(
-          e.target.parentNode.children[0].value,
-          e.target.parentNode.children[1].value,
+          e.target.parentNode.parentNode.children[0].value,
+          e.target.parentNode.parentNode.children[1].value,
           e.target
         );
         break;
       case "edit":
         editForm(
-          e.target.parentNode.children[0].value,
-          e.target.parentNode.children[1].value
+          e.target.parentNode.parentNode.children[0].value,
+          e.target.parentNode.parentNode.children[1].value
         );
         break;
     }
