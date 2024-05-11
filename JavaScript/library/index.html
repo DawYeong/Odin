@@ -11,7 +11,7 @@
     <dialog class="book-prompt">
       <form id="book-form" type="" index="">
         <h2></h2>
-        <span class="error"></span>
+        <p class="error">Book with matching title and author already exists!</p>
         <input
           type="text"
           placeholder="Title"
@@ -37,9 +37,9 @@
           <label for="read">Have you read this book?</label>
           <input type="checkbox" name="read" id="read" />
         </div>
+        <button type="submit" form="book-form" class="submit">Submit</button>
+        <button type="button" class="cancel">Cancel</button>
       </form>
-      <button type="button" class="cancel">Cancel</button>
-      <button type="submit" form="book-form">Submit</button>
     </dialog>
     <div class="container">
       <div class="header">

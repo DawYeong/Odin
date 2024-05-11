@@ -2,7 +2,8 @@
 
 body,
 h1,
-h2 {
+h2,
+p {
   margin: 0;
   padding: 0;
 }
@@ -71,4 +72,89 @@ button.add:hover {
 
 button.add:active {
   background-color: #7dd3fc;
+}
+
+form#book-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+form#book-form {
+  input,
+  button,
+  label {
+    font-size: 1.25rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  button {
+    border-radius: 5px;
+  }
+
+  input[type="text"],
+  input[type="number"] {
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    padding: 0.7rem;
+  }
+
+  input[type="checkbox"] {
+    transform: scale(1.25);
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  button {
+    width: 100%;
+    padding: 0.5rem 0;
+  }
+
+  button:hover {
+    transform: scale(1.075);
+    transition: 200ms linear;
+  }
+
+  button.submit {
+    background-color: #86efac;
+  }
+
+  button.cancel {
+    background-color: #fda4af;
+  }
+
+  button.submit:hover {
+    background-color: #4ade80;
+  }
+
+  button.cancel:hover {
+    background-color: #fb7185;
+  }
+}
+
+.error {
+  display: none;
+  color: red;
+}
+
+.error.active {
+  display: block;
+}
+
+dialog.book-prompt {
+  width: 300px;
+  border: none;
+  border-radius: 8px;
+  background-color: rgb(240, 240, 240);
+  text-align: center;
 }

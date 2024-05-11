@@ -1,14 +1,14 @@
 const BOOK_READ_CLASS = ["not-read", "read"];
 const BOOK_READ_TEXT = ["Not read", "Read"];
-const MATCHING_BOOK_ERROR =
-  "Book with matching title and author already exists!";
+// const MATCHING_BOOK_ERROR =
+//   "Book with matching title and author already exists!";
 const myLibrary = [];
 // const addBookButton = document.querySelector("button.add-btn");
 const container = document.querySelector(".container");
 const bookDialog = document.querySelector("dialog.book-prompt");
 const bookForm = document.querySelector("form#book-form");
 const bookSection = document.querySelector(".book-section");
-const formError = document.querySelector("span.error");
+const formError = document.querySelector("p.error");
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -133,6 +133,7 @@ const closeFormModal = () => {
   bookForm.setAttribute("type", "");
   bookForm.setAttribute("index", "");
   bookForm.children[0].textContent = "";
+  formError.classList.remove("active");
   bookDialog.close();
 };
 
@@ -161,9 +162,10 @@ const editForm = (title, author) => {
 const handleAddSubmit = () => {
   if (findBookIndex(bookForm[0].value, bookForm[1].value) != -1) {
     // book exists, should not be able to add book
-    formError.textContent = MATCHING_BOOK_ERROR;
+    // formError.textContent = MATCHING_BOOK_ERROR;
+    formError.classList.add("active");
   } else {
-    formError.textContent = "";
+    formError.classList.remove("active");
     addBookToLibrary(
       bookForm[0].value,
       bookForm[1].value,
@@ -178,8 +180,10 @@ const handleEditSubmit = (index) => {
   const existingBookIndex = findBookIndex(bookForm[0].value, bookForm[1].value);
 
   if (existingBookIndex != index && existingBookIndex != -1) {
-    formError.textContent = MATCHING_BOOK_ERROR;
+    // formError.textContent = MATCHING_BOOK_ERROR;
+    formError.classList.add("active");
   } else {
+    formError.classList.remove("active");
     editBook(index);
     closeFormModal();
   }
@@ -219,6 +223,7 @@ document.addEventListener("click", function (e) {
 });
 
 bookDialog.addEventListener("close", function (e) {
+  formError.classList.remove("active");
   bookForm.reset();
 });
 
