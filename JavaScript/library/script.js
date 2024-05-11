@@ -1,9 +1,7 @@
 const BOOK_READ_CLASS = ["not-read", "read"];
 const BOOK_READ_TEXT = ["Not read", "Read"];
-// const MATCHING_BOOK_ERROR =
-//   "Book with matching title and author already exists!";
 const myLibrary = [];
-// const addBookButton = document.querySelector("button.add-btn");
+
 const container = document.querySelector(".container");
 const bookDialog = document.querySelector("dialog.book-prompt");
 const bookForm = document.querySelector("form#book-form");
@@ -47,21 +45,18 @@ Book.prototype.generateBookCard = function () {
   read.innerText = BOOK_READ_TEXT[+this.read];
   read.value = this.read;
   read.type = "button";
-  // book.appendChild(read);
   btnGroup.appendChild(read);
 
   const edit = document.createElement("button");
   edit.className = "edit";
   edit.innerText = "Edit";
   edit.type = "button";
-  // book.appendChild(edit);
   btnGroup.appendChild(edit);
 
   const remove = document.createElement("button");
   remove.className = "remove";
   remove.innerText = "Remove";
   remove.type = "button";
-  // book.appendChild(remove);
   btnGroup.appendChild(remove);
 
   book.appendChild(btnGroup);
@@ -115,7 +110,6 @@ const editBook = (index) => {
 
 const removeBookFromLibrary = (title, author) => {
   const bookIndex = findBookIndex(title, author);
-  console.log(title, author);
   if (bookIndex != -1) {
     myLibrary.splice(bookIndex, 1);
     displayBooks();
@@ -188,7 +182,6 @@ const handleEditSubmit = (index) => {
   const existingBookIndex = findBookIndex(bookForm[0].value, bookForm[1].value);
 
   if (existingBookIndex != index && existingBookIndex != -1) {
-    // formError.textContent = MATCHING_BOOK_ERROR;
     formError.classList.add("active");
   } else {
     formError.classList.remove("active");
@@ -237,8 +230,7 @@ bookDialog.addEventListener("close", function (e) {
 
 bookForm.addEventListener("submit", function (e) {
   e.preventDefault();
-  console.dir(e.target);
-  console.dir(bookForm.attributes["type"].value);
+
   switch (bookForm.attributes["type"].value) {
     case "add":
       handleAddSubmit();
