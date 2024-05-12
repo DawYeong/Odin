@@ -14,7 +14,7 @@ const tttGame = (function () {
       : null;
   };
 
-  const checkGameOver = () => {
+  const getGameState = () => {
     let check;
     for (let i = 0; i < 3; i++) {
       // check rows
@@ -26,9 +26,17 @@ const tttGame = (function () {
     }
 
     // check diagonals
-    check = checkConsecutive([row[0][0], row[1][1], row[2][2]]);
+    check = checkConsecutive([
+      gameBoard[0][0],
+      gameBoard[1][1],
+      gameBoard[2][2],
+    ]);
     if (check != null) return check;
-    check = checkConsecutive([row[2][0], row[1][1], row[0][2]]);
+    check = checkConsecutive([
+      gameBoard[2][0],
+      gameBoard[1][1],
+      gameBoard[0][2],
+    ]);
     if (check != null) return check;
 
     // check game turn => if all checks don't result in a win and if turnCount is 9 => tie
@@ -47,7 +55,7 @@ const tttGame = (function () {
       case 1:
         console.log("Player 2 won!");
         break;
-      default:
+      case 2:
         console.log("It is a draw!");
         break;
     }
@@ -77,19 +85,19 @@ const tttGame = (function () {
   const nextTurn = () => {
     // prompt for move
     let validMove = false;
-    while (validMove) {
+    let row, col;
+    while (!validMove) {
       // get move
-      [row, col] = prompt("What's your favorite cocktail drink?")
+      [row, col] = prompt(
+        `what is your move ${turn ? "Player 1" : "Player 2"}?`
+      )
         .split(" ")
         .map((x) => parseInt(x));
       validMove = move(row, col);
     }
 
     // check if game is over;
-    const gameResult = checkGameOver();
-    if (gameResult != -1) {
-      gameOver(gameResult);
-    }
+    return getGameState();
   };
 
   const display = () => {
@@ -100,10 +108,13 @@ const tttGame = (function () {
     let gameState = -1;
     while (gameState === -1) {
       gameState = nextTurn();
+      console.log(`gameState: ${gameState}`);
+      display();
     }
 
     handleGameOver(gameState);
+    reset();
   };
 
-  return { startGame, display };
+  return { startGame };
 })();
