@@ -1,3 +1,5 @@
+const container = document.querySelector(".container");
+
 const tttGame = (function () {
   let gameBoard = [
     [null, null, null],
@@ -110,6 +112,7 @@ const tttGame = (function () {
       gameState = nextTurn();
       console.log(`gameState: ${gameState}`);
       display();
+      displayController.render(gameBoard);
     }
 
     handleGameOver(gameState);
@@ -118,3 +121,32 @@ const tttGame = (function () {
 
   return { startGame };
 })();
+
+const displayController = (function () {
+  const gameSection = document.createElement("div");
+  gameSection.className = "game-board";
+  container.appendChild(gameSection);
+
+  const render = (gameBoard) => {
+    gameSection.innerHTML = "";
+    let cell;
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        cell = document.createElement("div");
+        cell.className = "ttt-cell";
+        cell.innerText =
+          gameBoard[i][j] === true ? "X" : gameBoard[i][j] === false ? "O" : "";
+
+        gameSection.appendChild(cell);
+      }
+    }
+    console.dir(container);
+  };
+  return { render };
+})();
+
+displayController.render([
+  [true, true, true],
+  [false, false, null],
+  [null, false, true],
+]);

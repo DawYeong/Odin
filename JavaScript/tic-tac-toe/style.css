@@ -1,0 +1,31 @@
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(100px, 1fr));
+  align-items: stretch;
+  gap: 2rem;
+  overflow: hidden;
+}
+
+.game-board > .ttt-cell {
+  position: relative;
+}
+
+.game-board > .ttt-cell::after {
+  content: "";
+  background-color: red;
+  position: absolute;
+  width: 100vw;
+  height: 2px;
+  top: -1rem;
+  left: 0;
+}
+
+.game-board > .ttt-cell::before {
+  content: "";
+  background-color: red;
+  position: absolute;
+  width: 2px;
+  height: 100vh;
+  top: 0;
+  left: -1rem;
+}
