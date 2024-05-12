@@ -1,12 +1,4 @@
-.game-board {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(100px, 1fr));
-  align-items: stretch;
-  gap: 2rem;
-  overflow: hidden;
-}
-
-.game-board > .ttt-cell {
+/* .game-board > .ttt-cell {
   position: relative;
 }
 
@@ -28,4 +20,45 @@
   height: 100vh;
   top: 0;
   left: -1rem;
+} */
+
+.ttt-cell {
+  padding: 2rem;
+}
+
+.start-section,
+.game-board,
+.game-message,
+.reset {
+  display: none;
+}
+
+.start-section.active {
+  display: block;
+}
+
+.game-board.active {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(100px, 1fr));
+  grid-template-columns: repeat(3, minmax(100px, 1fr));
+  /* align-items: stretch; */
+  /* text-align: center; */
+  align-items: center;
+  justify-content: center;
+  /* gap: 2rem; */
+  /* overflow: hidden; */
+  border: 1px solid black;
+}
+
+.game-message.active {
+  display: block;
+}
+
+.reset.active {
+  display: block;
+}
+
+.ttt-cell:disabled {
+  background-color: #ccc;
+  color: black;
 }

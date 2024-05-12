@@ -6,6 +6,8 @@ const tttGame = (function () {
     [null, null, null],
     [null, null, null],
   ];
+
+  const players = ["Player 2", "Player 1"];
   // true = x, false = o
   let turn = true;
   let turnCount = 0;
@@ -74,14 +76,27 @@ const tttGame = (function () {
   };
 
   const move = (row, col) => {
-    if (row < 0 || row > 2 || col < 0 || col > 2 || gameBoard[row][col] != null)
-      return false;
+    if (
+      row < 0 ||
+      row > 2 ||
+      col < 0 ||
+      col > 2 ||
+      gameBoard[row][col] != null
+    ) {
+      displayController.setGameMessage(`${players[+turn]}: invalid move!`); // display a message
+      return -1;
+    }
 
+    displayController.setGameMessage(`${players[+turn]}: valid move!`);
     gameBoard[row][col] = turn;
     turn = !turn;
     turnCount += 1;
 
-    return true;
+    displayController.render(gameBoard);
+
+    return getGameState();
+    // return "Valid move!"; // display message
+    // return true;
   };
 
   const nextTurn = () => {
@@ -107,46 +122,114 @@ const tttGame = (function () {
   };
 
   const startGame = () => {
-    let gameState = -1;
-    while (gameState === -1) {
-      gameState = nextTurn();
-      console.log(`gameState: ${gameState}`);
-      display();
-      displayController.render(gameBoard);
-    }
-
-    handleGameOver(gameState);
-    reset();
+    // let gameState = -1;
+    displayController.render(gameBoard);
+    // while (gameState === -1) {
+    //   gameState = nextTurn();
+    //   console.log(`gameState: ${gameState}`);
+    //   display();
+    //   displayController.render(gameBoard);
+    // }
+    // handleGameOver(gameState);
+    // reset();
   };
 
-  return { startGame };
+  return { startGame, move, reset };
 })();
 
 const displayController = (function () {
-  const gameSection = document.createElement("div");
-  gameSection.className = "game-board";
-  container.appendChild(gameSection);
+  const startSection = document.querySelector(".start-section");
+  const gameSection = document.querySelector(".game-board");
+  const gameMessage = document.querySelector(".game-message");
+  const reset = document.querySelector(".reset");
+
+  const init = () => {
+    container.addEventListener("click", function (e) {
+      console.dir(e.target);
+      if (e.target.tagName) {
+        switch (e.target.classList[0]) {
+          case "start-btn":
+            start(e);
+            break;
+          case "reset-btn":
+            displayReset();
+            break;
+          case "ttt-cell":
+            playerMove(
+              parseInt(e.target.attributes["row"].value),
+              parseInt(e.target.attributes["col"].value)
+            );
+            break;
+        }
+      }
+    });
+  };
 
   const render = (gameBoard) => {
     gameSection.innerHTML = "";
     let cell;
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        cell = document.createElement("div");
+        cell = document.createElement("button");
+        cell.type = "button";
         cell.className = "ttt-cell";
+        cell.setAttribute("row", i);
+        cell.setAttribute("col", j);
         cell.innerText =
-          gameBoard[i][j] === true ? "X" : gameBoard[i][j] === false ? "O" : "";
+          gameBoard[i][j] === true
+            ? "X"
+            : gameBoard[i][j] === false
+            ? "O"
+            : "FREE";
 
         gameSection.appendChild(cell);
       }
     }
     console.dir(container);
   };
-  return { render };
+
+  const setGameMessage = (message) => {
+    gameMessage.innerText = message;
+  };
+
+  const disableGame = () => {
+    const cells = document.querySelectorAll(".ttt-cell");
+    cells.forEach((cell) => {
+      cell.disabled = true;
+    });
+  };
+
+  const displayReset = () => {
+    tttGame.reset();
+    startSection.classList.add("active");
+    gameSection.classList.remove("active");
+    gameMessage.innerText = "";
+    gameMessage.classList.remove("active");
+    reset.classList.remove("active");
+  };
+
+  const start = (e) => {
+    e.preventDefault();
+    //start the game...
+    startSection.classList.remove("active");
+    gameSection.classList.add("active");
+    gameMessage.classList.add("active");
+    // render()
+    tttGame.startGame();
+  };
+
+  const playerMove = (row, col) => {
+    const gameState = tttGame.move(row, col);
+
+    if (gameState != -1) {
+      // gameOver
+      setGameMessage(`Game over! gameState: ${gameState}`);
+      disableGame();
+      reset.classList.add("active");
+    }
+  };
+
+  return { init, render, setGameMessage };
 })();
 
-displayController.render([
-  [true, true, true],
-  [false, false, null],
-  [null, false, true],
-]);
+displayController.init();
