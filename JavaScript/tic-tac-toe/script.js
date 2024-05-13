@@ -94,11 +94,17 @@ const tttGame = (function () {
       col > 2 ||
       gameBoard[row][col] != null
     ) {
-      displayController.setGameMessage(`${players[+turn]}: invalid move!`); // display a message
+      displayController.setGameMessage(
+        `${players[+turn]}: row ${row} col ${col} is an invalid move!`
+      ); // display a message
       return -1;
     }
 
-    displayController.setGameMessage(`${players[+turn]}: valid move!`);
+    displayController.setGameMessage(
+      `${players[+turn]} placed an ${
+        turn ? "O" : "X"
+      } in row ${row} col ${col}!`
+    );
     gameBoard[row][col] = turn;
     turn = !turn;
     turnCount += 1;
