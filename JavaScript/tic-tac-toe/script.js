@@ -199,6 +199,7 @@ const displayController = (function () {
 
   const displayReset = () => {
     tttGame.reset();
+    playerInput.reset();
     startSection.classList.add("active");
     gameSection.classList.remove("active");
     gameMessage.innerText = "";
