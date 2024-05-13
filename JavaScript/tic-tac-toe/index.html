@@ -11,7 +11,7 @@
     <div class="container">
       <h1>Tic Tac Toe</h1>
       <div class="start-section active">
-        <form class="player-names">
+        <form id="player-names">
           <div class="player-input">
             <label for="player1">Player 1</label>
             <input
@@ -19,6 +19,7 @@
               name="player1"
               id="player1"
               placeholder="Player 1"
+              maxlength="30"
             />
           </div>
           <div class="player-input">
@@ -28,10 +29,13 @@
               name="player2"
               id="player2"
               placeholder="Player 2"
+              maxlength="30"
             />
           </div>
         </form>
-        <button type="submit" class="start-btn">Start</button>
+        <button type="submit" class="start-btn" form="player-names">
+          Start
+        </button>
       </div>
       <div class="game-board"></div>
       <div class="game-message"></div>

@@ -7,10 +7,19 @@ const tttGame = (function () {
     [null, null, null],
   ];
 
-  const players = ["Player 1", "Player 2"];
+  let players = ["Player 1", "Player 2"];
   // false = x, true = o
   let turn = false;
   let turnCount = 0;
+
+  const setPlayerNames = (player1, player2) => {
+    const player1Name = player1.trim();
+    const player2Name = player2.trim();
+    players = [
+      player1Name.length > 0 ? player1Name : "Player 1",
+      player2Name.length > 0 ? player2Name : "Player 2",
+    ];
+  };
 
   const checkConsecutive = (arr) => {
     return arr.every((item) => item === arr[0]) && arr[0] != null
@@ -63,6 +72,7 @@ const tttGame = (function () {
         console.log("It is a draw!");
         break;
     }
+    return result === 2 ? "It is a draw!" : `${players[result]} won!`;
   };
 
   const reset = () => {
@@ -71,8 +81,9 @@ const tttGame = (function () {
       [null, null, null],
       [null, null, null],
     ];
-    turn = true;
+    turn = false;
     turnCount = 0;
+    players = ["Player 1", "Player 2"];
   };
 
   const move = (row, col) => {
@@ -94,58 +105,28 @@ const tttGame = (function () {
 
     displayController.render(gameBoard);
 
-    return getGameState();
-    // return "Valid move!"; // display message
-    // return true;
-  };
+    const gameState = getGameState();
 
-  const nextTurn = () => {
-    // prompt for move
-    let validMove = false;
-    let row, col;
-    while (!validMove) {
-      // get move
-      [row, col] = prompt(
-        `what is your move ${turn ? "Player 1" : "Player 2"}?`
-      )
-        .split(" ")
-        .map((x) => parseInt(x));
-      validMove = move(row, col);
+    if (gameState != -1) {
+      displayController.setGameMessage(handleGameOver(gameState));
     }
 
-    // check if game is over;
-    return getGameState();
-  };
-
-  const display = () => {
-    console.table(gameBoard);
+    return gameState;
   };
 
   const startGame = () => {
-    // let gameState = -1;
     displayController.render(gameBoard);
-    // while (gameState === -1) {
-    //   gameState = nextTurn();
-    //   console.log(`gameState: ${gameState}`);
-    //   display();
-    //   displayController.render(gameBoard);
-    // }
-    // handleGameOver(gameState);
-    // reset();
   };
 
-  return { startGame, move, reset };
+  return { startGame, move, reset, setPlayerNames };
 })();
-
-const tttCell = function (row, col, type) {
-  // this creates a control cell =>
-};
 
 const displayController = (function () {
   const startSection = document.querySelector(".start-section");
   const gameSection = document.querySelector(".game-board");
   const gameMessage = document.querySelector(".game-message");
   const reset = document.querySelector(".reset");
+  const playerInput = document.querySelector("#player-names");
 
   const init = () => {
     container.addEventListener("click", function (e) {
@@ -153,7 +134,7 @@ const displayController = (function () {
       if (e.target.tagName) {
         switch (e.target.classList[0]) {
           case "start-btn":
-            start(e);
+            start();
             break;
           case "reset-btn":
             displayReset();
@@ -166,6 +147,12 @@ const displayController = (function () {
             break;
         }
       }
+    });
+
+    playerInput.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const inputs = e.target.querySelectorAll("input");
+      tttGame.setPlayerNames(inputs[0].value, inputs[1].value);
     });
   };
 
@@ -219,13 +206,12 @@ const displayController = (function () {
     reset.classList.remove("active");
   };
 
-  const start = (e) => {
-    e.preventDefault();
+  const start = () => {
     //start the game...
     startSection.classList.remove("active");
     gameSection.classList.add("active");
     gameMessage.classList.add("active");
-    // render()
+
     tttGame.startGame();
   };
 
@@ -234,7 +220,6 @@ const displayController = (function () {
 
     if (gameState != -1) {
       // gameOver
-      setGameMessage(`Game over! gameState: ${gameState}`);
       disableGame();
       reset.classList.add("active");
     }
