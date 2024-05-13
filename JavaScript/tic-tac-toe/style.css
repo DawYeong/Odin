@@ -1,34 +1,28 @@
-/* .game-board > .ttt-cell {
-  position: relative;
-}
-
-.game-board > .ttt-cell::after {
-  content: "";
-  background-color: red;
-  position: absolute;
-  width: 100vw;
-  height: 2px;
-  top: -1rem;
-  left: 0;
-}
-
-.game-board > .ttt-cell::before {
-  content: "";
-  background-color: red;
-  position: absolute;
-  width: 2px;
-  height: 100vh;
-  top: 0;
-  left: -1rem;
-} */
-
 * {
   padding: 0;
   margin: 0;
+  font-family: inherit;
 }
 
 :root {
   --board-size: 30rem;
+  --theme-color: #dbeafe;
+}
+
+h1 {
+  font-size: 4rem;
+  /* padding: 1rem; */
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--theme-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  gap: 2rem;
 }
 
 .ttt-btn {
@@ -84,4 +78,74 @@
   height: 100%;
   display: flex;
   align-items: center;
+}
+
+.start-section.active {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  align-self: center;
+  text-align: center;
+  top: 25vh;
+  gap: 2rem;
+}
+
+.user-header {
+  font-size: 2rem;
+}
+
+#player-names {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  input,
+  label {
+    font-size: 1.25rem;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  input {
+    padding: 0.5rem;
+    border: 1px solid black;
+    border-radius: 8px;
+  }
+}
+
+button.start-btn {
+  border: none;
+  font-size: 2rem;
+  border-radius: 8px;
+  padding: 0.5rem;
+  background-color: #4ade80;
+}
+
+button.start-btn:hover,
+button.reset-btn:hover {
+  transform: scale(1.05);
+  transition: 500ms ease-in;
+}
+
+button:active {
+  opacity: 80%;
+}
+
+button.reset-btn {
+  font-size: 2rem;
+  padding: 0.75rem 4rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #f87171;
+}
+
+button.ttt-btn {
+  background-color: white;
+  border: 2px solid black;
+}
+
+.game-message {
+  font-size: 2rem;
 }

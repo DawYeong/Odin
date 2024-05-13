@@ -212,6 +212,7 @@ const displayController = (function () {
     startSection.classList.remove("active");
     gameSection.classList.add("active");
     gameMessage.classList.add("active");
+    reset.classList.add("active");
 
     tttGame.startGame();
   };
@@ -222,7 +223,6 @@ const displayController = (function () {
     if (gameState != -1) {
       // gameOver
       disableGame();
-      reset.classList.add("active");
     }
   };
 
