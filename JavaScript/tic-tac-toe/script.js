@@ -7,9 +7,9 @@ const tttGame = (function () {
     [null, null, null],
   ];
 
-  const players = ["Player 2", "Player 1"];
-  // true = x, false = o
-  let turn = true;
+  const players = ["Player 1", "Player 2"];
+  // false = x, true = o
+  let turn = false;
   let turnCount = 0;
 
   const checkConsecutive = (arr) => {
@@ -137,6 +137,10 @@ const tttGame = (function () {
   return { startGame, move, reset };
 })();
 
+const tttCell = function (row, col, type) {
+  // this creates a control cell =>
+};
+
 const displayController = (function () {
   const startSection = document.querySelector(".start-section");
   const gameSection = document.querySelector(".game-board");
@@ -154,7 +158,7 @@ const displayController = (function () {
           case "reset-btn":
             displayReset();
             break;
-          case "ttt-cell":
+          case "ttt-btn":
             playerMove(
               parseInt(e.target.attributes["row"].value),
               parseInt(e.target.attributes["col"].value)
@@ -168,21 +172,28 @@ const displayController = (function () {
   const render = (gameBoard) => {
     gameSection.innerHTML = "";
     let cell;
+    let img;
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
+        const box = document.createElement("div");
+        box.className = "box";
         cell = document.createElement("button");
         cell.type = "button";
-        cell.className = "ttt-cell";
+        cell.className = "ttt-btn";
         cell.setAttribute("row", i);
         cell.setAttribute("col", j);
-        cell.innerText =
-          gameBoard[i][j] === true
-            ? "X"
-            : gameBoard[i][j] === false
-            ? "O"
-            : "FREE";
 
-        gameSection.appendChild(cell);
+        if (gameBoard[i][j] === false) {
+          img = document.createElement("img");
+          img.src = "./icons/x.svg";
+          cell.appendChild(img);
+        } else if (gameBoard[i][j] === true) {
+          img = document.createElement("img");
+          img.src = "./icons/o.svg";
+          cell.appendChild(img);
+        }
+        box.appendChild(cell);
+        gameSection.appendChild(box);
       }
     }
     console.dir(container);
@@ -193,7 +204,7 @@ const displayController = (function () {
   };
 
   const disableGame = () => {
-    const cells = document.querySelectorAll(".ttt-cell");
+    const cells = document.querySelectorAll(".ttt-btn");
     cells.forEach((cell) => {
       cell.disabled = true;
     });
