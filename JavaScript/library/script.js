@@ -8,61 +8,123 @@ const bookForm = document.querySelector("form#book-form");
 const bookSection = document.querySelector(".book-section");
 const formError = document.querySelector("p.error");
 
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
+class Book {
+  #title;
+  #author;
+  #pages;
+  #read;
+  constructor(title, author, pages, read) {
+    this.#title = title;
+    this.#author = author;
+    this.#pages = pages;
+    this.#read = read;
+  }
+
+  generateBookCard() {
+    const book = document.createElement("div");
+    book.className = "book";
+
+    const title = document.createElement("p");
+    title.className = "book-title";
+    title.textContent = this.#title;
+    title.value = this.#title;
+    book.appendChild(title);
+
+    const author = document.createElement("p");
+    author.className = "book-author";
+    author.textContent = this.#author;
+    author.value = this.#author;
+    book.appendChild(author);
+
+    const pages = document.createElement("p");
+    pages.className = "book-pages";
+    pages.textContent = `${this.#pages} page${this.#pages > 1 ? "s" : ""}`;
+    pages.value = this.#pages;
+    book.appendChild(pages);
+
+    const btnGroup = document.createElement("div");
+    btnGroup.className = "btn-group";
+
+    const read = document.createElement("button");
+    read.className = BOOK_READ_CLASS[+this.#read];
+    read.innerText = BOOK_READ_TEXT[+this.#read];
+    read.value = this.#read;
+    read.type = "button";
+    btnGroup.appendChild(read);
+
+    const edit = document.createElement("button");
+    edit.className = "edit";
+    edit.innerText = "Edit";
+    edit.type = "button";
+    btnGroup.appendChild(edit);
+
+    const remove = document.createElement("button");
+    remove.className = "remove";
+    remove.innerText = "Remove";
+    remove.type = "button";
+    btnGroup.appendChild(remove);
+
+    book.appendChild(btnGroup);
+
+    return book;
+  }
 }
 
-Book.prototype.generateBookCard = function () {
-  const book = document.createElement("div");
-  book.className = "book";
+// function Book(title, author, pages, read) {
+//   this.title = title;
+//   this.author = author;
+//   this.pages = pages;
+//   this.read = read;
+// }
 
-  const title = document.createElement("p");
-  title.className = "book-title";
-  title.textContent = this.title;
-  title.value = this.title;
-  book.appendChild(title);
+// Book.prototype.generateBookCard = function () {
+//   const book = document.createElement("div");
+//   book.className = "book";
 
-  const author = document.createElement("p");
-  author.className = "book-author";
-  author.textContent = this.author;
-  author.value = this.author;
-  book.appendChild(author);
+//   const title = document.createElement("p");
+//   title.className = "book-title";
+//   title.textContent = this.title;
+//   title.value = this.title;
+//   book.appendChild(title);
 
-  const pages = document.createElement("p");
-  pages.className = "book-pages";
-  pages.textContent = `${this.pages} page${this.pages > 1 ? "s" : ""}`;
-  pages.value = this.pages;
-  book.appendChild(pages);
+//   const author = document.createElement("p");
+//   author.className = "book-author";
+//   author.textContent = this.author;
+//   author.value = this.author;
+//   book.appendChild(author);
 
-  const btnGroup = document.createElement("div");
-  btnGroup.className = "btn-group";
+//   const pages = document.createElement("p");
+//   pages.className = "book-pages";
+//   pages.textContent = `${this.pages} page${this.pages > 1 ? "s" : ""}`;
+//   pages.value = this.pages;
+//   book.appendChild(pages);
 
-  const read = document.createElement("button");
-  read.className = BOOK_READ_CLASS[+this.read];
-  read.innerText = BOOK_READ_TEXT[+this.read];
-  read.value = this.read;
-  read.type = "button";
-  btnGroup.appendChild(read);
+//   const btnGroup = document.createElement("div");
+//   btnGroup.className = "btn-group";
 
-  const edit = document.createElement("button");
-  edit.className = "edit";
-  edit.innerText = "Edit";
-  edit.type = "button";
-  btnGroup.appendChild(edit);
+//   const read = document.createElement("button");
+//   read.className = BOOK_READ_CLASS[+this.read];
+//   read.innerText = BOOK_READ_TEXT[+this.read];
+//   read.value = this.read;
+//   read.type = "button";
+//   btnGroup.appendChild(read);
 
-  const remove = document.createElement("button");
-  remove.className = "remove";
-  remove.innerText = "Remove";
-  remove.type = "button";
-  btnGroup.appendChild(remove);
+//   const edit = document.createElement("button");
+//   edit.className = "edit";
+//   edit.innerText = "Edit";
+//   edit.type = "button";
+//   btnGroup.appendChild(edit);
 
-  book.appendChild(btnGroup);
+//   const remove = document.createElement("button");
+//   remove.className = "remove";
+//   remove.innerText = "Remove";
+//   remove.type = "button";
+//   btnGroup.appendChild(remove);
 
-  return book;
-};
+//   book.appendChild(btnGroup);
+
+//   return book;
+// };
 
 const displayBooks = () => {
   // reset books
