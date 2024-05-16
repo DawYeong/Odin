@@ -1,1 +1,3 @@
-console.log("RESTAURANT PAGE");
+import { initialPageLoad } from "./init";
+
+initialPageLoad();
