@@ -6,22 +6,23 @@ import { generateMenuPage } from "./menu";
 export const generatePage = (parent, tab) => {
   // clear div
   clearElement(parent);
+  console.log(parent);
   switch (tab) {
     case "home":
       //generate home
-      generateHomePage();
+      generateHomePage(parent);
       break;
     case "menu":
       //generate menu
-      generateMenuPage();
+      generateMenuPage(parent);
       break;
     case "about":
       //generate about
-      generateAboutPage();
+      generateAboutPage(parent);
       break;
     default:
       // default to home
-      generateHomePage();
+      generateHomePage(parent);
       break;
   }
 };
