@@ -15,6 +15,44 @@ const createHeader = () => {
   document.body.insertBefore(header, CONTENT);
 };
 
+const createInfoSection = () => {
+  const infoSection = createElement("div", "", "info-section", "");
+
+  const contact = createElement("div", "contact", "", "");
+  contact.appendChild(createElement("h2", "", "", "Contact"));
+  contact.appendChild(
+    createElement("p", "", "", "Address: 123 Miso Lane, Soy Sauce City")
+  );
+  contact.appendChild(createElement("p", "", "", "Phone: (555) 123-4567"));
+  contact.appendChild(
+    createElement("p", "", "", "Email: rollandmunch@sashimisanctuary.com")
+  );
+
+  const operatingHours = createElement("div", "hours", "", "");
+  operatingHours.appendChild(createElement("h2", "", "", "Business hour"));
+  const hourList = createElement("ul", "", "", "");
+  hourList.appendChild(
+    createElement("li", "", "", "Mon - Thur: 11:30-3:00 4:00-9:30")
+  );
+  hourList.appendChild(createElement("li", "", "", "Friday: 4:00-10:30"));
+  hourList.appendChild(createElement("li", "", "", "Saturday: 12:00-9:30"));
+  hourList.appendChild(createElement("li", "", "", "Sunday: 12:00-8:00"));
+  operatingHours.appendChild(hourList);
+
+  const subscribeEmail = createElement("div", "subscribe", "", "");
+  subscribeEmail.appendChild(createElement("h2", "", "", "Subscribe"));
+  subscribeEmail.appendChild(
+    createElement("input", "", "", "", { placeholder: "E-Mail" })
+  );
+  subscribeEmail.appendChild(createElement("button", "", "", "subscribe"));
+
+  infoSection.appendChild(contact);
+  infoSection.appendChild(operatingHours);
+  infoSection.appendChild(subscribeEmail);
+
+  document.body.appendChild(infoSection);
+};
+
 const createFooter = () => {
   const footer = createElement("div", "", "footer-section", "");
   const footerContent = createElement(
@@ -44,5 +82,6 @@ export const initialPageLoad = () => {
   });
 
   generatePage(CONTENT, "home");
+  createInfoSection();
   createFooter();
 };
