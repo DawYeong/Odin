@@ -1,4 +1,4 @@
 import { initialPageLoad } from "./init";
-import "./style.css";
+import "./styles/main.css";
 
 initialPageLoad();
