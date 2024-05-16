@@ -16,13 +16,13 @@ const createHeader = () => {
 };
 
 const createInfoSection = () => {
-  const infoSection = createElement("div", "", "info-section", "");
   const infoSectionWrapper = createElement(
     "div",
     "",
     "info-section-wrapper",
     ""
   );
+  const infoSection = createElement("div", "", "info-section", "");
 
   const contact = createElement("div", "contact", "", "");
   contact.appendChild(createElement("h2", "", "", "Contact"));
@@ -52,13 +52,13 @@ const createInfoSection = () => {
   );
   subscribeEmail.appendChild(createElement("button", "", "", "subscribe"));
 
-  infoSectionWrapper.appendChild(contact);
-  infoSectionWrapper.appendChild(operatingHours);
-  infoSectionWrapper.appendChild(subscribeEmail);
+  infoSection.appendChild(contact);
+  infoSection.appendChild(operatingHours);
+  infoSection.appendChild(subscribeEmail);
 
-  infoSection.appendChild(infoSectionWrapper);
+  infoSectionWrapper.appendChild(infoSection);
 
-  document.body.appendChild(infoSection);
+  document.body.appendChild(infoSectionWrapper);
 };
 
 const createFooter = () => {
