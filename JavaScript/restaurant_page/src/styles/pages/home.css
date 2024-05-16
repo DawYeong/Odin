@@ -19,7 +19,7 @@
   }
 
   .description-section {
-    max-width: 600px;
+    max-width: calc(var(--max-width) / 2);
     text-align: center;
     font-size: 1.25rem;
   }
