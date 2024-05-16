@@ -16,3 +16,31 @@ body {
   position: relative;
   font-family: "Noto Sans JP", sans-serif;
 }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  align-items: center;
+  margin: 0 auto;
+  color: #1e2a3d;
+
+  p {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  .nav-header {
+    display: flex;
+    gap: 1rem;
+  }
+
+  button {
+    font-size: 1rem;
+    background-color: transparent;
+    color: #1e2a3d;
+    padding: 0.5rem 1rem;
+    border-radius: 16px;
+    border: none;
+  }
+}

@@ -3,12 +3,14 @@ import { CONTENT, createElement, createImage } from "./utils";
 import sashimi from "./images/sashimi.jpg";
 
 const createHeader = () => {
-  const header = createElement("header", "", "", "Sashimi Sanctuary");
+  const header = createElement("header", "", "", "");
+  const title = createElement("p", "", "", "Sashimi Sanctuary");
   const nav = createElement("nav", "nav-header", "", "");
   nav.appendChild(createElement("button", "", "", "Home", { page: "home" }));
   nav.appendChild(createElement("button", "", "", "Menu", { page: "menu" }));
   nav.appendChild(createElement("button", "", "", "About", { page: "about" }));
 
+  header.appendChild(title);
   header.appendChild(nav);
   document.body.insertBefore(header, CONTENT);
 };
