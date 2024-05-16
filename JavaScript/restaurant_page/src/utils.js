@@ -2,7 +2,7 @@ const CONTENT = document.querySelector("#content");
 
 const clearElement = (element) => {
   while (element.firstChild) {
-    element.remove(element.lastChild);
+    element.removeChild(element.firstChild);
   }
 };
 
