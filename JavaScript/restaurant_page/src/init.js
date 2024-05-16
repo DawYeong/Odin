@@ -15,6 +15,22 @@ const createHeader = () => {
   document.body.insertBefore(header, CONTENT);
 };
 
+const createFooter = () => {
+  const footer = createElement("div", "", "footer-section", "");
+  const footerContent = createElement(
+    "a",
+    "footer-content",
+    "",
+    "Background image by Valeria Boltneva",
+    {
+      href: "https://www.pexels.com/photo/close-up-photo-of-sliced-salmon-1683545/",
+    }
+  );
+
+  footer.appendChild(footerContent);
+  document.body.appendChild(footer);
+};
+
 export const initialPageLoad = () => {
   createHeader();
   //   const backgroundImage = createImage(sashimi, "background-image", "");
@@ -28,4 +44,5 @@ export const initialPageLoad = () => {
   });
 
   generatePage(CONTENT, "home");
+  createFooter();
 };
