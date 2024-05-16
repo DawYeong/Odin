@@ -17,6 +17,12 @@ const createHeader = () => {
 
 const createInfoSection = () => {
   const infoSection = createElement("div", "", "info-section", "");
+  const infoSectionWrapper = createElement(
+    "div",
+    "",
+    "info-section-wrapper",
+    ""
+  );
 
   const contact = createElement("div", "contact", "", "");
   contact.appendChild(createElement("h2", "", "", "Contact"));
@@ -30,7 +36,7 @@ const createInfoSection = () => {
 
   const operatingHours = createElement("div", "hours", "", "");
   operatingHours.appendChild(createElement("h2", "", "", "Business hour"));
-  const hourList = createElement("ul", "", "", "");
+  const hourList = createElement("ul", "hour-list", "", "");
   hourList.appendChild(
     createElement("li", "", "", "Mon - Thur: 11:30-3:00 4:00-9:30")
   );
@@ -46,9 +52,11 @@ const createInfoSection = () => {
   );
   subscribeEmail.appendChild(createElement("button", "", "", "subscribe"));
 
-  infoSection.appendChild(contact);
-  infoSection.appendChild(operatingHours);
-  infoSection.appendChild(subscribeEmail);
+  infoSectionWrapper.appendChild(contact);
+  infoSectionWrapper.appendChild(operatingHours);
+  infoSectionWrapper.appendChild(subscribeEmail);
+
+  infoSection.appendChild(infoSectionWrapper);
 
   document.body.appendChild(infoSection);
 };
