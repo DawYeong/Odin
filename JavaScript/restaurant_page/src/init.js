@@ -89,7 +89,7 @@ export const initialPageLoad = () => {
     generatePage(CONTENT, e.target.attributes["page"].value);
   });
 
-  generatePage(CONTENT, "home");
+  generatePage(CONTENT, "menu");
   createInfoSection();
   createFooter();
 };

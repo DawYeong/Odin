@@ -1,0 +1,94 @@
+@import "../utils.css";
+
+#menu-section-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 7rem;
+  text-align: center;
+  gap: 10rem;
+
+  #menu-section {
+    width: 100%;
+    color: rgb(231, 231, 231);
+    background-color: rgb(23, 25, 26);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem 0;
+    gap: 3rem;
+
+    .menu-title {
+      font-size: 2.5rem;
+    }
+
+    .menu-description {
+      max-width: calc(var(--max-width) / 2);
+    }
+
+    .see-more-btn {
+      font-size: 1rem;
+      color: rgb(224, 220, 220);
+      background-color: rgb(var(--btn-color));
+      padding: 0.75rem 1.5rem;
+      border-radius: 1.5rem;
+    }
+  }
+
+  .menu-items {
+    max-width: calc(var(--max-width) + 3 * 1rem);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .menu-item {
+    box-sizing: border-box;
+    width: 300px;
+    padding: 1.25rem;
+    background: rgb(20, 22, 23);
+    box-shadow: rgba(0, 0, 0, 0.07) 5px 5px 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 415px;
+
+    .menu-title-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .price {
+        background-color: rgb(var(--btn-color));
+        padding: 0.25rem 0.5rem;
+      }
+    }
+
+    .item-description {
+      align-self: start;
+      text-align: left;
+    }
+
+    .image-wrapper {
+      height: 170px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    .menu-order-btn {
+      align-self: left;
+      width: 50%;
+      padding: 0.75rem 1rem;
+      border-radius: 2rem;
+      font-size: 1rem;
+      color: rgb(var(--btn-color));
+      background-color: rgba(var(--btn-color), 0.1);
+    }
+  }
+}

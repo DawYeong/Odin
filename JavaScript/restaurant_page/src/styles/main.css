@@ -19,6 +19,15 @@ body {
   font-family: "Noto Sans JP", sans-serif;
 }
 
+h1 {
+  font-size: 6rem;
+}
+
+button {
+  border: none;
+  outline: none;
+}
+
 header {
   display: flex;
   justify-content: space-between;
@@ -84,7 +93,7 @@ header {
     button {
       padding: 0.5rem;
       font-size: 1rem;
-      background-color: var(--btn-color);
+      background-color: rgb(var(--btn-color));
       border: none;
       outline: none;
     }
