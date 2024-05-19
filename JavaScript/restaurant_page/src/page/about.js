@@ -23,6 +23,13 @@ const createUserReview = (img, review, name) => {
   return reviewItem;
 };
 
+const createStatItem = (stat, statDesc) => {
+  const statItem = createElement("div", "stat-item", "", "");
+  statItem.appendChild(createElement("h2", "", "", stat));
+  statItem.appendChild(createElement("p", "", "", statDesc));
+  return statItem;
+};
+
 export const generateAboutPage = (page) => {
   console.log("GENERATE ABOUT");
 
@@ -192,6 +199,14 @@ export const generateAboutPage = (page) => {
     "",
     ""
   );
+  const statSection = createElement("div", "section stat", "", "");
+  const statItems = createElement("div", "stat-items", "", "");
+  statItems.appendChild(createStatItem("500,000", "Happy Customers"));
+  statItems.appendChild(createStatItem("4,000,000", "Pieces of Fish Sold"));
+  statItems.appendChild(createStatItem("7,000", "Working Hours"));
+  statItems.appendChild(createStatItem("20", "Years Opened"));
+  statSection.appendChild(statItems);
+  statSectionWrapper.appendChild(statSection);
 
   aboutSectionWrapper.appendChild(pageTitle);
   aboutSectionWrapper.appendChild(aboutCompanySectionWrapper);
