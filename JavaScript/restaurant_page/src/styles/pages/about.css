@@ -1,0 +1,57 @@
+@import "../utils.css";
+
+#about-section-wrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--title-margin);
+  gap: var(--title-gap);
+
+  .section {
+    max-width: var(--max-width);
+  }
+
+  .about-company-section-wrapper {
+    width: 100%;
+    background-color: var(--dark-back);
+    display: flex;
+    justify-content: center;
+    padding: 6rem;
+
+    .about-company {
+      --left-width: calc(var(--max-width) / 2);
+      --container-gap: 6rem;
+      --right-width: calc(
+        var(--max-width) - var(--left-width) - var(--container-gap)
+      );
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: var(--container-gap);
+      .left-container {
+        width: var(--left-width);
+        height: auto;
+        overflow: hidden;
+      }
+
+      .right-container {
+        max-width: var(--right-width);
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+
+        .learn-more {
+          width: 25%;
+          font-size: 1rem;
+          background-color: rgb(var(--btn-color));
+          padding: 0.25rem;
+          border-radius: 1.5rem;
+          color: var(--p-color);
+        }
+      }
+    }
+  }
+}

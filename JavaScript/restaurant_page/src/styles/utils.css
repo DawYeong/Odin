@@ -1,4 +1,8 @@
 :root {
   --max-width: 1200px;
   --btn-color: 14, 165, 233;
+  --title-margin: 7rem;
+  --title-gap: 10rem;
+  --dark-back: rgb(23, 25, 26);
+  --p-color: rgb(231, 231, 231);
 }
