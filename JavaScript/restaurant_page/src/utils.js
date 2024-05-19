@@ -6,6 +6,12 @@ import menuItem5 from "./images/menuItem5.jpg";
 import menuItem6 from "./images/menuItem6.jpg";
 import menuItem7 from "./images/menuItem7.jpg";
 import menuItem8 from "./images/menuItem8.jpg";
+import service1 from "./images/service1.svg";
+import service2 from "./images/service2.svg";
+import service3 from "./images/service3.svg";
+import service4 from "./images/service4.svg";
+import service5 from "./images/service5.svg";
+import service6 from "./images/service6.svg";
 
 const CONTENT = document.querySelector("#content");
 
@@ -45,4 +51,20 @@ const menuImages = [
   menuItem8,
 ];
 
-export { CONTENT, clearElement, createElement, createImage, menuImages };
+const serviceIcons = [
+  service1,
+  service2,
+  service3,
+  service4,
+  service5,
+  service6,
+];
+
+export {
+  CONTENT,
+  clearElement,
+  createElement,
+  createImage,
+  menuImages,
+  serviceIcons,
+};

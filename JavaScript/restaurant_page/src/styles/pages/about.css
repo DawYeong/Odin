@@ -17,7 +17,10 @@
     width: 100%;
     background-color: var(--dark-back);
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    gap: 12rem;
     padding: 6rem;
 
     .about-company {
@@ -52,6 +55,33 @@
           color: var(--p-color);
         }
       }
+    }
+  }
+
+  .company-values {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    .value-desc {
+      width: calc(var(--max-width) / 2);
+    }
+
+    img {
+      width: 75px;
+      height: 75px;
+    }
+
+    .value-items {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .value-item {
+      width: calc(var(--max-width) / 3);
+      padding: 2.5rem;
     }
   }
 }

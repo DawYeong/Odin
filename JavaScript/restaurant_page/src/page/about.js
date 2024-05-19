@@ -1,6 +1,14 @@
 import aboutImg from "../images/about.jpg";
-import { createElement, createImage } from "../utils";
+import { createElement, createImage, serviceIcons } from "../utils";
 import "../styles/pages/about.css";
+
+const createValueItem = (img, title, desc) => {
+  const valueItem = createElement("div", "value-item", "", "");
+  valueItem.appendChild(createImage(img, "", ""));
+  valueItem.appendChild(createElement("h3", "service-title", "", title));
+  valueItem.appendChild(createElement("p", "service-desc", "", desc));
+  return valueItem;
+};
 
 export const generateAboutPage = (page) => {
   console.log("GENERATE ABOUT");
@@ -51,6 +59,70 @@ export const generateAboutPage = (page) => {
   aboutCompanySection.appendChild(leftContainer);
   aboutCompanySection.appendChild(rightContainer);
   aboutCompanySectionWrapper.appendChild(aboutCompanySection);
+
+  const companyValuesSection = createElement(
+    "div",
+    "section company-values",
+    "",
+    ""
+  );
+  companyValuesSection.appendChild(
+    createElement("h2", "value-title", "", "Why Choose Us?")
+  );
+  companyValuesSection.appendChild(
+    createElement(
+      "p",
+      "value-desc",
+      "",
+      "Savor the freshest sashimi and expertly crafted sushi rolls in a serene ambiance at Sashimi Sanctuary."
+    )
+  );
+  const valueItems = createElement("div", "value-items", "", "");
+  valueItems.appendChild(
+    createValueItem(
+      serviceIcons[0],
+      "Service 1",
+      "Our service extends beyond excellence; it's an art form. From warm welcomes to attentive recommendations, we ensure your dining experience is as memorable as our exquisite dishes."
+    )
+  );
+  valueItems.appendChild(
+    createValueItem(
+      serviceIcons[1],
+      "Service 2",
+      "Our service extends beyond excellence; it's an art form. From warm welcomes to attentive recommendations, we ensure your dining experience is as memorable as our exquisite dishes."
+    )
+  );
+  valueItems.appendChild(
+    createValueItem(
+      serviceIcons[2],
+      "Service 3",
+      "Our service extends beyond excellence; it's an art form. From warm welcomes to attentive recommendations, we ensure your dining experience is as memorable as our exquisite dishes."
+    )
+  );
+  valueItems.appendChild(
+    createValueItem(
+      serviceIcons[3],
+      "Service 4",
+      "Our service extends beyond excellence; it's an art form. From warm welcomes to attentive recommendations, we ensure your dining experience is as memorable as our exquisite dishes."
+    )
+  );
+  valueItems.appendChild(
+    createValueItem(
+      serviceIcons[4],
+      "Service 5",
+      "Our service extends beyond excellence; it's an art form. From warm welcomes to attentive recommendations, we ensure your dining experience is as memorable as our exquisite dishes."
+    )
+  );
+  valueItems.appendChild(
+    createValueItem(
+      serviceIcons[5],
+      "Service 6",
+      "Our service extends beyond excellence; it's an art form. From warm welcomes to attentive recommendations, we ensure your dining experience is as memorable as our exquisite dishes."
+    )
+  );
+
+  companyValuesSection.appendChild(valueItems);
+  aboutCompanySectionWrapper.appendChild(companyValuesSection);
 
   const customerRatingSectionWrapper = createElement(
     "div",
