@@ -1,6 +1,5 @@
 import { generatePage } from "./page/pageFactory";
-import { CONTENT, createElement, createImage } from "./utils";
-import sashimi from "./images/sashimi.jpg";
+import { CONTENT, createElement } from "./utils";
 
 const createHeader = () => {
   const header = createElement("header", "", "", "");
@@ -79,13 +78,10 @@ const createFooter = () => {
 
 export const initialPageLoad = () => {
   createHeader();
-  //   const backgroundImage = createImage(sashimi, "background-image", "");
-  //   document.body.insertBefore(backgroundImage, CONTENT);
   const nav = document.querySelector("nav.nav-header");
   // add listener to nav to listen for tab button presses
 
   nav.addEventListener("click", function (e) {
-    // console.log(e.target.attributes["tab"].value);
     generatePage(CONTENT, e.target.attributes["page"].value);
   });
 
