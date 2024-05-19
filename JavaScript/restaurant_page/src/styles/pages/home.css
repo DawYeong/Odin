@@ -25,7 +25,7 @@
   }
 
   .order-btn {
-    background-color: #59caec;
+    background-color: rgb(var(--btn-color));
     font-size: 1rem;
     padding: 0.5rem 1rem;
     border: none;

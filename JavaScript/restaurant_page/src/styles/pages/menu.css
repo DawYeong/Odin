@@ -4,14 +4,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 7rem;
+  margin-top: var(--title-margin);
   text-align: center;
-  gap: 10rem;
+  gap: var(--title-gap);
 
   #menu-section {
     width: 100%;
-    color: rgb(231, 231, 231);
-    background-color: rgb(23, 25, 26);
+    background-color: var(--dark-back);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -90,5 +89,17 @@
       color: rgb(var(--btn-color));
       background-color: rgba(var(--btn-color), 0.1);
     }
+
+    .menu-order-btn:hover {
+      background-color: rgba(var(--btn-color), 0.7);
+      color: white;
+      transition: all 250ms ease-in;
+    }
+  }
+
+  .menu-item:hover {
+    transform: scale(1.05);
+    border: 1px white solid;
+    transition: all 250ms ease-in;
   }
 }
