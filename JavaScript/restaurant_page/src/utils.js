@@ -12,6 +12,9 @@ import service3 from "./images/service3.svg";
 import service4 from "./images/service4.svg";
 import service5 from "./images/service5.svg";
 import service6 from "./images/service6.svg";
+import customer1 from "./images/customer1.jpg";
+import customer2 from "./images/customer2.jpg";
+import customer3 from "./images/customer3.jpg";
 
 const CONTENT = document.querySelector("#content");
 
@@ -60,6 +63,8 @@ const serviceIcons = [
   service6,
 ];
 
+const customersPfp = [customer1, customer2, customer3];
+
 export {
   CONTENT,
   clearElement,
@@ -67,4 +72,5 @@ export {
   createImage,
   menuImages,
   serviceIcons,
+  customersPfp,
 };

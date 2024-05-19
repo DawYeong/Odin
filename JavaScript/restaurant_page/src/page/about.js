@@ -1,5 +1,10 @@
 import aboutImg from "../images/about.jpg";
-import { createElement, createImage, serviceIcons } from "../utils";
+import {
+  createElement,
+  createImage,
+  serviceIcons,
+  customersPfp,
+} from "../utils";
 import "../styles/pages/about.css";
 
 const createValueItem = (img, title, desc) => {
@@ -8,6 +13,14 @@ const createValueItem = (img, title, desc) => {
   valueItem.appendChild(createElement("h3", "service-title", "", title));
   valueItem.appendChild(createElement("p", "service-desc", "", desc));
   return valueItem;
+};
+
+const createUserReview = (img, review, name) => {
+  const reviewItem = createElement("div", "review-item", "", "");
+  reviewItem.appendChild(createImage(img, "", ""));
+  reviewItem.appendChild(createElement("p", "", "", review));
+  reviewItem.appendChild(createElement("h3", "", "", name));
+  return reviewItem;
 };
 
 export const generateAboutPage = (page) => {
@@ -130,6 +143,48 @@ export const generateAboutPage = (page) => {
     "",
     ""
   );
+  const customerRatingSection = createElement(
+    "div",
+    "company-rating-section",
+    "",
+    ""
+  );
+  customerRatingSection.appendChild(
+    createElement("h2", "", "", "Listen to our valued customers!")
+  );
+  customerRatingSection.appendChild(
+    createElement(
+      "p",
+      "rating-desc",
+      "",
+      "At Sashimi Sanctuary, we value our customer input, as it helps us continually refine and perfect our culinary offerings to exceed your expectations."
+    )
+  );
+  const reviewItems = createElement("div", "review-items", "", "");
+  reviewItems.appendChild(
+    createUserReview(
+      customersPfp[0],
+      "Sashimi Sanctuary changed my life by introducing me to a world of exquisite flavors and culinary artistry, leaving an indelible mark on my palate and enriching my dining experiences forever.",
+      "Customer 1"
+    )
+  );
+  reviewItems.appendChild(
+    createUserReview(
+      customersPfp[1],
+      "Sashimi Sanctuary changed my life by introducing me to a world of exquisite flavors and culinary artistry, leaving an indelible mark on my palate and enriching my dining experiences forever.",
+      "Customer 2"
+    )
+  );
+  reviewItems.appendChild(
+    createUserReview(
+      customersPfp[2],
+      "Sashimi Sanctuary changed my life by introducing me to a world of exquisite flavors and culinary artistry, leaving an indelible mark on my palate and enriching my dining experiences forever.",
+      "Customer 3"
+    )
+  );
+  customerRatingSection.appendChild(reviewItems);
+
+  customerRatingSectionWrapper.appendChild(customerRatingSection);
 
   const statSectionWrapper = createElement(
     "div",

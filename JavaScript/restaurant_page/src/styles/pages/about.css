@@ -15,7 +15,7 @@
 
   .about-company-section-wrapper {
     width: 100%;
-    background-color: var(--dark-back);
+    background-color: var(--grey-back);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -76,12 +76,63 @@
 
     .value-items {
       display: flex;
+      justify-content: center;
       flex-wrap: wrap;
     }
 
     .value-item {
       width: calc(var(--max-width) / 3);
       padding: 2.5rem;
+    }
+  }
+
+  .company-rating-section-wrapper {
+    background-image: url("../../images/people-eating.jpg");
+    background-blend-mode: multiply;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    width: 100vw;
+    margin-top: -12rem;
+    padding-bottom: 12rem;
+
+    .company-rating-section {
+      margin-top: 12rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+
+      .rating-desc {
+        max-width: calc((var(--max-width)) / 2);
+      }
+
+      .review-items {
+        --item-gap: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--item-gap);
+
+        .review-item {
+          background-color: var(--grey-back);
+          width: calc((var(--max-width) - var(--item-gap)) / 3);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 2rem;
+          padding: 2rem;
+          img {
+            height: 120px;
+            width: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+        }
+      }
     }
   }
 }
