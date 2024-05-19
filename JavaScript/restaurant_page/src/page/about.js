@@ -31,8 +31,6 @@ const createStatItem = (stat, statDesc) => {
 };
 
 export const generateAboutPage = (page) => {
-  console.log("GENERATE ABOUT");
-
   const aboutSectionWrapper = createElement(
     "div",
     "",

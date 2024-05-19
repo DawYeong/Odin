@@ -2,9 +2,7 @@ import { createElement } from "../utils";
 import "../styles/pages/home.css";
 
 export const generateHomePage = (parent) => {
-  console.log("GENERATE HOME", parent);
   const homeSection = createElement("div", "", "home-section", "");
-  console.log(homeSection);
   // title
   const title = createElement("h1", "title", "", "Sashimi Sanctuary");
   // description section

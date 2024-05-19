@@ -23,8 +23,6 @@ const createMenuItem = (img, title, price, description) => {
 };
 
 export const generateMenuPage = (parent) => {
-  console.log("GENERATE MENU");
-
   const menuSectionWrapper = createElement(
     "div",
     "",

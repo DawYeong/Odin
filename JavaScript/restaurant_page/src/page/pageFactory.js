@@ -6,7 +6,6 @@ import { generateMenuPage } from "./menu";
 export const generatePage = (parent, tab) => {
   // clear div
   clearElement(parent);
-  console.log(parent);
   switch (tab) {
     case "home":
       //generate home
