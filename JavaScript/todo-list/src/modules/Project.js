@@ -1,15 +1,15 @@
 import { v4 as uuidv4 } from "uuid";
 
 export default class Project {
-  #id;
-  constructor(name, isDefault) {
-    this.#id = uuidv4();
+  constructor(name, isDefault, id) {
     this.name = name;
-    this.isDefault = isDefault;
+    this.isDefault = isDefault ?? false;
+    this.id = id ?? uuidv4();
+    console.log(this.name, this.isDefault, this.id);
   }
 
   getId() {
-    return this.#id;
+    return this.id;
   }
 
   getName() {

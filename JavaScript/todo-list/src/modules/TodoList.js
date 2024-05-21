@@ -24,8 +24,13 @@ export default class TodoList {
     return this.projects;
   }
 
-  addProject(name) {
-    this.projects.push(new Project(name, false));
+  getTasks() {
+    return this.tasks;
+  }
+
+  addProject(name, isDefault, id) {
+    console.log(name, isDefault, id);
+    this.projects.push(new Project(name, isDefault, id));
   }
 
   deleteProject(projectId) {
@@ -47,9 +52,17 @@ export default class TodoList {
     });
   }
 
-  addTask(title) {
-    // adds task to active project
-    this.tasks.push(new Task(this.activeProject.getId(), title));
+  addTask(title, description, important, dueDate, id, projectId) {
+    this.tasks.push(
+      new Task(
+        projectId ?? this.activeProject.getId(),
+        title,
+        description,
+        important,
+        dueDate,
+        id
+      )
+    );
   }
 
   deleteTask(taskId) {
@@ -57,5 +70,26 @@ export default class TodoList {
       this.tasks.findIndex((task) => task.getTaskId() === taskId),
       1
     );
+  }
+
+  importJson(json) {
+    this.projects = [];
+    this.tasks = [];
+    json["projects"].forEach((project) => {
+      this.addProject(project["name"], project["isDefault"], project["id"]);
+    });
+
+    json["tasks"].forEach((tasks) => {
+      this.addTask(
+        tasks["title"],
+        tasks["description"],
+        tasks["important"],
+        tasks["dueDate"],
+        tasks["id"],
+        tasks["projectId"]
+      );
+    });
+
+    this.activeProject = this.projects[0];
   }
 }
