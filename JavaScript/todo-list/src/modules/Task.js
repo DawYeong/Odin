@@ -22,6 +22,10 @@ export default class Task {
     this.important = !this.important;
   }
 
+  getTitle() {
+    return this.title;
+  }
+
   getProjectId() {
     return this.projectId;
   }

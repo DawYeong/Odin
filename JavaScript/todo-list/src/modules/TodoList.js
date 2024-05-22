@@ -24,6 +24,10 @@ export default class TodoList {
     return this.projects;
   }
 
+  getProjectTasks(projectId) {
+    return this.tasks.filter((task) => task.getProjectId() === projectId);
+  }
+
   getTasks() {
     return this.tasks;
   }
@@ -44,9 +48,8 @@ export default class TodoList {
       1
     );
 
-    const projectTasks = this.tasks.filter(
-      (task) => task.getProjectId() === projectId
-    );
+    const projectTasks = this.getProjectTasks(projectId);
+
     projectTasks.forEach((task) => {
       this.deleteTask(task.getTaskId());
     });
