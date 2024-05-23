@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#container {
+  display: flex;
+}
+
+.side-menu {
+  width: 350px;
+  display: none;
+}
+
+.nav-btn,
+.side-menu.open {
+  display: block;
+}
+
+.nav-btn.close {
+  display: none;
+}
+
+.project-item {
+  display: flex;
+}
