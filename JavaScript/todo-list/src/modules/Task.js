@@ -19,6 +19,14 @@ export default class Task {
     this.id = id ?? uuidv4();
   }
 
+  setTitle(title) {
+    this.title = title;
+  }
+
+  setCompleted(completed) {
+    this.completed = completed;
+  }
+
   setDueDate(date) {
     this.dueDate = date;
   }
@@ -27,12 +35,28 @@ export default class Task {
     this.description = desc;
   }
 
-  toggleImportance() {
-    this.important = !this.important;
+  setImportant(important) {
+    this.important = important;
   }
 
   getTitle() {
     return this.title;
+  }
+
+  getImportant() {
+    return this.important;
+  }
+
+  getCompleted() {
+    return this.completed;
+  }
+
+  getDescription() {
+    return this.description;
+  }
+
+  getDueDate() {
+    return this.dueDate;
   }
 
   getProjectId() {
