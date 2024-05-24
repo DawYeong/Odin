@@ -15,4 +15,13 @@ const createElement = (tag, cls, id, textContent, attributes = {}) => {
   return el;
 };
 
-export { clearElement, createElement };
+const openFormModal = (modal) => {
+  modal.showModal();
+};
+
+const closeFormModal = (modal, form) => {
+  form.reset();
+  modal.close();
+};
+
+export { clearElement, createElement, openFormModal, closeFormModal };

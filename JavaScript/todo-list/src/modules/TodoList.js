@@ -55,13 +55,14 @@ export default class TodoList {
     });
   }
 
-  addTask(title, description, important, dueDate, id, projectId) {
+  addTask(title, description, important, completed, dueDate, id, projectId) {
     this.tasks.push(
       new Task(
         projectId ?? this.activeProject.getId(),
         title,
         description,
         important,
+        completed,
         dueDate,
         id
       )
@@ -87,6 +88,7 @@ export default class TodoList {
         tasks["title"],
         tasks["description"],
         tasks["important"],
+        tasks["completed"],
         tasks["dueDate"],
         tasks["id"],
         tasks["projectId"]

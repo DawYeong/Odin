@@ -1,4 +1,8 @@
-* {
+body,
+p,
+h1,
+h2 {
+  max-width: 100%;
   margin: 0;
   padding: 0;
 }
@@ -23,4 +27,15 @@
 
 .project-item {
   display: flex;
+  cursor: pointer;
+}
+
+dialog {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+form#new-task-form {
+  display: flex;
+  flex-direction: column;
 }

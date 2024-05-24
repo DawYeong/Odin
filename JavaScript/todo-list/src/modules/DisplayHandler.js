@@ -1,14 +1,20 @@
 import Storage from "./Storage";
-import { clearElement, createElement } from "../utils";
+import {
+  clearElement,
+  createElement,
+  openFormModal,
+  closeFormModal,
+} from "../utils";
 import "../styles/main.css";
 
 export default class DisplayHandler {
   static todo = Storage.loadTodo();
   static #projects = document.querySelector("div.projects");
-  static #header = document.querySelector("div.header");
   static #mainContent = document.querySelector("div.main-content");
   static #sideMenu = document.querySelector("div.side-menu");
   static #navBtn = document.querySelector(".nav-btn");
+  static #dialogs = document.querySelectorAll("dialog");
+  static #forms = document.querySelectorAll("form");
 
   // init => set up everything => event listeners and things
   static init() {
@@ -88,12 +94,39 @@ export default class DisplayHandler {
     });
 
     document.querySelector(".projects").addEventListener("click", (e) => {
-      const projectId = DisplayHandler.#getProjectIdFromEvent(e.target);
+      DisplayHandler.#handleProjectSelection(e);
+    });
 
-      if (projectId != DisplayHandler.todo.getActiveProject()) {
-        DisplayHandler.todo.setActiveProject(projectId);
-        DisplayHandler.displayTasks();
-      }
+    document.querySelector(".new-task-btn").addEventListener("click", (e) => {
+      DisplayHandler.#handleAddPrompt(
+        DisplayHandler.#dialogs[0],
+        DisplayHandler.#forms[0],
+        "Task"
+      );
+    });
+
+    document.querySelector(".new-project-btn").addEventListener("click", () => {
+      DisplayHandler.#handleAddPrompt(
+        DisplayHandler.#dialogs[1],
+        DisplayHandler.#forms[1],
+        "Project"
+      );
+    });
+
+    DisplayHandler.#forms[0].addEventListener("submit", (e) => {
+      e.preventDefault();
+      DisplayHandler.#handleAddTask();
+    });
+
+    DisplayHandler.#forms[1].addEventListener("submit", (e) => {
+      e.preventDefault();
+      DisplayHandler.#handleAddProject();
+    });
+
+    DisplayHandler.#dialogs.forEach((dialog, i) => {
+      dialog.addEventListener("click", (e) => {
+        DisplayHandler.#handleDialogClick(e, dialog, DisplayHandler.#forms[i]);
+      });
     });
   }
 
@@ -109,5 +142,48 @@ export default class DisplayHandler {
     }
 
     return currEvent.attributes["projectId"].value;
+  }
+
+  static #handleProjectSelection(e) {
+    const projectId = DisplayHandler.#getProjectIdFromEvent(e.target);
+
+    if (projectId != DisplayHandler.todo.getActiveProject()) {
+      DisplayHandler.todo.setActiveProject(projectId);
+      DisplayHandler.displayTasks();
+    }
+  }
+
+  static #handleAddPrompt(dialog, form, itemType) {
+    form.children[0].textContent = `Add New ${itemType}`;
+    form.setAttribute("action", "add");
+    openFormModal(dialog);
+  }
+
+  static #handleDialogClick(e, dialog, form) {
+    if (e.target === dialog || e.target.className === "cancel") {
+      // close
+      closeFormModal(dialog, form);
+    }
+  }
+
+  static #handleAddTask() {
+    const inputs = DisplayHandler.#forms[0].querySelectorAll("input");
+    const description = DisplayHandler.#forms[0].querySelector("textarea");
+
+    DisplayHandler.todo.addTask(
+      inputs[0].value,
+      description.value,
+      inputs[1].checked,
+      inputs[2].checked,
+      inputs[3].value.length > 0 ? inputs[3].value.length : null
+    );
+    DisplayHandler.displayTasks();
+    closeFormModal(DisplayHandler.#dialogs[0], DisplayHandler.#forms[0]);
+  }
+
+  static #handleAddProject() {
+    DisplayHandler.todo.addProject(DisplayHandler.#forms[1].children[1].value);
+    DisplayHandler.displayProjects();
+    closeFormModal(DisplayHandler.#dialogs[1], DisplayHandler.#forms[1]);
   }
 }

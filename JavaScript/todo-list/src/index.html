@@ -6,11 +6,70 @@
     <title>Todo List</title>
   </head>
   <body>
+    <dialog id="task-dialog">
+      <div class="form-wrapper">
+        <form id="task-form">
+          <h2></h2>
+          <input
+            type="text"
+            placeholder="Title"
+            name="title"
+            minlength="1"
+            maxlength="75"
+            required
+          />
+          <div class="important-wrapper">
+            <input type="checkbox" id="important" name="important" />
+            <label for="important">Important</label>
+          </div>
+          <div class="completed-wrapper">
+            <input type="checkbox" id="completed" name="completed" />
+            <label for="completed">Completed</label>
+          </div>
+          <div class="due-date-wrapper">
+            <label for="due-date">Due Date</label>
+            <input type="date" id="due-date" name="due-date" />
+          </div>
+          <textarea
+            name="description"
+            id="description"
+            placeholder="description"
+            maxlength="350"
+          ></textarea>
+        </form>
+        <button type="submit" form="task-form" class="confirm">Confirm</button>
+        <button type="button" class="cancel">Cancel</button>
+      </div>
+    </dialog>
+    <dialog id="project-dialog">
+      <div class="form-wrapper">
+        <form id="project-form">
+          <h2></h2>
+          <input
+            type="text"
+            placeholder="Name"
+            name="name"
+            minlength="1"
+            maxlength="75"
+            required
+          />
+        </form>
+        <button type="submit" form="project-form" class="confirm">
+          Confirm
+        </button>
+        <button type="button" class="cancel">Cancel</button>
+      </div>
+    </dialog>
     <div id="container">
       <div class="side-menu">
-        <div class="projects"></div>
-        <div class="nav">
-          <button type="button" class="side-menu-toggle">TOGGLE</button>
+        <div class="main-nav">
+          <div class="projects"></div>
+          <div class="nav">
+            <button type="button" class="side-menu-toggle">TOGGLE</button>
+          </div>
+        </div>
+        <div class="side-footer">
+          <button type="button" class="new-project-btn">+ New Project</button>
         </div>
       </div>
       <div class="body">
@@ -19,6 +78,9 @@
           <h1>Todo List</h1>
         </div>
         <div class="main-content"></div>
+        <div class="new-task-wrapper">
+          <button type="button" class="new-task-btn">+ New Task</button>
+        </div>
       </div>
     </div>
   </body>
