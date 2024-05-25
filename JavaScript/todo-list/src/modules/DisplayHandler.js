@@ -136,13 +136,13 @@ export default class DisplayHandler {
       switch (DisplayHandler.#forms[0].attributes["action"].value) {
         case "add":
           DisplayHandler.#handleAddTask();
-          DisplayHandler.displayProjects();
           break;
         case "edit":
           DisplayHandler.#handleEditTask();
           break;
       }
       DisplayHandler.displayTasks();
+      DisplayHandler.displayProjects();
       closeFormModal(DisplayHandler.#dialogs[0], DisplayHandler.#forms[0]);
     });
 
@@ -224,10 +224,6 @@ export default class DisplayHandler {
     }
   }
 
-  static #handleTaskSelection(e) {
-    console.log(e);
-  }
-
   static #handleAddPrompt(dialog, form, itemType) {
     form.children[0].textContent = `Add New ${itemType}`;
     form.setAttribute("action", "add");
@@ -266,12 +262,6 @@ export default class DisplayHandler {
       e.target.className != "delete"
     )
       return;
-
-    // if (e.target === dialog || e.target.className === "cancel") {
-    //   // close
-    // } else if (e.target.className === "delete") {
-
-    // }
 
     if (e.target.className === "delete") {
       DisplayHandler.#handleDelete(form);
@@ -330,9 +320,9 @@ export default class DisplayHandler {
         break;
       case "project-form":
         DisplayHandler.todo.deleteProject(form.attributes["projectId"].value);
-        DisplayHandler.displayProjects();
         break;
     }
+    DisplayHandler.displayProjects();
     DisplayHandler.displayTasks();
   }
 }

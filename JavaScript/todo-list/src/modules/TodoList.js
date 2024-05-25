@@ -5,7 +5,8 @@ export default class TodoList {
   constructor() {
     this.projects = [];
     this.tasks = [];
-    this.projects.push(new Project("Tasks", true));
+    this.projects.push(new Project("General", true));
+    this.projects.push(new Project("Important", true));
     this.activeProject = this.projects[0];
   }
 
@@ -26,6 +27,19 @@ export default class TodoList {
   }
 
   getProjectTasks(projectId) {
+    const project = this.getProject(projectId);
+
+    console.log(project);
+
+    if (project.getIsDefault()) {
+      switch (project.getName()) {
+        case "General":
+          return this.tasks;
+        case "Important":
+          return this.tasks.filter((task) => task.getImportant() === true);
+      }
+    }
+
     return this.tasks.filter((task) => task.getProjectId() === projectId);
   }
 
@@ -77,25 +91,29 @@ export default class TodoList {
       this.activeProject = this.projects[0];
     }
 
+    const projectTasks = this.getProjectTasks(projectId);
+    projectTasks.forEach((task) => {
+      this.deleteTask(task.getTaskId());
+    });
+
     this.projects.splice(
       this.projects.findIndex((project) => project.getId() === projectId),
       1
     );
-
-    const projectTasks = this.getProjectTasks(projectId);
-
-    projectTasks.forEach((task) => {
-      this.deleteTask(task.getTaskId());
-    });
   }
 
   addTask(title, description, important, completed, dueDate, id, projectId) {
+    const projId = projectId ?? this.activeProject.getId();
+    const project = this.getProject(projId);
     this.tasks.push(
       new Task(
         projectId ?? this.activeProject.getId(),
         title,
         description,
-        important,
+        // if we create a task under the Important project, then we have to set important to true regardless
+        project.getIsDefault() && project.getName() === "Important"
+          ? true
+          : important,
         completed,
         dueDate,
         id
