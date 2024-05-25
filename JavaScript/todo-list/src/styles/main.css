@@ -39,3 +39,11 @@ form#new-task-form {
   display: flex;
   flex-direction: column;
 }
+
+form[action="add"] ~ button.delete {
+  display: none;
+}
+
+form[action="edit"] ~ button.delete {
+  display: block;
+}

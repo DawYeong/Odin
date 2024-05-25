@@ -64,7 +64,24 @@ export default class DisplayHandler {
       projectId: project.getId(),
     });
     // add more elements
-    projectItem.appendChild(createElement("div", "", "", project.getName()));
+    const leftContainer = createElement("div", "proj-left-container", "", "");
+    leftContainer.appendChild(createElement("p", "", "", project.getName()));
+
+    const rightContainer = createElement("div", "proj-right-container", "", "");
+    if (!project.getIsDefault()) {
+      rightContainer.appendChild(createElement("button", "edit", "", "Edit"));
+    }
+    rightContainer.appendChild(
+      createElement(
+        "div",
+        "task-num",
+        "",
+        DisplayHandler.todo.getProjectTasks(project.getId()).length
+      )
+    );
+    // projectItem.appendChild(createElement("div", "", "", project.getName()));
+    projectItem.appendChild(leftContainer);
+    projectItem.appendChild(rightContainer);
     return projectItem;
   }
 
@@ -73,19 +90,11 @@ export default class DisplayHandler {
       taskId: task.getTaskId(),
     });
     // add more elements
-    taskItem.appendChild(
-      createElement("input", "", "", "", { type: "checkbox" })
-    );
+    const checkBox = createElement("input", "", "", "", { type: "checkbox" });
+    checkBox.checked = task.getCompleted();
+    taskItem.appendChild(checkBox);
     taskItem.appendChild(createElement("p", "", "", task.getTitle()));
     return taskItem;
-  }
-
-  static #createTaskEventListener() {
-    document.querySelector(".task-items").addEventListener("click", (e) => {
-      if (e.target.nodeName === "INPUT") {
-        console.dir(e.target.checked);
-      }
-    });
   }
 
   static #initEventListeners() {
@@ -102,7 +111,7 @@ export default class DisplayHandler {
     });
 
     document.querySelector(".projects").addEventListener("click", (e) => {
-      DisplayHandler.#handleProjectSelection(e);
+      DisplayHandler.#handleProjectsListener(e);
     });
 
     document.querySelector(".new-task-btn").addEventListener("click", (e) => {
@@ -127,6 +136,7 @@ export default class DisplayHandler {
       switch (DisplayHandler.#forms[0].attributes["action"].value) {
         case "add":
           DisplayHandler.#handleAddTask();
+          DisplayHandler.displayProjects();
           break;
         case "edit":
           DisplayHandler.#handleEditTask();
@@ -138,7 +148,17 @@ export default class DisplayHandler {
 
     DisplayHandler.#forms[1].addEventListener("submit", (e) => {
       e.preventDefault();
-      DisplayHandler.#handleAddProject();
+      switch (DisplayHandler.#forms[1].attributes["action"].value) {
+        case "add":
+          DisplayHandler.#handleAddProject();
+          break;
+        case "edit":
+          DisplayHandler.#handleEditProject();
+          DisplayHandler.displayTasks();
+          break;
+      }
+      DisplayHandler.displayProjects();
+      closeFormModal(DisplayHandler.#dialogs[1], DisplayHandler.#forms[1]);
     });
 
     DisplayHandler.#dialogs.forEach((dialog, i) => {
@@ -188,9 +208,16 @@ export default class DisplayHandler {
     }
   }
 
-  static #handleProjectSelection(e) {
+  static #handleProjectsListener(e) {
     const projectId = DisplayHandler.#getProjectIdFromElement(e.target);
+    if (e.target.className === "edit") {
+      DisplayHandler.#handleEditProjectPrompt(projectId);
+    } else {
+      DisplayHandler.#handleProjectSelection(projectId);
+    }
+  }
 
+  static #handleProjectSelection(projectId) {
     if (projectId != DisplayHandler.todo.getActiveProject()) {
       DisplayHandler.todo.setActiveProject(projectId);
       DisplayHandler.displayTasks();
@@ -223,11 +250,34 @@ export default class DisplayHandler {
     openFormModal(DisplayHandler.#dialogs[0]);
   }
 
+  static #handleEditProjectPrompt(projectId) {
+    const project = DisplayHandler.todo.getProject(projectId);
+    DisplayHandler.#forms[1].setAttribute("action", "edit");
+    DisplayHandler.#forms[1].setAttribute("projectId", project.getId());
+    DisplayHandler.#forms[1].children[0].textContent = `Edit ${project.getName()}`;
+    DisplayHandler.#forms[1].children[1].value = project.getName();
+    openFormModal(DisplayHandler.#dialogs[1]);
+  }
+
   static #handleDialogClick(e, dialog, form) {
-    if (e.target === dialog || e.target.className === "cancel") {
-      // close
-      closeFormModal(dialog, form);
+    if (
+      e.target != dialog &&
+      e.target.className != "cancel" &&
+      e.target.className != "delete"
+    )
+      return;
+
+    // if (e.target === dialog || e.target.className === "cancel") {
+    //   // close
+    // } else if (e.target.className === "delete") {
+
+    // }
+
+    if (e.target.className === "delete") {
+      DisplayHandler.#handleDelete(form);
     }
+
+    closeFormModal(dialog, form);
   }
 
   static #handleAddTask() {
@@ -263,7 +313,26 @@ export default class DisplayHandler {
 
   static #handleAddProject() {
     DisplayHandler.todo.addProject(DisplayHandler.#forms[1].children[1].value);
-    DisplayHandler.displayProjects();
-    closeFormModal(DisplayHandler.#dialogs[1], DisplayHandler.#forms[1]);
+  }
+
+  static #handleEditProject() {
+    const projectId = DisplayHandler.#forms[1].attributes["projectId"].value;
+    DisplayHandler.todo.updateProject(
+      projectId,
+      DisplayHandler.#forms[1].children[1].value
+    );
+  }
+
+  static #handleDelete(form) {
+    switch (form.id) {
+      case "task-form":
+        DisplayHandler.todo.deleteTask(form.attributes["taskId"].value);
+        break;
+      case "project-form":
+        DisplayHandler.todo.deleteProject(form.attributes["projectId"].value);
+        DisplayHandler.displayProjects();
+        break;
+    }
+    DisplayHandler.displayTasks();
   }
 }

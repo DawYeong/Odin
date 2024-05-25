@@ -8,6 +8,10 @@ export default class Project {
     console.log(this.name, this.isDefault, this.id);
   }
 
+  setName(name) {
+    this.name = name;
+  }
+
   getId() {
     return this.id;
   }

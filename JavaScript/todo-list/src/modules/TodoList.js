@@ -14,18 +14,23 @@ export default class TodoList {
   }
 
   setActiveProject(projectId) {
-    this.activeProject =
-      this.projects[
-        this.projects.findIndex((project) => project.getId() === projectId)
-      ];
+    this.activeProject = this.getProject(projectId);
   }
 
   getProjects() {
     return this.projects;
   }
 
+  getProject(projectId) {
+    return this.projects[this.#getProjectIndex(projectId)];
+  }
+
   getProjectTasks(projectId) {
     return this.tasks.filter((task) => task.getProjectId() === projectId);
+  }
+
+  #getProjectIndex(projectId) {
+    return this.projects.findIndex((project) => project.getId() === projectId);
   }
 
   #getTaskIndex(taskId) {
@@ -59,6 +64,11 @@ export default class TodoList {
     this.tasks[taskInd].setCompleted(completed);
     this.tasks[taskInd].setDescription(description);
     this.tasks[taskInd].setDueDate(dueDate);
+  }
+
+  updateProject(projectId, name) {
+    const projectInd = this.#getProjectIndex(projectId);
+    this.projects[projectInd].setName(name);
   }
 
   deleteProject(projectId) {
