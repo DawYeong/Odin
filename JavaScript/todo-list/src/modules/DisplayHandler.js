@@ -10,6 +10,8 @@ import "../styles/main.css";
 export default class DisplayHandler {
   static todo = Storage.loadTodo();
   static #projects = document.querySelector("div.projects");
+  static #defaultProjects = document.querySelector("div.default-projects");
+  static #userProjects = document.querySelector("div.user-projects");
   static #mainContent = document.querySelector("div.main-content");
   static #sideMenu = document.querySelector("div.side-menu");
   static #navBtn = document.querySelector(".nav-btn");
@@ -46,11 +48,19 @@ export default class DisplayHandler {
   }
 
   static displayProjects() {
-    clearElement(DisplayHandler.#projects);
+    // clearElement(DisplayHandler.#projects);
+    clearElement(DisplayHandler.#defaultProjects);
+    clearElement(DisplayHandler.#userProjects);
     DisplayHandler.todo.getProjects().forEach((project) => {
-      DisplayHandler.#projects.appendChild(
-        DisplayHandler.#createProjectItem(project)
-      );
+      if (project.getIsDefault()) {
+        DisplayHandler.#defaultProjects.appendChild(
+          DisplayHandler.#createProjectItem(project)
+        );
+      } else {
+        DisplayHandler.#userProjects.appendChild(
+          DisplayHandler.#createProjectItem(project)
+        );
+      }
     });
   }
 
@@ -110,7 +120,7 @@ export default class DisplayHandler {
       DisplayHandler.#handleMainContentListener(e);
     });
 
-    document.querySelector(".projects").addEventListener("click", (e) => {
+    DisplayHandler.#projects.addEventListener("click", (e) => {
       DisplayHandler.#handleProjectsListener(e);
     });
 
@@ -176,6 +186,9 @@ export default class DisplayHandler {
   static #getProjectIdFromElement(element) {
     let currElement = element;
     while (currElement.className != "project-item") {
+      if (currElement === DisplayHandler.#projects) {
+        return null;
+      }
       currElement = currElement.parentNode;
     }
 
@@ -210,6 +223,7 @@ export default class DisplayHandler {
 
   static #handleProjectsListener(e) {
     const projectId = DisplayHandler.#getProjectIdFromElement(e.target);
+    if (projectId === null) return;
     if (e.target.className === "edit") {
       DisplayHandler.#handleEditProjectPrompt(projectId);
     } else {
