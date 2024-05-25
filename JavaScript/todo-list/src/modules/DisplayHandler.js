@@ -73,6 +73,11 @@ export default class DisplayHandler {
     const projectItem = createElement("div", "project-item", "", "", {
       projectId: project.getId(),
     });
+
+    if (project.getId() === DisplayHandler.todo.getActiveProject().getId()) {
+      projectItem.classList.add("active");
+    }
+
     // add more elements
     const leftContainer = createElement("div", "proj-left-container", "", "");
     leftContainer.appendChild(createElement("p", "", "", project.getName()));
@@ -185,7 +190,7 @@ export default class DisplayHandler {
 
   static #getProjectIdFromElement(element) {
     let currElement = element;
-    while (currElement.className != "project-item") {
+    while (!currElement.className.includes("project-item")) {
       if (currElement === DisplayHandler.#projects) {
         return null;
       }
@@ -235,6 +240,7 @@ export default class DisplayHandler {
     if (projectId != DisplayHandler.todo.getActiveProject()) {
       DisplayHandler.todo.setActiveProject(projectId);
       DisplayHandler.displayTasks();
+      DisplayHandler.displayProjects();
     }
   }
 
