@@ -1,24 +1,146 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+* {
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+:root {
+  font-family: "Roboto", sans-serif;
+  --base-font: 1.5rem;
+}
+
 body,
 p,
 h1,
-h2 {
-  max-width: 100%;
+h2,
+button {
   margin: 0;
   padding: 0;
 }
 
+p {
+  font-size: var(--base-font);
+}
+
+button {
+  height: max-content;
+  padding: 4px;
+  cursor: pointer;
+}
+
 #container {
   display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+.body {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  display: grid;
+  grid-template-rows: max-content 1fr max-content;
+}
+
+.header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+img {
+  width: 1rem;
+  height: auto;
+}
+
+.side-menu-toggle {
+  background-color: transparent;
 }
 
 .side-menu {
-  width: 350px;
+  width: 100%;
+  height: 100%;
   display: none;
+  padding: 1rem;
+  background-color: rgb(244, 245, 247);
 }
+
+.side-menu-wrapper {
+  width: 0px;
+  transition: width 250ms ease-in;
+}
+
+.side-menu-wrapper.open {
+  width: 350px;
+}
+
+.main-content {
+  display: grid;
+  grid-template-rows: max-content 1fr;
+  gap: 1rem;
+  overflow: hidden;
+
+  .task-items-wrapper {
+    overflow-y: hidden;
+
+    .task-items {
+      max-height: 100%;
+      overflow-y: auto;
+
+      .task-item {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0.5rem;
+        border-radius: 8px;
+        gap: 0.75rem;
+
+        input[type="checkbox"] {
+          appearance: none;
+          -webkit-appearance: none;
+          border-radius: 50%;
+          border: 2px solid black;
+          width: var(--base-font);
+          height: var(--base-font);
+          background-color: transparent;
+        }
+
+        input[type="checkbox"]:checked {
+          background-color: rgb(25, 136, 199);
+        }
+
+        .task-content {
+          .task-title {
+            font-size: 1.25rem;
+            transition: all 1s ease-in;
+          }
+
+          .task-title.completed {
+            text-decoration: line-through;
+          }
+
+          .other-task-info {
+            font-size: 0.75rem;
+          }
+        }
+      }
+
+      .task-item:hover {
+        background-color: rgba(240, 240, 240, 1);
+      }
+    }
+  }
+}
+
+/* .side-menu.open {
+  transition: width 1s ease-in;
+} */
 
 .nav-btn,
 .side-menu.open {
-  display: block;
+  display: grid;
+  grid-template-rows: 1fr max-content;
 }
 
 .nav-btn.close {
@@ -46,4 +168,60 @@ form[action="add"] ~ button.delete {
 
 form[action="edit"] ~ button.delete {
   display: block;
+}
+
+.project-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--base-font);
+
+  .proj-left-container,
+  .proj-right-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  img {
+    width: var(--base-font);
+  }
+
+  .edit {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    cursor: inherit;
+  }
+}
+
+.main-nav,
+.default-projects,
+.user-projects {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .nav-title {
+    font-weight: bold;
+    font-size: calc(var(--base-font) + 0.5rem);
+  }
+}
+
+.user-projects {
+  .edit {
+    display: none;
+  }
+
+  .project-item:hover {
+    .edit {
+      display: block;
+    }
+  }
 }

@@ -51,7 +51,7 @@
             placeholder="Name"
             name="name"
             minlength="1"
-            maxlength="75"
+            maxlength="20"
             required
           />
         </form>
@@ -63,25 +63,29 @@
       </div>
     </dialog>
     <div id="container">
-      <div class="side-menu">
-        <div class="main-nav">
-          <div class="projects">
-            <div class="default-projects"></div>
-            <hr />
-            <div class="user-projects"></div>
+      <div class="side-menu-wrapper">
+        <div class="side-menu">
+          <div class="main-nav">
+            <div class="nav">
+              <p class="nav-title">Projects</p>
+              <button type="button" class="side-menu-toggle"></button>
+            </div>
+            <div class="projects">
+              <div class="default-projects"></div>
+              <hr />
+              <div class="user-projects"></div>
+            </div>
           </div>
-          <div class="nav">
-            <button type="button" class="side-menu-toggle">TOGGLE</button>
+          <div class="side-footer">
+            <button type="button" class="new-project-btn">+ New Project</button>
           </div>
-        </div>
-        <div class="side-footer">
-          <button type="button" class="new-project-btn">+ New Project</button>
         </div>
       </div>
       <div class="body">
         <div class="header">
-          <button type="button" class="nav-btn side-menu-toggle">TOGGLE</button>
-          <h1>Todo List</h1>
+          <button type="button" class="nav-btn side-menu-toggle"></button>
+          <h1 class="title">Todo List</h1>
+          <div class="placeholder"></div>
         </div>
         <div class="main-content"></div>
         <div class="new-task-wrapper">

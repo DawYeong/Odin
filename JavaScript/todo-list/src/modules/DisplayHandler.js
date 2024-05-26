@@ -7,12 +7,20 @@ import {
 } from "../utils";
 import "../styles/main.css";
 
+import arrowExpandLeft from "../images/arrow-expand-left.svg";
+import arrowExpandRight from "../images/arrow-expand-right.svg";
+import exclamation from "../images/exclamation.svg";
+import inbox from "../images/inbox.svg";
+import pencil from "../images/pencil.svg";
+import pound from "../images/pound.svg";
+
 export default class DisplayHandler {
   static todo = Storage.loadTodo();
   static #projects = document.querySelector("div.projects");
   static #defaultProjects = document.querySelector("div.default-projects");
   static #userProjects = document.querySelector("div.user-projects");
   static #mainContent = document.querySelector("div.main-content");
+  static #sideMenuWrapper = document.querySelector("div.side-menu-wrapper");
   static #sideMenu = document.querySelector("div.side-menu");
   static #navBtn = document.querySelector(".nav-btn");
   static #dialogs = document.querySelectorAll("dialog");
@@ -33,7 +41,7 @@ export default class DisplayHandler {
 
     DisplayHandler.#mainContent.appendChild(
       createElement(
-        "div",
+        "h1",
         "project-title",
         "",
         DisplayHandler.todo.getActiveProject().getName()
@@ -44,7 +52,10 @@ export default class DisplayHandler {
       taskItems.appendChild(DisplayHandler.#createTaskItem(task));
     });
 
-    DisplayHandler.#mainContent.appendChild(taskItems);
+    const taskItemsWrapper = createElement("div", "task-items-wrapper", "", "");
+    taskItemsWrapper.appendChild(taskItems);
+
+    DisplayHandler.#mainContent.appendChild(taskItemsWrapper);
   }
 
   static displayProjects() {
@@ -65,8 +76,19 @@ export default class DisplayHandler {
   }
 
   static #initPageElements() {
+    DisplayHandler.#displayToggleButtonImages();
     DisplayHandler.displayProjects();
     DisplayHandler.displayTasks();
+  }
+
+  static #displayToggleButtonImages() {
+    document
+      .querySelector(".header > .side-menu-toggle")
+      .appendChild(createElement("img", "", "", "", { src: arrowExpandRight }));
+
+    document
+      .querySelector(".nav > .side-menu-toggle")
+      .appendChild(createElement("img", "", "", "", { src: arrowExpandLeft }));
   }
 
   static #createProjectItem(project) {
@@ -79,19 +101,39 @@ export default class DisplayHandler {
     }
 
     // add more elements
+    let icon = pound;
+    if (project.getIsDefault()) {
+      switch (project.getName()) {
+        case "General":
+          icon = inbox;
+          break;
+        case "Important":
+          icon = exclamation;
+          break;
+      }
+    }
     const leftContainer = createElement("div", "proj-left-container", "", "");
+    leftContainer.appendChild(
+      createElement("img", "project-img", "", "", { src: icon })
+    );
     leftContainer.appendChild(createElement("p", "", "", project.getName()));
 
     const rightContainer = createElement("div", "proj-right-container", "", "");
     if (!project.getIsDefault()) {
-      rightContainer.appendChild(createElement("button", "edit", "", "Edit"));
+      const editBtn = createElement("button", "edit", "", "");
+      editBtn.appendChild(
+        createElement("img", "edit-img", "", "", { src: pencil })
+      );
+      rightContainer.appendChild(editBtn);
     }
     rightContainer.appendChild(
       createElement(
         "div",
         "task-num",
         "",
-        DisplayHandler.todo.getProjectTasks(project.getId()).length
+        DisplayHandler.todo
+          .getProjectTasks(project.getId())
+          .filter((task) => task.getCompleted() === false).length
       )
     );
     // projectItem.appendChild(createElement("div", "", "", project.getName()));
@@ -105,10 +147,31 @@ export default class DisplayHandler {
       taskId: task.getTaskId(),
     });
     // add more elements
-    const checkBox = createElement("input", "", "", "", { type: "checkbox" });
+    const checkBox = createElement("input", "completed-checkbox", "", "", {
+      type: "checkbox",
+    });
     checkBox.checked = task.getCompleted();
     taskItem.appendChild(checkBox);
-    taskItem.appendChild(createElement("p", "", "", task.getTitle()));
+    const taskContent = createElement("div", "task-content", "", "");
+    const taskTitle = createElement("p", "task-title", "", task.getTitle());
+
+    if (task.getCompleted()) {
+      taskTitle.classList.add("completed");
+    }
+    taskContent.appendChild(taskTitle);
+
+    const otherTaskInfo = createElement("div", "other-task-info", "", "");
+    otherTaskInfo.appendChild(
+      createElement(
+        "p",
+        "project-name",
+        "",
+        DisplayHandler.todo.getProject(task.getProjectId()).getName()
+      )
+    );
+    taskContent.appendChild(otherTaskInfo);
+
+    taskItem.appendChild(taskContent);
     return taskItem;
   }
 
@@ -185,6 +248,7 @@ export default class DisplayHandler {
 
   static #toggleSideMenu() {
     DisplayHandler.#sideMenu.classList.toggle("open");
+    DisplayHandler.#sideMenuWrapper.classList.toggle("open");
     DisplayHandler.#navBtn.classList.toggle("close");
   }
 
@@ -217,6 +281,8 @@ export default class DisplayHandler {
     const taskItem = DisplayHandler.#getTaskIdFromElement(e.target);
     if (e.target.nodeName === "INPUT") {
       DisplayHandler.todo.setTaskCompleted(taskItem, e.target.checked);
+      DisplayHandler.displayTasks();
+      DisplayHandler.displayProjects();
     } else if (taskItem != null) {
       // console.log(DisplayHandler.todo.getTask(taskItem));
       DisplayHandler.#handleEditTaskPrompt(
@@ -229,7 +295,7 @@ export default class DisplayHandler {
   static #handleProjectsListener(e) {
     const projectId = DisplayHandler.#getProjectIdFromElement(e.target);
     if (projectId === null) return;
-    if (e.target.className === "edit") {
+    if (e.target.className === "edit" || e.target.className === "edit-img") {
       DisplayHandler.#handleEditProjectPrompt(projectId);
     } else {
       DisplayHandler.#handleProjectSelection(projectId);
