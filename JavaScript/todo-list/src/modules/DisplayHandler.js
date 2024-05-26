@@ -13,9 +13,12 @@ import exclamation from "../images/exclamation.svg";
 import inbox from "../images/inbox.svg";
 import pencil from "../images/pencil.svg";
 import pound from "../images/pound.svg";
+import treasure from "../images/treasure-chest.svg";
 
 export default class DisplayHandler {
   static todo = Storage.loadTodo();
+  static #header = document.querySelector("div.header");
+  static #logo = document.querySelector("div.logo");
   static #projects = document.querySelector("div.projects");
   static #defaultProjects = document.querySelector("div.default-projects");
   static #userProjects = document.querySelector("div.user-projects");
@@ -59,7 +62,6 @@ export default class DisplayHandler {
   }
 
   static displayProjects() {
-    // clearElement(DisplayHandler.#projects);
     clearElement(DisplayHandler.#defaultProjects);
     clearElement(DisplayHandler.#userProjects);
     DisplayHandler.todo.getProjects().forEach((project) => {
@@ -76,9 +78,19 @@ export default class DisplayHandler {
   }
 
   static #initPageElements() {
+    DisplayHandler.#displayLogo();
     DisplayHandler.#displayToggleButtonImages();
     DisplayHandler.displayProjects();
     DisplayHandler.displayTasks();
+  }
+
+  static #displayLogo() {
+    DisplayHandler.#logo.appendChild(
+      createElement("img", "logo-img", "", "", { src: treasure })
+    );
+    DisplayHandler.#logo.appendChild(
+      createElement("h1", "title", "", "TaskTrove")
+    );
   }
 
   static #displayToggleButtonImages() {
@@ -160,15 +172,22 @@ export default class DisplayHandler {
     }
     taskContent.appendChild(taskTitle);
 
+    const project = DisplayHandler.todo.getProject(task.getProjectId());
     const otherTaskInfo = createElement("div", "other-task-info", "", "");
     otherTaskInfo.appendChild(
       createElement(
         "p",
         "project-name",
         "",
-        DisplayHandler.todo.getProject(task.getProjectId()).getName()
+        project.getIsDefault() ? "General" : project.getName()
       )
     );
+    if (task.getImportant()) {
+      otherTaskInfo.appendChild(
+        createElement("img", "", "", "", { src: exclamation })
+      );
+    }
+
     taskContent.appendChild(otherTaskInfo);
 
     taskItem.appendChild(taskContent);
@@ -249,6 +268,7 @@ export default class DisplayHandler {
   static #toggleSideMenu() {
     DisplayHandler.#sideMenu.classList.toggle("open");
     DisplayHandler.#sideMenuWrapper.classList.toggle("open");
+    DisplayHandler.#header.classList.toggle("side-bar-active");
     DisplayHandler.#navBtn.classList.toggle("close");
   }
 
@@ -367,8 +387,6 @@ export default class DisplayHandler {
       inputs[2].checked,
       inputs[3].value.length > 0 ? inputs[3].value : null
     );
-    // DisplayHandler.displayTasks();
-    // closeFormModal(DisplayHandler.#dialogs[0], DisplayHandler.#forms[0]);
   }
 
   static #handleEditTask() {
