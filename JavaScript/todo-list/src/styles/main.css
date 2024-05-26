@@ -1,0 +1,363 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+* {
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+:root {
+  font-family: "Roboto", sans-serif;
+  --base-font: 1.5rem;
+}
+
+body,
+p,
+h1,
+h2,
+button {
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  font-size: var(--base-font);
+}
+
+.title,
+.project-title {
+  font-size: 2.5rem;
+}
+
+button {
+  height: max-content;
+  padding: 4px;
+  cursor: pointer;
+}
+
+#container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+.body {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  display: grid;
+  grid-template-rows: max-content 1fr max-content;
+  /* background-color: #bbf7d0; */
+  /* background-image: linear-gradient(to right, #ffafbd, #ffc3a0); */
+  /* background-color: rgb(255, 160, 122); */
+  background-image: linear-gradient(to right, #ffa07a, #ffe5b4);
+  .header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      gap: 0.75rem;
+      img {
+        width: 3rem;
+      }
+    }
+  }
+}
+
+img {
+  width: 1rem;
+  height: auto;
+}
+
+.side-menu-toggle {
+  background-color: transparent;
+  width: max-content;
+  padding: 0.5rem;
+  margin: 0;
+  border: none;
+
+  img {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.side-menu-toggle:hover {
+  background-color: rgba(155, 155, 155, 0.35);
+}
+
+.side-menu {
+  width: 100%;
+  height: 100%;
+  display: none;
+  padding: 1.5rem;
+  background-color: #f5f5f5;
+}
+
+.side-menu-wrapper {
+  width: 0px;
+  transition: all 250ms ease-in;
+}
+
+.side-menu-wrapper.open {
+  width: 375px;
+  box-shadow: 1px 1px 5px grey;
+}
+
+.main-content {
+  display: grid;
+  grid-template-rows: max-content max-content 1fr;
+  gap: 0.5rem;
+  overflow: hidden;
+
+  .task-items-wrapper {
+    overflow-y: hidden;
+
+    .task-items {
+      max-height: 100%;
+      overflow-y: auto;
+
+      .task-item {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0.5rem;
+        border-radius: 8px;
+        gap: 0.75rem;
+
+        input[type="checkbox"] {
+          appearance: none;
+          -webkit-appearance: none;
+          border-radius: 50%;
+          border: 2px solid black;
+          width: var(--base-font);
+          height: var(--base-font);
+          background-color: transparent;
+          cursor: pointer;
+        }
+
+        input[type="checkbox"]:checked {
+          background-color: yellow;
+        }
+
+        .overdue {
+          color: red;
+          font-size: 1rem;
+        }
+
+        .task-content {
+          .task-title {
+            font-size: var(--base-font);
+            transition: all 1s ease-in;
+          }
+
+          .task-title.completed {
+            text-decoration: line-through;
+          }
+
+          .other-task-info {
+            display: flex;
+            align-items: center;
+            /* gap: 0.25rem; */
+            .project-name {
+              color: #333333;
+              font-size: 1rem;
+            }
+
+            img {
+              width: 1rem;
+              height: auto;
+            }
+          }
+        }
+      }
+
+      .task-item:hover {
+        background-color: rgba(107, 107, 107, 0.25);
+      }
+    }
+  }
+}
+
+.header.side-bar-active {
+  justify-content: center;
+}
+
+/* .side-menu.open {
+  transition: width 1s ease-in;
+} */
+
+.nav-btn,
+.side-menu.open {
+  display: grid;
+  grid-template-rows: 1fr max-content;
+}
+
+.nav-btn.close {
+  display: none;
+}
+
+.project-item {
+  display: flex;
+  cursor: pointer;
+}
+
+dialog {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+
+  button {
+    font-size: 1rem;
+    width: 50%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 8px;
+  }
+
+  button:hover {
+    -webkit-filter: brightness(90%);
+    transform: scale(1.05);
+    transition: all 200ms ease-in;
+  }
+
+  .confirm {
+    background-color: #86efac;
+  }
+
+  .delete {
+    background-color: #fca5a5;
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  width: 350px;
+  gap: 0.75rem;
+
+  h2 {
+    align-self: center;
+  }
+
+  input,
+  textarea {
+    font-size: 1rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
+
+  textarea {
+    resize: none;
+  }
+}
+
+form[action="add"] ~ button.delete {
+  display: none;
+}
+
+form[action="edit"] ~ button.delete {
+  display: block;
+}
+
+.project-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--base-font);
+  padding: 0.5rem;
+  border-radius: 4px;
+
+  .proj-left-container,
+  .proj-right-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  img {
+    width: var(--base-font);
+  }
+
+  .edit {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    cursor: inherit;
+  }
+
+  .task-num {
+    text-align: center;
+    border-radius: 50%;
+  }
+}
+.project-item.active {
+  transform: scale(1.05);
+  background-color: rgb(121, 121, 121, 0.25);
+}
+
+.project-item:hover {
+  background-color: rgb(121, 121, 121, 0.4);
+}
+
+.main-nav,
+.default-projects,
+.user-projects {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .nav-title {
+    font-weight: bold;
+    font-size: calc(var(--base-font) + 0.5rem);
+  }
+}
+
+.user-projects {
+  .edit {
+    display: none;
+  }
+
+  .project-item:hover {
+    .edit {
+      display: block;
+    }
+  }
+}
+
+.side-footer,
+.new-task-wrapper {
+  display: flex;
+  justify-content: center;
+
+  button {
+    font-size: 1.25rem;
+    padding: 0.5rem 1.25rem;
+    border-radius: 8px;
+    border: none;
+    background-color: transparent;
+  }
+
+  button:hover {
+    transform: scale(1.1);
+    background-color: rgba(56, 189, 248, 0.5);
+    transition: all 200ms ease-in;
+  }
+}
