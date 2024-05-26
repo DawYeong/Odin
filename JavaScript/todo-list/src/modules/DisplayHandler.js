@@ -314,6 +314,7 @@ export default class DisplayHandler {
     const taskItem = DisplayHandler.#getTaskIdFromElement(e.target);
     if (e.target.nodeName === "INPUT") {
       DisplayHandler.todo.setTaskCompleted(taskItem, e.target.checked);
+      Storage.saveTodo(DisplayHandler.todo);
       DisplayHandler.displayTasks();
       DisplayHandler.displayProjects();
     } else if (taskItem != null) {
@@ -397,6 +398,7 @@ export default class DisplayHandler {
       inputs[2].checked,
       inputs[3].value.length > 0 ? inputs[3].value : null
     );
+    Storage.saveTodo(DisplayHandler.todo);
   }
 
   static #handleEditTask() {
@@ -412,10 +414,12 @@ export default class DisplayHandler {
       description.value,
       inputs[3].value.length > 0 ? inputs[3].value : null
     );
+    Storage.saveTodo(DisplayHandler.todo);
   }
 
   static #handleAddProject() {
     DisplayHandler.todo.addProject(DisplayHandler.#forms[1].children[1].value);
+    Storage.saveTodo(DisplayHandler.todo);
   }
 
   static #handleEditProject() {
@@ -424,6 +428,7 @@ export default class DisplayHandler {
       projectId,
       DisplayHandler.#forms[1].children[1].value
     );
+    Storage.saveTodo(DisplayHandler.todo);
   }
 
   static #handleDelete(form) {
@@ -435,6 +440,7 @@ export default class DisplayHandler {
         DisplayHandler.todo.deleteProject(form.attributes["projectId"].value);
         break;
     }
+    Storage.saveTodo(DisplayHandler.todo);
     DisplayHandler.displayProjects();
     DisplayHandler.displayTasks();
   }
