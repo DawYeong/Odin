@@ -31,8 +31,6 @@ export default class TodoList {
   getProjectTasks(projectId) {
     const project = this.getProject(projectId);
 
-    console.log(project);
-
     if (project.getIsDefault()) {
       switch (project.getName()) {
         case "General":
@@ -66,7 +64,6 @@ export default class TodoList {
   }
 
   addProject(name, isDefault, id) {
-    console.log(name, isDefault, id);
     this.projects.push(new Project(name, isDefault, id));
   }
 

@@ -152,7 +152,6 @@ export default class DisplayHandler {
           .filter((task) => task.getCompleted() === false).length
       )
     );
-    // projectItem.appendChild(createElement("div", "", "", project.getName()));
     projectItem.appendChild(leftContainer);
     projectItem.appendChild(rightContainer);
     return projectItem;
@@ -244,7 +243,6 @@ export default class DisplayHandler {
 
     DisplayHandler.#forms[0].addEventListener("submit", (e) => {
       e.preventDefault();
-      console.log(DisplayHandler.#forms[0].attributes["action"]);
       switch (DisplayHandler.#forms[0].attributes["action"].value) {
         case "add":
           DisplayHandler.#handleAddTask();
@@ -319,11 +317,9 @@ export default class DisplayHandler {
       DisplayHandler.displayTasks();
       DisplayHandler.displayProjects();
     } else if (taskItem != null) {
-      // console.log(DisplayHandler.todo.getTask(taskItem));
       DisplayHandler.#handleEditTaskPrompt(
         DisplayHandler.todo.getTask(taskItem)
       );
-      // console.log(taskItem, e.target);
     }
   }
 
@@ -352,7 +348,6 @@ export default class DisplayHandler {
   }
 
   static #handleEditTaskPrompt(task) {
-    console.log(task);
     DisplayHandler.#forms[0].children[0].textContent = `Edit ${task.getTitle()}`;
     DisplayHandler.#forms[0].setAttribute("action", "edit");
     DisplayHandler.#forms[0].setAttribute("taskId", task.getTaskId());
@@ -405,7 +400,6 @@ export default class DisplayHandler {
   }
 
   static #handleEditTask() {
-    console.log(DisplayHandler.#forms[0]);
     const taskId = DisplayHandler.#forms[0].attributes["taskId"].value;
     const inputs = DisplayHandler.#forms[0].querySelectorAll("input");
     const description = DisplayHandler.#forms[0].querySelector("textarea");
