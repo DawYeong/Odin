@@ -37,7 +37,7 @@ export default class DisplayHandler {
     DisplayHandler.#initEventListeners();
   }
 
-  static displayTasks() {
+  static #displayTasks() {
     clearElement(DisplayHandler.#mainContent);
     const tasks = DisplayHandler.todo.getProjectTasks(
       DisplayHandler.todo.getActiveProject().getId()
@@ -65,7 +65,7 @@ export default class DisplayHandler {
     DisplayHandler.#mainContent.appendChild(taskItemsWrapper);
   }
 
-  static displayProjects() {
+  static #displayProjects() {
     clearElement(DisplayHandler.#defaultProjects);
     clearElement(DisplayHandler.#userProjects);
     DisplayHandler.todo.getProjects().forEach((project) => {
@@ -84,8 +84,8 @@ export default class DisplayHandler {
   static #initPageElements() {
     DisplayHandler.#displayLogo();
     DisplayHandler.#displayToggleButtonImages();
-    DisplayHandler.displayProjects();
-    DisplayHandler.displayTasks();
+    DisplayHandler.#displayProjects();
+    DisplayHandler.#displayTasks();
   }
 
   static #displayLogo() {
@@ -251,8 +251,8 @@ export default class DisplayHandler {
           DisplayHandler.#handleEditTask();
           break;
       }
-      DisplayHandler.displayTasks();
-      DisplayHandler.displayProjects();
+      DisplayHandler.#displayTasks();
+      DisplayHandler.#displayProjects();
       closeFormModal(DisplayHandler.#dialogs[0], DisplayHandler.#forms[0]);
     });
 
@@ -264,10 +264,10 @@ export default class DisplayHandler {
           break;
         case "edit":
           DisplayHandler.#handleEditProject();
-          DisplayHandler.displayTasks();
+          DisplayHandler.#displayTasks();
           break;
       }
-      DisplayHandler.displayProjects();
+      DisplayHandler.#displayProjects();
       closeFormModal(DisplayHandler.#dialogs[1], DisplayHandler.#forms[1]);
     });
 
@@ -315,8 +315,8 @@ export default class DisplayHandler {
     if (e.target.nodeName === "INPUT") {
       DisplayHandler.todo.setTaskCompleted(taskItem, e.target.checked);
       Storage.saveTodo(DisplayHandler.todo);
-      DisplayHandler.displayTasks();
-      DisplayHandler.displayProjects();
+      DisplayHandler.#displayTasks();
+      DisplayHandler.#displayProjects();
     } else if (taskItem != null) {
       DisplayHandler.#handleEditTaskPrompt(
         DisplayHandler.todo.getTask(taskItem)
@@ -337,8 +337,8 @@ export default class DisplayHandler {
   static #handleProjectSelection(projectId) {
     if (projectId != DisplayHandler.todo.getActiveProject()) {
       DisplayHandler.todo.setActiveProject(projectId);
-      DisplayHandler.displayTasks();
-      DisplayHandler.displayProjects();
+      DisplayHandler.#displayTasks();
+      DisplayHandler.#displayProjects();
     }
   }
 
@@ -441,7 +441,7 @@ export default class DisplayHandler {
         break;
     }
     Storage.saveTodo(DisplayHandler.todo);
-    DisplayHandler.displayProjects();
-    DisplayHandler.displayTasks();
+    DisplayHandler.#displayProjects();
+    DisplayHandler.#displayTasks();
   }
 }
