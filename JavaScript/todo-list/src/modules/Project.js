@@ -5,7 +5,6 @@ export default class Project {
     this.name = name;
     this.isDefault = isDefault ?? false;
     this.id = id ?? uuidv4();
-    console.log(this.name, this.isDefault, this.id);
   }
 
   setName(name) {
