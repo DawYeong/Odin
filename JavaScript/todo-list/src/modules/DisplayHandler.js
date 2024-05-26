@@ -6,6 +6,7 @@ import {
   closeFormModal,
 } from "../utils";
 import "../styles/main.css";
+import { compareAsc, format } from "date-fns";
 
 import arrowExpandLeft from "../images/arrow-expand-left.svg";
 import arrowExpandRight from "../images/arrow-expand-right.svg";
@@ -49,6 +50,9 @@ export default class DisplayHandler {
         "",
         DisplayHandler.todo.getActiveProject().getName()
       )
+    );
+    DisplayHandler.#mainContent.appendChild(
+      createElement("h2", "today-date", "", DisplayHandler.todo.getDate())
     );
     const taskItems = createElement("div", "task-items", "", "");
     tasks.forEach((task) => {
@@ -169,6 +173,17 @@ export default class DisplayHandler {
 
     if (task.getCompleted()) {
       taskTitle.classList.add("completed");
+    } else {
+      // check if this is due
+      if (
+        task.getDueDate() != null &&
+        compareAsc(
+          format(DisplayHandler.todo.getDate(), "yyyy-MM-dd"),
+          task.getDueDate()
+        ) === 1
+      ) {
+        taskItem.appendChild(createElement("p", "overdue", "", "Overdue"));
+      }
     }
     taskContent.appendChild(taskTitle);
 

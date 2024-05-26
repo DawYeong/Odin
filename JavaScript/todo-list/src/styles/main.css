@@ -109,8 +109,8 @@ img {
 
 .main-content {
   display: grid;
-  grid-template-rows: max-content 1fr;
-  gap: 1rem;
+  grid-template-rows: max-content max-content 1fr;
+  gap: 0.5rem;
   overflow: hidden;
 
   .task-items-wrapper {
@@ -141,6 +141,11 @@ img {
 
         input[type="checkbox"]:checked {
           background-color: yellow;
+        }
+
+        .overdue {
+          color: red;
+          font-size: 1rem;
         }
 
         .task-content {

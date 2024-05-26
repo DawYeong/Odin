@@ -1,5 +1,6 @@
 import Project from "./Project";
 import Task from "./Task";
+import { format } from "date-fns";
 
 export default class TodoList {
   constructor() {
@@ -8,6 +9,7 @@ export default class TodoList {
     this.projects.push(new Project("General", true));
     this.projects.push(new Project("Important", true));
     this.activeProject = this.projects[0];
+    this.currDate = format(new Date(), "EEEE, d MMMM uuuu");
   }
 
   getActiveProject() {
@@ -49,6 +51,10 @@ export default class TodoList {
 
   #getTaskIndex(taskId) {
     return this.tasks.findIndex((task) => task.getTaskId() === taskId);
+  }
+
+  getDate() {
+    return this.currDate;
   }
 
   getTask(taskId) {
