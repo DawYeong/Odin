@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Exercise</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script defer src="./script.js"></script>
+  </head>
+  <body>
+    <div class="form-wrapper" novalidate>
+      <form id="formExample">
+        <input type="email" id="email" name="email" placeholder="Email" />
+        <select id="country" name="country">
+          <option value="ca">Canada</option>
+          <option value="mx">Mexico</option>
+          <option value="kr">South Korea</option>
+          <option value="us">United States of America</option>
+        </select>
+        <input type="text" id="zip" name="zip" placeholder="Zip Code" />
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Password"
+        />
+        <input
+          type="password"
+          id="confirm-password"
+          name="confirm-password"
+          placeholder="Confirm Password"
+        />
+      </form>
+      <button type="submit" form="formExample">Submit</button>
+    </div>
+  </body>
+</html>
