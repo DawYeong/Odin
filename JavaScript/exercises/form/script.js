@@ -2,14 +2,17 @@ const EMAIL_REGEX = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i);
 
 const checkEmail = () => {
   const emailField = document.getElementById("email");
-
+  const errorEmail = document.querySelector("span.error.email");
+  errorEmail.textContent =
+    "Email must be in the form of {username}@{mail-service}.{domain}";
   if (EMAIL_REGEX.test(emailField.value)) {
+    errorEmail.classList.remove("active");
     emailField.setCustomValidity("");
   } else {
+    errorEmail.classList.add("active");
     emailField.setCustomValidity(
       "Email must be in the form of {username}@{mail-service}.{domain}"
     );
-    emailField.reportValidity();
   }
 };
 
@@ -30,18 +33,53 @@ const checkZip = () => {
 
   const country = document.getElementById("country").value;
   const zipField = document.getElementById("zip");
+  const zipError = document.querySelector("span.error.zip");
   const constraint = new RegExp(constraints[country][0]);
 
+  zipError.textContent = constraints[country][1];
   if (constraint.test(zipField.value)) {
+    zipError.classList.remove("active");
     zipField.setCustomValidity("");
   } else {
+    zipError.classList.add("active");
     zipField.setCustomValidity(constraints[country][1]);
-    zipField.reportValidity();
+  }
+};
+
+const checkPassword = () => {
+  const password = document.getElementById("password");
+  const passwordConfirmation = document.getElementById("confirm-password");
+  const passwordError = document.querySelector("span.error.password");
+
+  passwordError.textContent = "Passwords must match!";
+  if (password.value === passwordConfirmation.value) {
+    passwordError.classList.remove("active");
+    passwordConfirmation.setCustomValidity("");
+  } else {
+    passwordError.classList.add("active");
+    passwordConfirmation.setCustomValidity("Passwords must match!");
   }
 };
 
 window.onload = () => {
-  document.getElementById("email").oninput = checkEmail;
+  document.getElementById("email").addEventListener("focusout", checkEmail);
   document.getElementById("country").onchange = checkZip;
-  document.getElementById("zip").oninput = checkZip;
+  document.getElementById("zip").addEventListener("focusout", checkZip);
+  document
+    .getElementById("password")
+    .addEventListener("focusout", checkPassword);
+  document
+    .getElementById("confirm-password")
+    .addEventListener("focusout", checkPassword);
+
+  document.getElementById("formExample").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const inputs = [...e.target.querySelectorAll("input")];
+    const msg = document.querySelector("h2.msg");
+    if (inputs.every((input) => input.validity.valid)) {
+      msg.textContent = "All Good! High Five!";
+    } else {
+      msg.textContent = "Form has error";
+    }
+  });
 };

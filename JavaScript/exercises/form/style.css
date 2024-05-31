@@ -1,4 +1,5 @@
-body {
+body,
+h1 {
   margin: 0;
   padding: 0;
 }
@@ -14,4 +15,40 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+
+  input {
+    width: 300px;
+  }
+
+  input:invalid {
+    border: 1px red solid;
+  }
+  input:valid {
+    border: 1px green solid;
+  }
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  text-align: center;
+}
+
+.error {
+  color: red;
+  font-size: 1rem;
+  display: none;
+}
+
+.error.active {
+  display: block;
+  /* position: absolute;
+  top: -10; */
+}
+
+.email {
+  content: "Email must be in the form of {username}@{mail-service}.{domain}";
 }
