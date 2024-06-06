@@ -10,7 +10,6 @@ const DAYS = 3; // this is the limit for the free API tier
  * POP
  * Humidity
  * Wind(km/h)
- * wind gust (km/h)
  * 24hr rain
  */
 export class WeatherClient {
@@ -37,9 +36,6 @@ export class WeatherClient {
       console.log(data["error"]);
       return;
     }
-    console.log(data["location"]);
-    console.log(data["current"]);
-    console.log(data["forecast"]);
 
     const processedData = {};
 
@@ -52,6 +48,7 @@ export class WeatherClient {
 
     this.#processCurrentData(data["current"], processedData);
 
+    this.#processForecastData(data["forecast"], processedData);
     console.log("processed Data:");
     console.log(processedData);
   }
@@ -67,7 +64,6 @@ export class WeatherClient {
       icon: currData["condition"]["icon"],
       precip_mm: currData["precip_mm"],
       wind: currData["wind_kph"],
-      gust: currData["gust_kph"],
       humidity: currData["humidity"],
     };
     res["c"]["current"] = {
@@ -78,6 +74,38 @@ export class WeatherClient {
       feelslike: currData["feelslike_f"],
       temp: currData["temp_f"],
     };
+  }
+
+  #processForecastData(fcData, res) {
+    res["forecast"] = [];
+    res["c"]["forecast"] = [];
+    res["f"]["forecast"] = [];
+
+    console.log(fcData["forecastday"]);
+    fcData["forecastday"].forEach((forecast) => {
+      const day = forecast["day"];
+
+      res["forecast"].push({
+        date: format(forecast["date"], "EEEE, MMMM d"),
+        icon: day["condition"]["icon"],
+        humidity: day["avghumidity"],
+        precip: day["totalprecip_mm"],
+        wind: day["maxwind_kph"],
+        pop: day["daily_chance_of_rain"],
+      });
+
+      res["c"]["forecast"].push({
+        mintemp: day["mintemp_c"],
+        maxtemp: day["maxtemp_c"],
+        avgtemp: day["avgtemp_c"],
+      });
+
+      res["f"]["forecast"].push({
+        mintemp: day["mintemp_f"],
+        maxtemp: day["maxtemp_f"],
+        avgtemp: day["avgtemp_f"],
+      });
+    });
   }
 
   #checkError(data) {
