@@ -5,5 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather App</title>
   </head>
-  <body></body>
+  <body>
+    <div id="container">
+      <div class="header-wrapper">
+        <h1>Weather App</h1>
+      </div>
+      <div class="main-content">
+        <div class="form-wrapper">
+          <form class="location-form" novalidate>
+            <input
+              type="text"
+              name="location"
+              id="location"
+              placeholder="Enter city name"
+            />
+          </form>
+          <button type="submit">Search</button>
+        </div>
+        <div class="weather-content"></div>
+      </div>
+    </div>
+  </body>
 </html>
