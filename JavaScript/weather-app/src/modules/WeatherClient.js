@@ -22,19 +22,44 @@ export class WeatherClient {
     this.#currentData = {};
   }
 
-  async getLocationForecast(location) {
+  async getLocationForecast(location, isCelsius) {
     const url = `${BASEURL}/forecast.json?key=${
       this.#key
     }&q=${location}&days=${DAYS}&alerts=no`;
+
     const response = await fetch(url);
     const jsonData = await response.json();
     this.#processForecastJSONData(jsonData);
+    return this.getForecastData(isCelsius);
+  }
+
+  getForecastData(isCelsius) {
+    const currentKeys = new Set(Object.keys(this.#currentData));
+
+    if (
+      currentKeys.difference(
+        new Set(["c", "current", "f", "forecast", "location"])
+      ).size != 0
+    )
+      throw new Error("Current data is not forecast data");
+
+    const tempType = isCelsius ? "c" : "f";
+
+    return {
+      current: {
+        ...this.#currentData["current"],
+        ...this.#currentData[tempType]["current"],
+      },
+      forecast: this.#currentData["forecast"].map((day, i) => {
+        return { ...day, ...this.#currentData[tempType]["forecast"][i] };
+      }),
+    };
   }
 
   #processForecastJSONData(data) {
     if (this.#checkError(data)) {
       console.log(data["error"]);
-      return;
+      throw new Error(data["error"]["message"]);
     }
 
     const processedData = {};
@@ -51,6 +76,8 @@ export class WeatherClient {
     this.#processForecastData(data["forecast"], processedData);
     console.log("processed Data:");
     console.log(processedData);
+
+    this.#setCurrentData(processedData);
   }
 
   #processLocationData(locData, res) {
@@ -110,5 +137,9 @@ export class WeatherClient {
 
   #checkError(data) {
     return "error" in data;
+  }
+
+  #setCurrentData(data) {
+    this.#currentData = data;
   }
 }
