@@ -34,13 +34,13 @@ export class WeatherClient {
 
   getForecastData() {
     const currentKeys = new Set(Object.keys(this.#currentData));
-
     if (
-      currentKeys.difference(
-        new Set(["c", "current", "f", "forecast", "location"])
+      new Set(["c", "current", "f", "forecast", "location"]).difference(
+        currentKeys
       ).size != 0
-    )
+    ) {
       throw new Error("Current data is not forecast data");
+    }
 
     const tempType = this.#isFahrenheit ? "f" : "c";
 
