@@ -26,7 +26,8 @@ export class DisplayHandler {
   }
 
   static #handleTempUnitToggle(event) {
-    //todo
+    DisplayHandler.#client.setIsFahrenheit(event.target.checked);
+    DisplayHandler.#displayWeatherForecast();
   }
 
   static async #handleLocationFormSubmit(event) {
@@ -37,7 +38,6 @@ export class DisplayHandler {
       DisplayHandler.#displayWeatherForecast();
     } catch (e) {
       alert(e);
-      DisplayHandler.#locationForm[0].value = "";
     }
   }
 
@@ -156,7 +156,6 @@ export class DisplayHandler {
     clearElement(DisplayHandler.#weatherContent);
     try {
       const forecastData = DisplayHandler.#client.getForecastData();
-      console.log(forecastData);
       const weatherContentWrapper = createElement(
         "div",
         "weather-content-wrapper",
