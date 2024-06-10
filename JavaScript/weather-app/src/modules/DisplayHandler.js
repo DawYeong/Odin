@@ -45,7 +45,7 @@ export class DisplayHandler {
     const currentItem = createElement("div", "current-item", "", "");
     const currentHeaderWrapper = createElement(
       "div",
-      "current-header-wrapper",
+      "weather-header-wrapper",
       "",
       ""
     );
@@ -53,7 +53,7 @@ export class DisplayHandler {
       createElement("img", "weather-icon", "", "", { src: currentData["icon"] })
     );
     currentHeaderWrapper.appendChild(
-      createElement("h3", "date", "", currentData["date"])
+      createElement("h3", "date", "", currentData["date"].replace(" ", "\n"))
     );
 
     currentItem.appendChild(currentHeaderWrapper);
@@ -95,7 +95,7 @@ export class DisplayHandler {
     const forecastItem = createElement("div", "forecast-item", "", "");
     const forecastHeaderWrapper = createElement(
       "div",
-      "forecast-header-wrapper",
+      "weather-header-wrapper",
       "",
       ""
     );
@@ -105,7 +105,12 @@ export class DisplayHandler {
       })
     );
     forecastHeaderWrapper.appendChild(
-      createElement("h3", "date", "", forecastItemData["date"])
+      createElement(
+        "h3",
+        "date",
+        "",
+        forecastItemData["date"].replace(" ", "\n")
+      )
     );
 
     forecastItem.appendChild(forecastHeaderWrapper);
@@ -171,14 +176,18 @@ export class DisplayHandler {
         DisplayHandler.#createCurrentItem(forecastData["current"])
       );
 
+      const forecastWrapper = createElement("div", "forecast-wrapper", "", "");
+      forecastWrapper.appendChild(createElement("h2", "", "", "Forecast"));
+
       const forecastItems = createElement("div", "forecast-items", "", "");
       forecastData["forecast"].forEach((forecastItem) => {
         forecastItems.appendChild(
           DisplayHandler.#createForecastItem(forecastItem)
         );
       });
+      forecastWrapper.appendChild(forecastItems);
 
-      weatherContentWrapper.appendChild(forecastItems);
+      weatherContentWrapper.appendChild(forecastWrapper);
 
       DisplayHandler.#weatherContent.appendChild(weatherContentWrapper);
     } catch (e) {
