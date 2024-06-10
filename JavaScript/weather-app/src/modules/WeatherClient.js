@@ -83,7 +83,7 @@ export class WeatherClient {
 
   #processCurrentData(currData, res) {
     res["current"] = {
-      date: format(currData["last_updated"], "EEEE, MMMM d"),
+      date: format(currData["last_updated"], "EEEE p"),
       icon: currData["condition"]["icon"],
       precip_mm: `${currData["precip_mm"]} mm`,
       wind: `${currData["wind_kph"]} km/h`,
@@ -108,7 +108,7 @@ export class WeatherClient {
       const day = forecast["day"];
 
       res["forecast"].push({
-        date: format(forecast["date"], "EEEE, MMMM d"),
+        date: format(forecast["date"], "EEEE MM/dd"),
         icon: day["condition"]["icon"],
         humidity: `${day["avghumidity"]} %`,
         precip: `${day["totalprecip_mm"]} mm`,
