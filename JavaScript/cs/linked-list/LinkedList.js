@@ -1,9 +1,15 @@
 class Node {
+  #key;
   #val;
   #next;
-  constructor(val) {
+  constructor(key, val) {
+    this.#key = key;
     this.#val = val;
     this.#next = null;
+  }
+
+  getKey() {
+    return this.#key;
   }
 
   getValue() {
@@ -12,6 +18,10 @@ class Node {
 
   setNext(next) {
     this.#next = next;
+  }
+
+  setValue(val) {
+    this.#val = val;
   }
 
   getNext() {
@@ -29,8 +39,8 @@ class LinkedList {
     this.#size = 0;
   }
 
-  #addToEmpty(value) {
-    const newNode = new Node(value, null);
+  #addToEmpty(key, value) {
+    const newNode = new Node(key, value);
     this.#head = newNode;
     this.#tail = newNode;
   }
@@ -43,12 +53,12 @@ class LinkedList {
     this.#size -= 1;
   }
 
-  append(value) {
+  append(key, value) {
     // At to end of list (tail)
     if (this.#size === 0) {
-      this.#addToEmpty(value);
+      this.#addToEmpty(key, value);
     } else {
-      const newNode = new Node(value);
+      const newNode = new Node(key, value);
       this.#tail.setNext(newNode);
       this.#tail = newNode;
     }
@@ -59,9 +69,9 @@ class LinkedList {
   prepend(value) {
     // Add to start of list (head)
     if (this.#size === 0) {
-      this.#addToEmpty(value);
+      this.#addToEmpty(key, value);
     } else {
-      const newNode = new Node(value);
+      const newNode = new Node(key, value);
       newNode.setNext(this.#head);
       this.#head = newNode;
     }
@@ -116,10 +126,10 @@ class LinkedList {
     this.#decrementSize();
   }
 
-  contains(value) {
+  contains(key) {
     let currNode = this.#head;
     while (currNode != null) {
-      if (currNode.getValue() === value) {
+      if (currNode.getKey() === key) {
         return true;
       }
       currNode = currNode.getNext();
@@ -127,12 +137,12 @@ class LinkedList {
     return false;
   }
 
-  find(value) {
+  find(key) {
     // finds first element
     let i = 0;
     let currNode = this.#head;
     while (currNode != null) {
-      if (currNode.getValue() === value) {
+      if (currNode.getKey() === key) {
         return i;
       }
       i += 1;
@@ -155,12 +165,12 @@ class LinkedList {
     return result.join(" -> ");
   }
 
-  insertAt(value, index) {
+  insertAt(key, value, index) {
     this.#incrementSize();
     let currIndex = 0;
     let prevNode = null;
     let currNode = this.#head;
-    const newNode = new Node(value);
+    const newNode = new Node(key, value);
 
     if (index >= this.#size) {
       this.#tail.nextNode(newNode);
