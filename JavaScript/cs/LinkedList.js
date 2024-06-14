@@ -152,6 +152,18 @@ class LinkedList {
     return -1;
   }
 
+  findNodeByKey(key) {
+    let currNode = this.#head;
+    while (currNode != null) {
+      if (currNode.getKey() === key) {
+        return currNode;
+      }
+      currNode = currNode.getNext();
+    }
+
+    return null;
+  }
+
   toString() {
     // (value) -> (value) -> (value) -> null
     let result = [];
