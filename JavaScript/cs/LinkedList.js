@@ -222,6 +222,17 @@ class LinkedList {
 
     this.#decrementSize();
   }
+
+  getNodes() {
+    const result = [];
+    let currNode = this.#head;
+    while (currNode != null) {
+      result.push([currNode.getKey(), currNode.getValue()]);
+      currNode = currNode.getNext();
+    }
+
+    return result;
+  }
 }
 
-module.exports = LinkedList;
+module.exports = { LinkedList };
