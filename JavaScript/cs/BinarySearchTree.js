@@ -234,9 +234,28 @@ class Tree {
     return [...left, ...right, node.getValue()];
   }
 
-  height(node) {}
+  height(node, height = 0) {
+    if (node === null) return height - 1;
+    const newHeight = height + 1;
+    return Math.max(
+      this.height(node.getLeft(), newHeight),
+      this.height(node.getRight(), newHeight)
+    );
+  }
 
-  depth(node) {}
+  depth(node, currNode = this.#root, depth = 0) {
+    if (currNode === null || node === null) return -1; // node does not exist or tree is empty
+
+    const newDepth = depth + 1;
+
+    if (node.getValue() < currNode.getValue()) {
+      return this.depth(node, currNode.getLeft(), newDepth);
+    } else if (node.getValue() > currNode.getValue()) {
+      return this.depth(node, currNode.getRight(), newDepth);
+    } else {
+      return depth;
+    }
+  }
 
   isBalanced() {}
 
