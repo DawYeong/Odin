@@ -41,25 +41,25 @@ class Tree {
     this.#root = this.#buildTree(arr);
   }
 
+  #createTree = (a, start, end) => {
+    if (start > end) return null;
+
+    const mid = Math.floor((start + end) / 2);
+    const node = new Node(a[mid]);
+
+    node.setLeft(this.#createTree(a, start, mid - 1));
+    node.setRight(this.#createTree(a, mid + 1, end));
+
+    return node;
+  };
+
   #buildTree(arr) {
     const uniqueArr = [...new Set(arr)];
     uniqueArr.sort(function (a, b) {
       return a - b;
     });
 
-    const createTree = (a, start, end) => {
-      if (start > end) return null;
-
-      const mid = Math.floor((start + end) / 2);
-      const node = new Node(a[mid]);
-
-      node.setLeft(createTree(a, start, mid - 1));
-      node.setRight(createTree(a, mid + 1, end));
-
-      return node;
-    };
-
-    return createTree(uniqueArr, 0, uniqueArr.length - 1);
+    return this.#createTree(uniqueArr, 0, uniqueArr.length - 1);
   }
 
   prettyPrint(node = this.#root, prefix = "", isLeft = true) {
@@ -285,5 +285,9 @@ class Tree {
     return isBalancedRec(this.#root)[0];
   }
 
-  rebalance() {}
+  rebalance() {
+    // inOrder will give us a sorted array since we are inserting and deleting in order
+    const elements = this.inOrder();
+    this.#root = this.#createTree(elements, 0, elements.length - 1);
+  }
 }
