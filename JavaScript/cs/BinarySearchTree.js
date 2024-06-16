@@ -5,6 +5,8 @@ class Node {
 
   constructor(val) {
     this.#val = val;
+    this.#left = null;
+    this.#right = null;
   }
 
   getValue() {
@@ -57,7 +59,7 @@ class Tree {
       return node;
     };
 
-    return createTree(uniqueArr, 0, uniqueArr.length);
+    return createTree(uniqueArr, 0, uniqueArr.length - 1);
   }
 
   prettyPrint(node = this.#root, prefix = "", isLeft = true) {
@@ -81,11 +83,47 @@ class Tree {
     }
   }
 
-  insert(value) {}
+  insert(value) {
+    const insertRec = (node) => {
+      if (node === null) {
+        return new Node(value);
+      }
+
+      if (node.getValue() > value) {
+        // move left
+        node.setLeft(insertRec(node.getLeft(), value));
+      } else if (node.getValue() < value) {
+        node.setRight(insertRec(node.getRight(), value));
+      }
+      // if already in list, we stop traversal
+
+      return node;
+    };
+
+    const newNode = insertRec(this.#root);
+
+    if (this.#root === null) {
+      this.#root = newNode;
+    }
+  }
 
   deleteItem(value) {}
 
-  find(value) {}
+  find(value) {
+    const findRec = (node) => {
+      if (node === null) return null;
+
+      if (node.getValue() === value) {
+        return node;
+      } else if (node.getValue() > value) {
+        return findRec(node.getLeft());
+      } else {
+        return findRec(node.getRight());
+      }
+    };
+
+    return findRec(this.#root);
+  }
 
   levelOrder() {}
 
