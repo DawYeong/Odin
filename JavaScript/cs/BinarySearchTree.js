@@ -291,3 +291,5 @@ class Tree {
     this.#root = this.#createTree(elements, 0, elements.length - 1);
   }
 }
+
+module.exports = { Tree };
