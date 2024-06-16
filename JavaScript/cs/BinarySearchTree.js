@@ -198,11 +198,41 @@ class Tree {
     return res;
   }
 
-  inOrder() {}
+  inOrder(node = this.#root) {
+    // left -> node -> right
+    if (node === null) {
+      return [];
+    }
 
-  preOrder() {}
+    const left = this.inOrder(node.getLeft());
+    const right = this.inOrder(node.getRight());
 
-  postOrder() {}
+    return [...left, node.getValue(), ...right];
+  }
+
+  preOrder(node = this.#root) {
+    // node -> left -> right
+    if (node === null) {
+      return [];
+    }
+
+    const left = this.preOrder(node.getLeft());
+    const right = this.preOrder(node.getRight());
+
+    return [node.getValue(), ...left, ...right];
+  }
+
+  postOrder(node = this.#root) {
+    // left -> right -> node;
+    if (node === null) {
+      return [];
+    }
+
+    const left = this.postOrder(node.getLeft());
+    const right = this.postOrder(node.getRight());
+
+    return [...left, ...right, node.getValue()];
+  }
 
   height(node) {}
 
