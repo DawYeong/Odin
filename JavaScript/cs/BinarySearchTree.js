@@ -107,7 +107,62 @@ class Tree {
     }
   }
 
-  deleteItem(value) {}
+  deleteItem(value) {
+    // need to find node, as well as parent
+    let parentNode = null;
+    let currNode = this.#root;
+    let dir = 0;
+    while (currNode != null && currNode.getValue() != value) {
+      parentNode = currNode;
+      if (currNode.getValue() > value) {
+        currNode = currNode.getLeft();
+        dir = 0;
+      } else {
+        currNode = currNode.getRight();
+        dir = 1;
+      }
+    }
+
+    if (currNode === null) {
+      // value does not exist
+      return;
+    }
+
+    // check children
+    const children = [];
+    if (currNode.getLeft() != null) children.push(currNode.getLeft());
+    if (currNode.getRight() != null) children.push(currNode.getRight());
+
+    if (children.length === 0) {
+      // just remove
+      if (parentNode === null) {
+        this.#root = null;
+      } else {
+        dir === 0 ? parentNode.setLeft(null) : parentNode.setRight(null);
+      }
+    } else if (children.length === 1) {
+      // replace with immediate child
+      if (parentNode === null) {
+        this.#root = children[0];
+      } else {
+        dir === 0
+          ? parentNode.setLeft(children[0])
+          : parentNode.setRight(children[0]);
+      }
+    } else {
+      // 2 children => find smallest greater value
+      let rParent = null;
+      let rCurr = children[1];
+
+      while (rCurr.getLeft() != null) {
+        rParent = rCurr;
+        rCurr = rCurr.getLeft();
+      }
+
+      rParent != null ? rParent.setLeft(null) : currNode.setRight(null);
+      currNode.setValue(rCurr.getValue());
+    }
+  }
 
   find(value) {
     const findRec = (node) => {
@@ -125,7 +180,23 @@ class Tree {
     return findRec(this.#root);
   }
 
-  levelOrder() {}
+  levelOrder() {
+    const res = [];
+    let workList = [this.#root];
+    let newList = [];
+    while (workList.length != 0) {
+      newList = [];
+      workList.forEach((item) => {
+        res.push(item.getValue());
+        if (item.getLeft() != null) newList.push(item.getLeft());
+        if (item.getRight() != null) newList.push(item.getRight());
+      });
+
+      workList = newList;
+    }
+
+    return res;
+  }
 
   inOrder() {}
 
