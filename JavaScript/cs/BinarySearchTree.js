@@ -257,7 +257,33 @@ class Tree {
     }
   }
 
-  isBalanced() {}
+  isBalanced() {
+    // pretty much check height but with more info every step
+    const isBalancedRec = (node) => {
+      if (node === null) {
+        return [true, 0];
+      }
+
+      const left = isBalancedRec(node.getLeft());
+      const right = isBalancedRec(node.getRight());
+
+      const isSubBalanced = Math.abs(left[1] - right[1]) <= 1;
+
+      const newState = [];
+
+      if (left[0] && right[0] && isSubBalanced) {
+        newState.push(true);
+      } else {
+        newState.push(false);
+      }
+
+      newState.push(Math.max(left[1], right[1]) + 1);
+
+      return newState;
+    };
+
+    return isBalancedRec(this.#root)[0];
+  }
 
   rebalance() {}
 }
