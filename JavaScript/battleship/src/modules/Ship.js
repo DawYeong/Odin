@@ -6,7 +6,14 @@ export class Ship {
     this.#hits = 0;
   }
 
-  hit() {}
+  hit() {
+    if (this.#length > this.#hits) {
+      this.#hits += 1;
+    }
+    return this.#hits;
+  }
 
-  isSunk() {}
+  isSunk() {
+    return this.#hits >= this.#length;
+  }
 }
