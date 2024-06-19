@@ -35,6 +35,19 @@ export class Gameboard {
     );
   }
 
+  #isOverlap(start, length, isHorizontal) {
+    let currPos = [start[0], start[1]];
+    for (let i = 0; i < length; i++) {
+      if (this.#grid[currPos[0]][currPos[1]][0] != null) {
+        return true;
+      }
+      currPos = isHorizontal
+        ? [currPos[0], currPos[1] + 1]
+        : [currPos[0] + 1, currPos[1]];
+    }
+    return false;
+  }
+
   // only able to place vertical or horizontal ships
   placeShip(row, col, length, isHorizontal) {
     const start = [row, col];
@@ -45,6 +58,7 @@ export class Gameboard {
     if (
       !Gameboard.#checkIfCoordsValid(start) ||
       !Gameboard.#checkIfCoordsValid(end) ||
+      this.#isOverlap(start, length, isHorizontal) ||
       length <= 0
     )
       return null;
@@ -78,5 +92,9 @@ export class Gameboard {
     }
   }
 
-  isAllShipSunk() {}
+  isAllShipSunk() {
+    if (this.#ships.length === 0) return false;
+
+    return this.#ships.every((ship) => ship.isSunk());
+  }
 }

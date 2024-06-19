@@ -24,6 +24,13 @@ describe("Testing Gameboard API", () => {
       ]);
     });
 
+    test("Place ship in overlapping position", () => {
+      const gb = new Gameboard();
+      gb.placeShip(0, 1, 4, false);
+
+      expect(gb.placeShip(1, 0, 4, true)).toBeNull();
+    });
+
     test("Place ship in invalid location", () => {
       const gb = new Gameboard();
 
@@ -71,6 +78,50 @@ describe("Testing Gameboard API", () => {
       gb.receiveAttack(0, 0);
 
       expect(gb.receiveAttack(0, 0)).toBe(-1);
+    });
+  });
+
+  describe("Testing isAllShipSunk", () => {
+    test("No ships sunk", () => {
+      const gb = new Gameboard();
+      gb.placeShip(0, 0, 1, false);
+
+      expect(gb.isAllShipSunk()).toBe(false);
+    });
+
+    test("No ships placed", () => {
+      const gb = new Gameboard();
+
+      expect(gb.isAllShipSunk()).toBe(false);
+    });
+
+    test("A few ships sunk", () => {
+      const gb = new Gameboard();
+      gb.placeShip(0, 0, 1, false);
+      gb.placeShip(0, 1, 1, false);
+      gb.placeShip(0, 2, 1, false);
+      gb.placeShip(0, 3, 1, false);
+
+      gb.receiveAttack(0, 0);
+      gb.receiveAttack(0, 1);
+      gb.receiveAttack(0, 2);
+
+      expect(gb.isAllShipSunk()).toBe(false);
+    });
+
+    test("All ships sunk", () => {
+      const gb = new Gameboard();
+      gb.placeShip(0, 0, 1, false);
+      gb.placeShip(0, 1, 1, false);
+      gb.placeShip(0, 2, 1, false);
+      gb.placeShip(0, 3, 1, false);
+
+      gb.receiveAttack(0, 0);
+      gb.receiveAttack(0, 1);
+      gb.receiveAttack(0, 2);
+      gb.receiveAttack(0, 3);
+
+      expect(gb.isAllShipSunk()).toBe(true);
     });
   });
 });
