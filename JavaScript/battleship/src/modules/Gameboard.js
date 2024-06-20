@@ -35,8 +35,8 @@ export class Gameboard {
     );
   }
 
-  #isOverlap(start, length, isHorizontal) {
-    let currPos = [start[0], start[1]];
+  #isOverlap(row, col, length, isHorizontal) {
+    let currPos = [row, col];
     for (let i = 0; i < length; i++) {
       if (this.#grid[currPos[0]][currPos[1]][0] != null) {
         return true;
@@ -48,7 +48,7 @@ export class Gameboard {
     return false;
   }
 
-  static isShipInBounds(row, col, length, isHorizontal) {
+  static #isShipInBounds(row, col, length, isHorizontal) {
     const start = [row, col];
     const end = isHorizontal
       ? [row, col + length - 1]
@@ -59,16 +59,17 @@ export class Gameboard {
     );
   }
 
+  checkCanPlace(row, col, length, isHorizontal) {
+    return (
+      Gameboard.#isShipInBounds(row, col, length, isHorizontal) &&
+      !this.#isOverlap(row, col, length, isHorizontal) &&
+      length > 0
+    );
+  }
+
   // only able to place vertical or horizontal ships
   placeShip(row, col, length, isHorizontal) {
-    const start = [row, col];
-
-    if (
-      !Gameboard.isShipInBounds(row, col, length, isHorizontal) ||
-      this.#isOverlap(start, length, isHorizontal) ||
-      length <= 0
-    )
-      return null;
+    if (!this.checkCanPlace(row, col, length, isHorizontal)) return null;
 
     const res = [];
     let currPos = [row, col];
