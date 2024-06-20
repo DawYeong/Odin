@@ -6,7 +6,7 @@ export class Gameboard {
   // receiveAttack
   // report if all ships sunk
   static GRID_SIZE = 10;
-  #grid;
+  grid;
   #shipCount;
   #ships;
 
@@ -15,7 +15,7 @@ export class Gameboard {
   }
 
   #init() {
-    this.#grid = this.#initializeGrid();
+    this.grid = this.#initializeGrid();
     this.#shipCount = 0;
     this.#ships = [];
   }
@@ -38,7 +38,7 @@ export class Gameboard {
   #isOverlap(row, col, length, isHorizontal) {
     let currPos = [row, col];
     for (let i = 0; i < length; i++) {
-      if (this.#grid[currPos[0]][currPos[1]][0] != null) {
+      if (this.grid[currPos[0]][currPos[1]][0] != null) {
         return true;
       }
       currPos = isHorizontal
@@ -75,7 +75,7 @@ export class Gameboard {
     let currPos = [row, col];
     this.#ships.push(new Ship(length));
     for (let i = 0; i < length; i++) {
-      this.#grid[currPos[0]][currPos[1]] = [this.#shipCount, false];
+      this.grid[currPos[0]][currPos[1]] = [this.#shipCount, false];
       res.push(currPos);
       currPos = isHorizontal
         ? [currPos[0], currPos[1] + 1]
@@ -88,11 +88,11 @@ export class Gameboard {
   }
 
   receiveAttack(row, col) {
-    if (this.#grid[row][col][1]) return -1;
+    if (this.grid[row][col][1]) return -1;
 
-    this.#grid[row][col][1] = true;
-    if (this.#grid[row][col][0] != null) {
-      this.#ships[this.#grid[row][col][0]].hit();
+    this.grid[row][col][1] = true;
+    if (this.grid[row][col][0] != null) {
+      this.#ships[this.grid[row][col][0]].hit();
       return 1;
     } else {
       // miss
