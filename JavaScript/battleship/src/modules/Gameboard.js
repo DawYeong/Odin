@@ -21,9 +21,15 @@ export class Gameboard {
   }
 
   #initializeGrid() {
-    return Array(Gameboard.GRID_SIZE).fill(
-      Array(Gameboard.GRID_SIZE).fill([null, false])
-    );
+    const grid = [];
+    for (let i = 0; i < Gameboard.GRID_SIZE; i++) {
+      const row = [];
+      for (let j = 0; j < Gameboard.GRID_SIZE; j++) {
+        row.push([null, false]);
+      }
+      grid.push(row);
+    }
+    return grid;
   }
 
   static #checkIfCoordsValid(coords) {
@@ -77,9 +83,7 @@ export class Gameboard {
     for (let i = 0; i < length; i++) {
       this.grid[currPos[0]][currPos[1]] = [this.#shipCount, false];
       res.push(currPos);
-      currPos = isHorizontal
-        ? [currPos[0], currPos[1] + 1]
-        : [currPos[0] + 1, currPos[1]];
+      currPos = isHorizontal ? [row, col + i + 1] : [row + i + 1, col];
     }
 
     this.#shipCount += 1;
