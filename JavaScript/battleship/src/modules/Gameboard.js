@@ -5,7 +5,7 @@ export class Gameboard {
   // place pieces
   // receiveAttack
   // report if all ships sunk
-  static #GRID_SIZE = 10;
+  static GRID_SIZE = 10;
   #grid;
   #shipCount;
   #ships;
@@ -21,16 +21,16 @@ export class Gameboard {
   }
 
   #initializeGrid() {
-    return Array(Gameboard.#GRID_SIZE).fill(
-      Array(Gameboard.#GRID_SIZE).fill([null, false])
+    return Array(Gameboard.GRID_SIZE).fill(
+      Array(Gameboard.GRID_SIZE).fill([null, false])
     );
   }
 
   static #checkIfCoordsValid(coords) {
     return (
-      coords[0] < Gameboard.#GRID_SIZE &&
+      coords[0] < Gameboard.GRID_SIZE &&
       coords[0] >= 0 &&
-      coords[1] < Gameboard.#GRID_SIZE &&
+      coords[1] < Gameboard.GRID_SIZE &&
       coords[1] >= 0
     );
   }
@@ -48,16 +48,23 @@ export class Gameboard {
     return false;
   }
 
-  // only able to place vertical or horizontal ships
-  placeShip(row, col, length, isHorizontal) {
+  static isShipInBounds(row, col, length, isHorizontal) {
     const start = [row, col];
     const end = isHorizontal
       ? [row, col + length - 1]
       : [row + length - 1, col];
 
+    return (
+      Gameboard.#checkIfCoordsValid(start) && Gameboard.#checkIfCoordsValid(end)
+    );
+  }
+
+  // only able to place vertical or horizontal ships
+  placeShip(row, col, length, isHorizontal) {
+    const start = [row, col];
+
     if (
-      !Gameboard.#checkIfCoordsValid(start) ||
-      !Gameboard.#checkIfCoordsValid(end) ||
+      !Gameboard.isShipInBounds(row, col, length, isHorizontal) ||
       this.#isOverlap(start, length, isHorizontal) ||
       length <= 0
     )
