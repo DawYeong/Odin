@@ -14,7 +14,6 @@ function computerPlacement(player) {
     ...Array(Gameboard.GRID_SIZE * Gameboard.GRID_SIZE).keys(),
   ];
 
-  console.log("positions: ", positions);
   while (!player.isAllShipsPlaced() && positions.length > 0) {
     const orientation = !!Math.floor(Math.random() * 2);
     const coords = getRandomCoordinate(positions);
