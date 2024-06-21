@@ -1,7 +1,7 @@
 import { Player } from "./Player";
 import { Gameboard } from "./Gameboard";
 import { clearElement, createElement } from "../utils";
-import { computerPlacement } from "./computerPlacement";
+import { computerPlacement, computerShoot } from "./ComputerMoves";
 
 const TEST = 5;
 export class UI {
@@ -17,16 +17,20 @@ export class UI {
   }
 
   #setupPlayers() {
-    this.players = [new Player(), new Player()];
+    this.players = [new Player("Player 1"), new Player("Computer")];
+    this.computerAvailableMoves = [
+      ...Array(Gameboard.GRID_SIZE * Gameboard.GRID_SIZE).keys(),
+    ];
   }
 
   #initEventHandlers() {
     const playButton = document.querySelector(".play");
-    const selection = document.querySelector(".selection");
     const selectionBoardWrapper = document.querySelector(
       ".selection-board-wrapper"
     );
     const orientation = document.querySelector(".orientation");
+    const computerBoard = document.querySelector(".gameboards .computer");
+    const playAgain = document.querySelector(".play-again-btn");
 
     playButton.addEventListener("click", () => this.#setupGame());
 
@@ -43,12 +47,18 @@ export class UI {
     selectionBoardWrapper.addEventListener("click", (e) => {
       this.#handleUserPlaceShip(e);
     });
+
+    computerBoard.addEventListener("click", (e) => {
+      this.#handleShoot(e);
+    });
+
+    playAgain.addEventListener("click", () => this.#handlePlayAgain());
   }
 
   #setupGame() {
-    console.log("SETUP GAME");
     this.#setupPlayers();
     document.querySelector(".play").classList.remove("active");
+    document.querySelector(".gameboards").classList.remove("active");
     const selection = document.querySelector(".selection");
     selection.classList.add("active");
     this.#createBoard(
@@ -61,7 +71,6 @@ export class UI {
   }
 
   #startGame() {
-    console.log("START GAME");
     document.querySelector(".selection").classList.remove("active");
     document.querySelector(".gameboards").classList.add("active");
     this.#createBoard(
@@ -70,12 +79,11 @@ export class UI {
       this.players[0],
       true
     );
-    console.log(this.players[1].gameBoard.grid);
     this.#createBoard(
       document.querySelector(".computer"),
       true,
       this.players[1],
-      true
+      false
     );
   }
 
@@ -92,7 +100,6 @@ export class UI {
     const board = createElement("div", "board", "", "");
 
     if (isHover) board.classList.add("hov");
-    console.log(player.gameBoard.grid);
     for (let i = 0; i < Gameboard.GRID_SIZE; i++) {
       for (let j = 0; j < Gameboard.GRID_SIZE; j++) {
         const gridCell = createElement("div", "grid-cell", "", "", {
@@ -102,16 +109,17 @@ export class UI {
 
         if (player.gameBoard.grid[i][j][0] != null) {
           // ship, true => hit, false => place
-          player.gameBoard.grid[i][j][1]
-            ? gridCell.classList.add("hit")
-            : gridCell.classList.add("place");
 
           if (player.gameBoard.grid[i][j][1]) gridCell.classList.add("hit");
           else {
-            if (displayShips) gridCell.classList.add("place");
+            displayShips
+              ? gridCell.classList.add("place")
+              : gridCell.classList.add("free");
           }
         } else {
-          if (player.gameBoard.grid[i][j][1]) gridCell.classList.add("miss");
+          player.gameBoard.grid[i][j][1]
+            ? gridCell.classList.add("miss")
+            : gridCell.classList.add("free");
         }
 
         board.appendChild(gridCell);
@@ -177,11 +185,74 @@ export class UI {
     this.#createBoard(
       document.querySelector(".selection-board-wrapper"),
       true,
-      this.players[0]
+      this.players[0],
+      true
     );
     if (this.players[0].isAllShipsPlaced()) {
-      console.log("game start!");
       this.#startGame();
     }
+  }
+
+  #handleShoot(event) {
+    // user always shoots first
+    const userShot = this.#handleUserShoot(
+      event,
+      this.players[0],
+      this.players[1]
+    );
+    if (userShot === -1) return;
+
+    // user shot success, update computer board
+    this.#createBoard(
+      document.querySelector(".computer"),
+      true,
+      this.players[1],
+      false
+    );
+    if (userShot === 1 && this.players[1].gameBoard.isAllShipSunk()) {
+      // player 1 wins
+      this.#handleGameOver(this.players[0]);
+      return;
+    }
+
+    const enemyShot = computerShoot(
+      this.players[1],
+      this.players[0],
+      this.computerAvailableMoves
+    );
+
+    this.#createBoard(
+      document.querySelector(".player"),
+      false,
+      this.players[0],
+      true
+    );
+    if (enemyShot === 1 && this.players[0].gameBoard.isAllShipSunk()) {
+      // computer wins
+      this.#handleGameOver(this.players[1]);
+    }
+  }
+
+  #handleUserShoot(event, player, opponent) {
+    if (!event.target.classList.contains("grid-cell")) return -1;
+    const start = [
+      parseInt(event.target.dataset.row),
+      parseInt(event.target.dataset.col),
+    ];
+
+    return player.fire(start[0], start[1], opponent.gameBoard);
+  }
+
+  #handleGameOver(player) {
+    document.querySelector(
+      "dialog.play-again-dialog .game-over-message"
+    ).textContent = `${player.name} won!`;
+
+    document.querySelector("dialog.play-again-dialog").showModal();
+  }
+
+  #handlePlayAgain() {
+    document.querySelector("dialog.play-again-dialog").close();
+    this.#setupGame();
   }
 }

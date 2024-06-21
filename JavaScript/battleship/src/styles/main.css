@@ -30,20 +30,16 @@ html {
     border: 1px solid black;
   }
 
-  .grid-cell.free {
-    cursor: pointer;
-  }
-
   .grid-cell.place {
     background-color: grey;
   }
 
   .grid-cell.hit {
-    background-color: "red";
+    background-color: red;
   }
 
   .grid-cell.miss {
-    background-color: "green";
+    background-color: green;
   }
 }
 
@@ -51,6 +47,11 @@ html {
   > .grid-cell:hover {
     background-color: grey;
   }
+
+  .grid-cell.free {
+    cursor: pointer;
+  }
+
   .grid-cell.valid {
     background-color: green;
   }
