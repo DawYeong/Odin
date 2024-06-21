@@ -1,10 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+
+:root {
+  --primary-color: rgb(238, 238, 238);
+  --secondary-color: rgb(34, 34, 34);
+  --ship-color: rgb(68, 68, 68);
+  --red-color: rgb(255, 133, 133);
+  --green-color: rgb(133, 255, 179);
+}
+
 html {
-  background-color: white;
+  background-color: var(--primary-color);
 }
 
 .gameboards.active {
   display: flex;
   gap: 1rem;
+}
+
+* {
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+body,
+h1,
+p {
+  font-family: "Anton", sans-serif;
+  padding: 0;
+  margin: 0;
 }
 
 .play,
@@ -13,9 +36,15 @@ html {
   display: none;
 }
 
-.play.active,
-.selection.active {
+.play.active {
   display: block;
+}
+
+.selection.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
 .board {
@@ -31,21 +60,21 @@ html {
   }
 
   .grid-cell.place {
-    background-color: grey;
+    background-color: var(--ship-color);
   }
 
   .grid-cell.hit {
-    background-color: red;
+    background-color: var(--red-color);
   }
 
   .grid-cell.miss {
-    background-color: green;
+    background-color: var(--green-color);
   }
 }
 
 .board.hov {
   > .grid-cell:hover {
-    background-color: grey;
+    backdrop-filter: brightness(70%);
   }
 
   .grid-cell.free {
@@ -53,10 +82,66 @@ html {
   }
 
   .grid-cell.valid {
-    background-color: green;
+    background-color: var(--green-color);
   }
 
   .grid-cell.invalid {
-    background-color: red;
+    background-color: var(--red-color);
+  }
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+
+  .header h1 {
+    font-size: 5rem;
+  }
+
+  button {
+    font-size: 2rem;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    outline: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 0.75rem 1.25rem;
+  }
+
+  button:hover {
+    transform: scale(1.05);
+    transition: all 300ms ease;
+  }
+
+  .selection {
+    button.orientation {
+      font-size: 1.5rem;
+    }
+    .description {
+      font-size: 1.5rem;
+    }
+  }
+
+  dialog.play-again-dialog {
+    outline: none;
+    border: none;
+    padding: 2rem;
+    border-radius: 8px;
+    background-color: var(--primary-color);
+
+    .dialog-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .game-over-message {
+      font-size: 2rem;
+      text-align: center;
+    }
   }
 }
