@@ -3,9 +3,10 @@ import { Gameboard } from "./Gameboard";
 export class Player {
   static shipLengths = [5, 4, 3, 3, 2];
 
-  constructor() {
+  constructor(name) {
     this.gameBoard = new Gameboard();
     this.numShips = 0;
+    this.name = name;
   }
 
   placeShip(row, col, isHorizontal) {
