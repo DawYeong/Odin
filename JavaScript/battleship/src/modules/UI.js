@@ -89,9 +89,6 @@ export class UI {
 
   #toggleOrientation() {
     this.isHorizontal = !this.isHorizontal;
-    document.querySelector(".orientation").textContent = this.isHorizontal
-      ? "Horizontal"
-      : "Vertical";
   }
 
   #createBoard(parent, isHover, player, displayShips) {
