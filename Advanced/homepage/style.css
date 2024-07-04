@@ -48,6 +48,7 @@ header {
     transform: skewY(-10deg);
     transform-origin: 0;
     overflow: hidden;
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
   }
 }
 
@@ -87,21 +88,23 @@ body {
   }
 
   .about-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
     width: min(100vw - 40px, 600px);
     padding: 20px;
     box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.5);
     background-color: white;
 
+    h2 {
+      margin-bottom: 1.5rem;
+    }
     p {
       line-height: 1.5;
+      margin-bottom: 1.5rem;
     }
   }
 
   .icons {
-    align-self: flex-end;
+    width: 100%;
+    justify-content: flex-end;
   }
 }
 
@@ -112,11 +115,6 @@ body {
 
 .icon {
   width: 2rem;
-}
-
-.about-wrapper {
-  display: flex;
-  flex-direction: column;
 }
 
 section.main-content {
@@ -220,7 +218,7 @@ footer {
       flex-grow: 2;
       width: 100%;
       img.footer-profile {
-        width: max(100%, 350px);
+        width: max(100%, 200px);
         object-fit: cover;
       }
     }
@@ -228,5 +226,91 @@ footer {
 
   .footer-wrapper > * {
     padding: 60px 40px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .about-wrapper {
+    margin: auto;
+  }
+}
+
+@media (min-width: 700px) and (max-width: 1100px) {
+  footer {
+    .footer-wrapper {
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+
+  .header-wrapper {
+    display: block;
+
+    .profile {
+      float: left;
+      margin-right: 1rem;
+    }
+
+    .about-wrapper {
+      display: block;
+      margin-top: 90px;
+    }
+  }
+}
+
+@media (max-width: 699px) {
+  .header-wrapper {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 50px 10px;
+
+    .profile {
+      width: min(100% - 50px, 400px);
+
+      img {
+        width: 100%;
+        object-fit: contain;
+      }
+
+      h1.name {
+        text-align: left;
+        line-height: 1;
+        bottom: 15px;
+        left: 5px;
+      }
+    }
+
+    .about-wrapper {
+      width: 100%;
+      align-items: center;
+
+      .icons {
+        align-self: center;
+      }
+    }
+  }
+
+  footer {
+    text-align: center;
+
+    .footer-wrapper {
+      flex-direction: column;
+      justify-content: center;
+      margin: 2rem 0;
+      gap: 2rem;
+
+      .contact-section {
+        .contact-info {
+          align-items: center;
+        }
+        .social-links {
+          justify-content: center;
+        }
+      }
+    }
+
+    .footer-wrapper > * {
+      padding: 0px;
+    }
   }
 }
