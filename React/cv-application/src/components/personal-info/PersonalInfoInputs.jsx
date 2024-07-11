@@ -1,6 +1,6 @@
 import { InputUnit } from "../InputUnit";
 
-function PersonalInfo({ onChange }) {
+function PersonalInfo({ personalInfo, onChange }) {
   return (
     <div className="personal-info">
       <h2>Personal Details</h2>
@@ -10,7 +10,8 @@ function PersonalInfo({ onChange }) {
         type="text"
         placeholder="Enter first and last name"
         onChange={onChange}
-        data-key="fullName"
+        value={personalInfo.fullName}
+        dataKey="fullName"
       />
 
       <InputUnit
@@ -19,7 +20,8 @@ function PersonalInfo({ onChange }) {
         type="email"
         placeholder="Enter email"
         onChange={onChange}
-        data-key="email"
+        value={personalInfo.email}
+        dataKey="email"
       />
 
       <InputUnit
@@ -28,7 +30,8 @@ function PersonalInfo({ onChange }) {
         type="tel"
         placeholder="Enter phone number"
         onChange={onChange}
-        data-key="phone"
+        value={personalInfo.phone}
+        dataKey="phone"
       />
 
       <InputUnit
@@ -37,7 +40,8 @@ function PersonalInfo({ onChange }) {
         type="text"
         placeholder="Enter City, Country"
         onChange={onChange}
-        data-key="address"
+        value={personalInfo.address}
+        dataKey="address"
       />
     </div>
   );
