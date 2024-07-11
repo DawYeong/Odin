@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PersonalInfo } from "./components/personal-info/PersonalInfoInputs";
+import { PersonalInfoInputs } from "./components/personal-info/PersonalInfoInputs";
 import { DEFAULT_PERSONAL_DETAILS } from "./base-models";
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="app">
       <div className="input-forms">
-        <PersonalInfo
+        <PersonalInfoInputs
           personalInfo={personalInfo}
           onChange={handlePersonalInfoUpdate}
         />

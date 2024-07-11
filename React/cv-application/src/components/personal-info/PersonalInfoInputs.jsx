@@ -1,6 +1,6 @@
 import { InputUnit } from "../InputUnit";
 
-function PersonalInfo({ personalInfo, onChange }) {
+function PersonalInfoInputs({ personalInfo, onChange }) {
   return (
     <div className="personal-info">
       <h2>Personal Details</h2>
@@ -47,4 +47,4 @@ function PersonalInfo({ personalInfo, onChange }) {
   );
 }
 
-export { PersonalInfo };
+export { PersonalInfoInputs };
