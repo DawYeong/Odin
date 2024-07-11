@@ -10,6 +10,7 @@ function PersonalInfo({ onChange }) {
         type="text"
         placeholder="Enter first and last name"
         onChange={onChange}
+        data-key="fullName"
       />
 
       <InputUnit
@@ -18,6 +19,7 @@ function PersonalInfo({ onChange }) {
         type="email"
         placeholder="Enter email"
         onChange={onChange}
+        data-key="email"
       />
 
       <InputUnit
@@ -26,6 +28,7 @@ function PersonalInfo({ onChange }) {
         type="tel"
         placeholder="Enter phone number"
         onChange={onChange}
+        data-key="phone"
       />
 
       <InputUnit
@@ -34,6 +37,7 @@ function PersonalInfo({ onChange }) {
         type="text"
         placeholder="Enter City, Country"
         onChange={onChange}
+        data-key="address"
       />
     </div>
   );

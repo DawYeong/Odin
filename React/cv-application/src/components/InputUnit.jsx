@@ -1,4 +1,12 @@
-function InputUnit({ id, labelText, type, placeholder, value, onChange }) {
+function InputUnit({
+  id,
+  labelText,
+  type,
+  placeholder,
+  value,
+  onChange,
+  dataKey,
+}) {
   return (
     <div className="input-unit">
       <label htmlFor={id}>
@@ -11,6 +19,7 @@ function InputUnit({ id, labelText, type, placeholder, value, onChange }) {
           placeholder={placeholder}
           value={value}
           onChange={onChange}
+          data-key={dataKey}
         ></textarea>
       ) : (
         <input
@@ -19,6 +28,7 @@ function InputUnit({ id, labelText, type, placeholder, value, onChange }) {
           placeholder={placeholder}
           value={value}
           onChange={onChange}
+          data-key={dataKey}
         />
       )}
     </div>
